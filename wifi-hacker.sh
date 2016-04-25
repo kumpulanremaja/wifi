@@ -234,11 +234,12 @@ checkArgs(){
 	case "$#" in
 	
 	"1")
-		if [ -e $1 ];
+	if [ -e $1 ];
 		then
 			echo "File $1 Exists"
 		else
 			echo "File $1 Does Not Exist"
+	fi
 	;;
 	
 	esac
