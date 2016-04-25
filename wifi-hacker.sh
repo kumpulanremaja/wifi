@@ -6,8 +6,8 @@
 ############################################################################
 
 
-# WiFi Hacker v1.2
-# esc0rtd3w 2014 / crackacademy.com
+# WiFi Hacker v1.3
+# esc0rtd3w 2016 / https://github.com/esc0rtd3w/wifi-hacker/
 
 # Uses parts of the aircrack-ng suite, reaver, wifite, and many other tools
 
@@ -24,6 +24,13 @@
 #   VERSION HISTORY BEGIN   ################################################
 ############################################################################
 
+# v1.3
+# - Fixed "wlan0mon" error in Kali Linux 2.x. See "fixKaliTwoMonError" function for more info.
+# - Added a function to check the Linux version, and specifically for Kali Linux 2.x.
+# - Removed Honeypot Mode from the banners. It has been relocated to the Advanced Menu.
+# - Added "$interfaceName" and "$interfaceMode" variables.
+# - Added interfaceName to the stats banner. This will display the current interface name (wlan0, mon0, wlan0mon, etc).
+# - Added interfaceMode to the main banner. Valid Interface Modes are 0=Managed / 1=Monitor Standard / 2=Monitor Kali 2.x / 3=Monitor Other / 4=Unknown
 
 # v1.2
 # - Fixed the top text of disclaimer banner from being cut off.
@@ -178,6 +185,8 @@
 
 initMain(){
 
+checkLinuxVersion
+
 killAll
 #startNetworkManager
 
@@ -216,6 +225,46 @@ showDisclaimer
 # Load Main Menu
 menuMain
 
+}
+
+checkLinuxVersion(){
+
+# Set both default Kali values to ON and if blank, Kali is not present
+isKali=1
+isKaliTwo=1
+
+# Get Linux Build Info
+linuxVersion=$(lsb_release -a | grep Description | cut -f2 -d":")
+
+# Check against the Linux Version for the presence of Kali
+kali=$(echo "$linuxVersion" | grep Kali)
+
+# Check against the Linux Version for the presence of Kali 2.x
+kaliTwo=$(echo "$linuxVersion" | grep Kali | grep 2.)
+
+# Check For Kali Linux
+case "$kali" in
+
+"")
+isKali=0
+
+esac
+
+# Check For Kali Linux 2.x (Monitor Mode Is Different)
+case "$kaliTwo" in
+
+"")
+isKaliTwo=0
+;;
+
+esac
+
+#echo "Linux Version: $linuxVersion"
+#echo ""
+#echo "Is Kali?: $isKali"
+#echo ""
+#echo "Is Kali 2.x?: $isKaliTwo"
+#read pause
 }
 
 
@@ -420,7 +469,7 @@ setWindowTitle(){
 
 currentTask="setWindowTitle"
 
-title='echo -ne "\033]0;WiFi Hacker v1.2\007"'
+title='echo -ne "\033]0;WiFi Hacker v1.3\007"'
 
 $title
 
@@ -479,6 +528,8 @@ currentTask="setVariablesRequired"
 
 interface=""
 interfaceMonitor=""
+interfaceName="wlan0"
+interfaceMode="0"
 bssid=""
 essid=""
 channel=""
@@ -508,7 +559,7 @@ setDefaults(){
 
 currentTask="setDefaults"
 
-versionBase="v1.2"
+versionBase="v1.3"
 
 initPath="$PWD"
 
@@ -735,10 +786,11 @@ currentTask="banner"
 clear
 
 echo "---------------------    ****************************************************************    ----------------------"
-echo "|  [M] Main Menu    |    * WiFi Hacking Script $versionBase / esc0rtd3w 2014 / crackacademy.com *    | [X] Exit           |"
+echo "|  [M] Main Menu    |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [X] Exit           |"
 echo "---------------------    ****************************************************************    ----------------------"
 echo "-------------------------------------------------------------------------------------------------------------------"
-echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 echo "-------------------------------------------------------------------------------------------------------------------"
 #echo ""
 
@@ -754,10 +806,11 @@ setWindowTitle
 clear
 
 echo "---------------------    ****************************************************************    ----------------------"
-echo "|  [ CTRL+C ] Main  |    * WiFi Hacking Script $versionBase / esc0rtd3w 2014 / crackacademy.com *    | [CTRL+C x2 ] Exit  |"
+echo "|  [ CTRL+C ] Main  |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C x2 ] Exit  |"
 echo "---------------------    ****************************************************************    ----------------------"
 echo "-------------------------------------------------------------------------------------------------------------------"
-echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 echo "-------------------------------------------------------------------------------------------------------------------"
 #echo ""
 
@@ -773,10 +826,11 @@ setWindowTitle
 clear
 
 echo "---------------------    ****************************************************************    ----------------------"
-echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2014 / crackacademy.com *    | [CTRL+C    ] Exit  |"
+echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
 echo "---------------------    ****************************************************************    ----------------------"
 echo "-------------------------------------------------------------------------------------------------------------------"
-echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 echo "-------------------------------------------------------------------------------------------------------------------"
 #echo ""
 
@@ -791,10 +845,11 @@ setWindowTitle
 clear
 
 echo "---------------------    ****************************************************************    ----------------------"
-echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2014 / crackacademy.com *    | [CTRL+C    ] Exit  |"
+echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
 echo "---------------------    ****************************************************************    ----------------------"
 echo "-------------------------------------------------------------------------------------------------------------------"
-echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 echo "-------------------------------------------------------------------------------------------------------------------"
 #echo ""
 
@@ -806,7 +861,7 @@ bannerStats(){
 currentTask="bannerStats"
 
 echo "-------------------------------------------------------------------------------------------------------------------"
-echo "Interface: $interfaceMonitor / MAC: $macAddressMonitor / ESSID: $essid / BSSID: $bssid / Channel: $channel"
+echo "Interface Name: $interfaceName / MAC: $macAddressMonitor / ESSID: $essid / BSSID: $bssid / Channel: $channel"
 echo "-------------------------------------------------------------------------------------------------------------------"
 echo ""
 
@@ -827,7 +882,7 @@ enableChannelHopping
 clear
 echo "Thank You For Playing Fair ;)"
 echo ""
-echo "esc0rtd3w 2014 / crackacademy.com"
+echo "esc0rtd3w 2016 / crackacademy.com"
 echo ""
 echo ""
 
@@ -1474,7 +1529,7 @@ echo ""
 echo ""
 echo "1) Monitor Mode Options"
 echo ""
-echo "2) "
+echo "2) Honeypot Mode and Attacks"
 echo ""
 echo ""
 echo ""
@@ -2830,6 +2885,8 @@ setMonitorMode(){
 currentTask="setMonitorMode"
 
 #interfaceMonitor="mon0"
+#echo "$interface"
+#read pause
 $startMonitorMode $interface
 
 }
@@ -5310,8 +5367,25 @@ getWirelessInterfaces(){
 
 currentTask="getWirelessInterfaces"
 
-interface=$(ifconfig | grep "wlan" | head -c 5)
-interfaceMonitor=$(ifconfig | grep "mon" | head -c 4)
+case "$isKaliTwo" in
+
+"0")
+interface=$(iwconfig | grep "wlan" | head -c 5)
+interfaceMonitor=$(iwconfig | grep "mon" | head -c 4)
+;;
+
+"1")
+interface=$(iwconfig | grep "wlan" | head -c 5)
+interfaceMonitor=$(iwconfig | grep "wlan" | head -c 8)
+interfaceName=$interfaceMonitor
+fixKaliTwoMonError
+;;
+
+esac
+
+echo "$interface"
+echo "$interfaceMonitor"
+read pause
 
 }
 
@@ -5451,6 +5525,30 @@ enableChannelHopping(){
 sleep 1
 ifconfig $interface up
 
+}
+
+fixKaliTwoMonError(){
+echo "DEBUG: Kali 2.x Fix - Step 1"
+echo ""
+echo "$interface"
+echo "$interfaceMonitor"
+read pause
+
+#ifconfig $interfaceMonitor down
+#sleep 2
+#iwconfig $interfaceMonitor mode monitor
+#sleep 2
+#ifconfig $interfaceMonitor up
+
+ifconfig wlan0mon down
+iwconfig wlan0mon mode monitor
+ifconfig wlan0mon up
+
+echo "DEBUG: Kali 2.x Fix - Step 2"
+echo ""
+echo "$interface"
+echo "$interfaceMonitor"
+read pause
 }
 
 
