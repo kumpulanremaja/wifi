@@ -234,7 +234,8 @@ checkArgs(){
 	case "$#" in
 	
 	"1")
-		if [ -e $1 ]; then
+		if [ -e $1 ];
+		then
 			echo "File $1 Exists"
 		else
 			echo "File $1 Does Not Exist"
@@ -261,16 +262,16 @@ checkLinuxVersion(){
 	# Check For Kali Linux
 	case "$kali" in
 
-	"")
-	isKali=0
+		"")
+		isKali=0
 
 	esac
 
 	# Check For Kali Linux 2.x (Monitor Mode Is Different)
 	case "$kaliTwo" in
 
-	"")
-	isKaliTwo=0
+		"")
+		isKaliTwo=0
 	;;
 
 	esac
@@ -321,108 +322,108 @@ setDependencies(){
 checkDependencies(){
 
 	if [ -f $pathAircrack ];
-	then
-	   statusPathAircrack="OK"
-	else
-	   statusPathAircrack="NA"
+		then
+		   statusPathAircrack="OK"
+		else
+		   statusPathAircrack="NA"
 	fi
 
 	if [ -f $pathAirodump ];
-	then
-	   statusPathAirodump="OK"
-	else
-	   statusPathAirodump="NA"
+		then
+		   statusPathAirodump="OK"
+		else
+		   statusPathAirodump="NA"
 	fi
 
 	if [ -f $pathBesside ];
-	then
-	   statusPathBesside="OK"
-	else
-	   statusPathBesside="NA"
+		then
+		   statusPathBesside="OK"
+		else
+		   statusPathBesside="NA"
 	fi
 
 	if [ -f $pathCut ];
-	then
-	   statusPathCut="OK"
-	else
-	   statusPathCut="NA"
+		then
+		   statusPathCut="OK"
+		else
+		   statusPathCut="NA"
 	fi
 
 	if [ -f $pathDate ];
-	then
-	   statusPathDate="OK"
-	else
-	   statusPathDate="NA"
+		then
+		   statusPathDate="OK"
+		else
+		   statusPathDate="NA"
 	fi
 
 	if [ -f $pathGrep ];
-	then
-	   statusPathGrep="OK"
-	else
-	   statusPathGrep="NA"
+		then
+		   statusPathGrep="OK"
+		else
+		   statusPathGrep="NA"
 	fi
 
 	if [ -f $pathHead ];
-	then
-	   statusPathHead="OK"
-	else
-	   statusPathHead="NA"
+		then
+		   statusPathHead="OK"
+		else
+		   statusPathHead="NA"
 	fi
 
 	if [ -f $pathLink ];
-	then
-	   statusPathLink="OK"
-	else
-	   statusPathLink="NA"
+		then
+		   statusPathLink="OK"
+		else
+		   statusPathLink="NA"
 	fi
 
 	if [ -f $pathMacchanger ];
-	then
-	   statusPathMacchanger="OK"
-	else
-	   statusPathMacchanger="NA"
+		then
+		   statusPathMacchanger="OK"
+		else
+		   statusPathMacchanger="NA"
 	fi
 
 	if [ -f $pathMkdir ];
-	then
-	   statusPathMkdir="OK"
-	else
-	   statusPathMkdir="NA"
+		then
+		   statusPathMkdir="OK"
+		else
+		   statusPathMkdir="NA"
 	fi
 
 	if [ -f $pathReaver ];
-	then
-	   statusPathReaver="OK"
-	else
-	   statusPathReaver="NA"
+		then
+		   statusPathReaver="OK"
+		else
+		   statusPathReaver="NA"
 	fi
 
 	if [ -f $pathRmdir ];
-	then
-	   statusPathRmdir="OK"
-	else
-	   statusPathRmdir="NA"
+		then
+		   statusPathRmdir="OK"
+		else
+		   statusPathRmdir="NA"
 	fi
 
 	if [ -f $pathSed ];
-	then
-	   statusPathSed="OK"
-	else
-	   statusPathSed="NA"
+		then
+		   statusPathSed="OK"
+		else
+		   statusPathSed="NA"
 	fi
 
 	if [ -f $pathSleep ];
-	then
-	   statusPathSleep="OK"
-	else
-	   statusPathSleep="NA"
+		then
+		   statusPathSleep="OK"
+		else
+		   statusPathSleep="NA"
 	fi
 
 	if [ -f $pathTail ];
-	then
-	   statusPathTail="OK"
-	else
-	   statusPathTail="NA"
+		then
+		   statusPathTail="OK"
+		else
+		   statusPathTail="NA"
 	fi
 
 }
@@ -756,22 +757,22 @@ showDisclaimer(){
 
 	case "$agreeToDisclaimer" in
 
-	"")
-	bannerExit
-	;;
+		"")
+		bannerExit
+		;;
 
-	"Y" | "y")
-	fixNegativeOneChannelError
-	startNetworkManager
-	#killNetworkManager
-	#killWpaSupplicant
-	#initMonitorMode
-	menuMain
-	;;
+		"Y" | "y")
+		fixNegativeOneChannelError
+		startNetworkManager
+		#killNetworkManager
+		#killWpaSupplicant
+		#initMonitorMode
+		menuMain
+		;;
 
-	*)
-	bannerExit
-	;;
+		*)
+		bannerExit
+		;;
 
 	esac
 
@@ -952,13 +953,13 @@ checkRootStatus(){
 
 	case "$isRoot" in
 
-	"root")
-	userPriv=root
+		"root")
+		userPriv=root
 
 	esac
 
 	if [ "$userPriv" != "root" ]; then
-	noRootAccess
+		noRootAccess
 	fi
 
 }
@@ -1002,18 +1003,18 @@ checkConnectionStatus(){
 
 	case "$ipStatus" in
 
-	"1")
-	ipStatus="1"
-	ipStatusText="Wifi"
-	;;
+		"1")
+		ipStatus="1"
+		ipStatusText="Wifi"
+		;;
 
 	esac
 
 	case "$ipStatusText" in
 
-	"None")
-	ipStatus="0"
-	;;
+		"None")
+		ipStatus="0"
+		;;
 
 	esac
 
@@ -1028,78 +1029,78 @@ checkWifiandDisplayMessage(){
 
 	case "$ipStatusText" in
 
-	"m"|"M")
-	menuMain
-	;;
+		"m"|"M")
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	checkForEmptyEncrytionType
+		"S" | "s")
+		checkForEmptyEncrytionType
 
-	case "$bssid" in
+		case "$bssid" in
 
-	"")
-	menuMain
-	;;
+			"")
+			menuMain
+			;;
 
-	esac
+		esac
 
-	if [ "$bssid" != "" ]; then
-	menuSessionSave
-	fi
-	;;
+		if [ "$bssid" != "" ]; then
+			menuSessionSave
+		fi
+		;;
 
-	"L" | "l")
-	checkForEmptyEncrytionType
+		"L" | "l")
+		checkForEmptyEncrytionType
 
-	#case "$bssid" in
+		#case "$bssid" in
 
-	#"")
-	#menuMain
-	#;;
+		#"")
+		#menuMain
+		#;;
 
-	#esac
+		#esac
 
-	#if [ "$bssid" != "" ]; then
-	menuSessionLoad
-	#fi
-	;;
+		#if [ "$bssid" != "" ]; then
+		menuSessionLoad
+		#fi
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	"Wifi")
-	banner
-	echo ""
-	echo "YOU MUST DISCONNECT FROM WIFI BEFORE CONTINUING!!!!"
-	echo ""
-	echo ""
-	echo "PRESS ENTER TO RETURN TO MAIN MENU...."
-	echo ""
-	echo ""
+		"Wifi")
+		banner
+		echo ""
+		echo "YOU MUST DISCONNECT FROM WIFI BEFORE CONTINUING!!!!"
+		echo ""
+		echo ""
+		echo "PRESS ENTER TO RETURN TO MAIN MENU...."
+		echo ""
+		echo ""
 
-	read pause
+		read pause
 
-	menuMain
-	;;
+		menuMain
+		;;
 
 	esac
 
@@ -1143,22 +1144,22 @@ isUnreleased(){
 
 	case "$agreeToDisclaimer" in
 
-	"")
-	bannerExit
-	;;
+		"")
+		bannerExit
+		;;
 
-	"Y" | "y")
-	fixNegativeOneChannelError
-	startNetworkManager
-	#killNetworkManager
-	#killWpaSupplicant
-	#initMonitorMode
-	menuMain
-	;;
+		"Y" | "y")
+		fixNegativeOneChannelError
+		startNetworkManager
+		#killNetworkManager
+		#killWpaSupplicant
+		#initMonitorMode
+		menuMain
+		;;
 
-	*)
-	bannerExit
-	;;
+		*)
+		bannerExit
+		;;
 
 	esac
 
@@ -1224,118 +1225,118 @@ menuMain(){
 
 	case "$getMode" in
 
-	"0")
-	checkConnectionStatus
-	checkWifiandDisplayMessage
-	menuAttacksAllWifiteAuto
-	menuMain
-	;;
+		"0")
+		checkConnectionStatus
+		checkWifiandDisplayMessage
+		menuAttacksAllWifiteAuto
+		menuMain
+		;;
 
-	"1")
-	checkConnectionStatus
-	checkWifiandDisplayMessage
-	mkdir $capturePathWEP
-	encryptionType="wep"
-	encryptionTypeText="WEP"
-	checkSpoofStatus
-	menuAuto
-	;;
+		"1")
+		checkConnectionStatus
+		checkWifiandDisplayMessage
+		mkdir $capturePathWEP
+		encryptionType="wep"
+		encryptionTypeText="WEP"
+		checkSpoofStatus
+		menuAuto
+		;;
 
-	"2")
-	checkConnectionStatus
-	checkWifiandDisplayMessage
-	mkdir $capturePathWPS
-	encryptionType="wps"
-	encryptionTypeText="WPS"
-	checkSpoofStatus
-	menuAuto
-	;;
+		"2")
+		checkConnectionStatus
+		checkWifiandDisplayMessage
+		mkdir $capturePathWPS
+		encryptionType="wps"
+		encryptionTypeText="WPS"
+		checkSpoofStatus
+		menuAuto
+		;;
 
-	"3")
-	checkConnectionStatus
-	checkWifiandDisplayMessage
-	mkdir $capturePathWPA
-	encryptionType="wpa"
-	encryptionTypeText="WPA"
-	checkSpoofStatus
-	menuAuto
-	;;
+		"3")
+		checkConnectionStatus
+		checkWifiandDisplayMessage
+		mkdir $capturePathWPA
+		encryptionType="wpa"
+		encryptionTypeText="WPA"
+		checkSpoofStatus
+		menuAuto
+		;;
 
-	"4")
-	checkConnectionStatus
-	checkWifiandDisplayMessage
-	mkdir $capturePathWPA2
-	encryptionType="wpa2"
-	encryptionTypeText="WPA2"
-	checkSpoofStatus
-	menuAuto
-	;;
+		"4")
+		checkConnectionStatus
+		checkWifiandDisplayMessage
+		mkdir $capturePathWPA2
+		encryptionType="wpa2"
+		encryptionTypeText="WPA2"
+		checkSpoofStatus
+		menuAuto
+		;;
 
-	"")
-	menuMain
-	;;
+		"")
+		menuMain
+		;;
 
-	"M" | "m")
-	menuMain
-	;;
+		"M" | "m")
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	checkForEmptyEncrytionType
+		"S" | "s")
+		checkForEmptyEncrytionType
 
-	case "$bssid" in
+		case "$bssid" in
 
-	"")
-	menuMain
-	;;
+			"")
+			menuMain
+			;;
 
-	esac
+		esac
 
-	if [ "$bssid" != "" ]; then
-	menuSessionSave
-	fi
-	;;
+		if [ "$bssid" != "" ]; then
+			menuSessionSave
+		fi
+		;;
 
-	"L" | "l")
-	checkForEmptyEncrytionType
+		"L" | "l")
+		checkForEmptyEncrytionType
 
-	#case "$bssid" in
+		#case "$bssid" in
 
-	#"")
-	#menuMain
-	#;;
+		#"")
+		#menuMain
+		#;;
 
-	#esac
+		#esac
 
-	#if [ "$bssid" != "" ]; then
-	menuSessionLoad
-	#fi
-	;;
+		#if [ "$bssid" != "" ]; then
+		menuSessionLoad
+		#fi
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	menuMain
-	;;
+		*)
+		menuMain
+		;;
 
 	esac
 
@@ -1349,9 +1350,9 @@ menuAuto(){
 
 	case "$encryptionTypeText" in
 
-	"Empty")
-	menuMain
-	;;
+		"Empty")
+		menuMain
+		;;
 
 	esac
 
@@ -1366,27 +1367,27 @@ menuAuto(){
 	echo ""
 
 	case "$encryptionTypeText" in
-	"WEP")
-	echo "To perform a fully automated attack, type AUTOWEP end press ENTER"
-	;;
+		"WEP")
+		echo "To perform a fully automated attack, type AUTOWEP end press ENTER"
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPS")
-	echo "To perform a fully automated attack, type AUTOWPS end press ENTER"
-	;;
+		"WPS")
+		echo "To perform a fully automated attack, type AUTOWPS end press ENTER"
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPA")
-	echo "To perform a fully automated attack, type AUTOWPA end press ENTER"
-	;;
+		"WPA")
+		echo "To perform a fully automated attack, type AUTOWPA end press ENTER"
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPA2")
-	echo "To perform a fully automated attack, type AUTOWPA2 end press ENTER"
-	;;
+		"WPA2")
+		echo "To perform a fully automated attack, type AUTOWPA2 end press ENTER"
+		;;
 	esac
 
 	echo ""
@@ -1409,109 +1410,109 @@ menuAuto(){
 
 	case "$readyForAirodumpScan" in
 
-	"")
-	killAll
-	checkForEmptyEncrytionType
-	autoModeNoPreviousSession
-	;;
+		"")
+		killAll
+		checkForEmptyEncrytionType
+		autoModeNoPreviousSession
+		;;
 
-	"P" | "p")
-	checkForEmptyEncrytionType
+		"P" | "p")
+		checkForEmptyEncrytionType
 
-	checkForEmptyBSSID
-	checkForEmptyESSID
-	checkForEmptyChannel
+		checkForEmptyBSSID
+		checkForEmptyESSID
+		checkForEmptyChannel
 
-	autoModeUsePreviousSession
-	;;
+		autoModeUsePreviousSession
+		;;
 
-	"W" | "w")
-	spoofMacAddress
-	menuAuto
-	;;
+		"W" | "w")
+		spoofMacAddress
+		menuAuto
+		;;
 
-	"M" | "m")
-	spoofStatus="0"
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		spoofStatus="0"
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	checkForEmptyEncrytionType
+		"S" | "s")
+		checkForEmptyEncrytionType
 
-	case "$bssid" in
+		case "$bssid" in
 
-	"")
-	menuMain
-	;;
+			"")
+			menuMain
+			;;
 
-	esac
+		esac
 
-	if [ "$bssid" != "" ]; then
-	menuSessionSave
-	fi
-	;;
+		if [ "$bssid" != "" ]; then
+			menuSessionSave
+		fi
+		;;
 
-	"L" | "l")
-	checkForEmptyEncrytionType
+		"L" | "l")
+		checkForEmptyEncrytionType
 
-	#case "$bssid" in
+		#case "$bssid" in
 
-	#"")
-	#menuMain
-	#;;
+		#"")
+		#menuMain
+		#;;
 
-	#esac
+		#esac
 
-	#if [ "$bssid" != "" ]; then
-	menuSessionLoad
-	#fi
-	;;
+		#if [ "$bssid" != "" ]; then
+		menuSessionLoad
+		#fi
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	"autowep" | "AUTOWEP" | "AutoWEP" | "AutoWep" | "autoWEP" | "autoWep")
-	menuAttacksWEPWifiteAuto
-	;;
+		"autowep" | "AUTOWEP" | "AutoWEP" | "AutoWep" | "autoWEP" | "autoWep")
+		menuAttacksWEPWifiteAuto
+		;;
 
-	"autowps" | "AUTOWPS" | "AutoWPS" | "AutoWps" | "autoWPS" | "autoWps")
-	menuAttacksWPSWifiteAuto
-	;;
+		"autowps" | "AUTOWPS" | "AutoWPS" | "AutoWps" | "autoWPS" | "autoWps")
+		menuAttacksWPSWifiteAuto
+		;;
 
-	"autowpa" | "AUTOWPA" | "AutoWPA" | "AutoWpa" | "autoWPA" | "autoWpa")
-	menuAttacksWPAWifiteAuto
-	;;
+		"autowpa" | "AUTOWPA" | "AutoWPA" | "AutoWpa" | "autoWPA" | "autoWpa")
+		menuAttacksWPAWifiteAuto
+		;;
 
-	"autowpa2" | "AUTOWPA2" | "AutoWPA2" | "AutoWpa2" | "autoWPA2" | "autoWpa2")
-	menuAttacksWPA2WifiteAuto
-	;;
+		"autowpa2" | "AUTOWPA2" | "AutoWPA2" | "AutoWpa2" | "autoWPA2" | "autoWpa2")
+		menuAttacksWPA2WifiteAuto
+		;;
 
-	*)
+		*)
 
-	menuAuto
+		menuAuto
 
-	;;
+		;;
 
 	esac
 
@@ -1560,53 +1561,53 @@ menuAdvanced(){
 
 	case "$getAdvancedOptionMain" in
 
-	"")
-	$lastMenuID
-	#menuMain
-	#menuAdvanced
-	;;
+		"")
+		$lastMenuID
+		#menuMain
+		#menuAdvanced
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	$lastMenuID
-	#menuMain
-	#menuAdvanced
-	;;
+		*)
+		$lastMenuID
+		#menuMain
+		#menuAdvanced
+		;;
 
 	esac
 
@@ -1650,91 +1651,91 @@ menuExtras(){
 
 	case "$getExtras" in
 
-	"")
-	menuExtras
-	;;
+		"")
+		menuExtras
+		;;
 
-	"1")
-	backupSessionFiles
-	;;
+		"1")
+		backupSessionFiles
+		;;
 
-	"2")
-	cleanCaptureFiles
-	;;
+		"2")
+		cleanCaptureFiles
+		;;
 
-	"3")
-	cleanSessionFiles
-	;;
+		"3")
+		cleanSessionFiles
+		;;
 
-	"4")
-	menuChangeTerminal
-	;;
+		"4")
+		menuChangeTerminal
+		;;
 
-	"5")
-	startNetworkManager
-	;;
+		"5")
+		startNetworkManager
+		;;
 
-	"6")
-	killNetworkManager
-	;;
+		"6")
+		killNetworkManager
+		;;
 
-	"7")
-	wpa_supplicant stop
-	;;
+		"7")
+		wpa_supplicant stop
+		;;
 
-	"8")
-	wpa_cli terminate
-	;;
+		"8")
+		wpa_cli terminate
+		;;
 
-	"9")
-	enableChannelHopping
-	;;
+		"9")
+		enableChannelHopping
+		;;
 
-	"0")
-	disableChannelHopping
-	;;
+		"0")
+		disableChannelHopping
+		;;
 
-	"r" | "R")
-	$lastMenuID
-	;;
+		"r" | "R")
+		$lastMenuID
+		;;
 
-	"M" | "m")
-	menuMain
-	;;
+		"M" | "m")
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	menuExtras
-	;;
+		*)
+		menuExtras
+		;;
 
 	esac
 
@@ -1775,51 +1776,51 @@ menuHelp(){
 
 	case "$getHelp" in
 
-	"")
-	$lastMenuID
-	#menuMain
-	#menuHelp
-	;;
+		"")
+		$lastMenuID
+		#menuMain
+		#menuHelp
+		;;
 
-	"M" | "m")
-	menuMain
-	;;
+		"M" | "m")
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	$lastMenuID
-	#menuMain
-	#menuHelp
-	;;
+		*)
+		$lastMenuID
+		#menuMain
+		#menuHelp
+		;;
 
 	esac
 
@@ -1859,89 +1860,89 @@ menuChangeTerminal(){
 
 	case "$getTerminalType" in
 
-	"")
-	menuChangeTerminal
-	;;
+		"")
+		menuChangeTerminal
+		;;
 
-	"1")
-	terminal="$terminalGnome"
-	terminalText="Gnome"
-	;;
+		"1")
+		terminal="$terminalGnome"
+		terminalText="Gnome"
+		;;
 
-	"2")
-	terminal="$terminalKonsole"
-	terminalText="Konsole"
-	;;
+		"2")
+		terminal="$terminalKonsole"
+		terminalText="Konsole"
+		;;
 
-	"3")
-	terminal="$terminalXterm"
-	terminalText="Xterm"
-	;;
+		"3")
+		terminal="$terminalXterm"
+		terminalText="Xterm"
+		;;
 
-	"4")
-	banner
-	echo ""
-	echo "Input a terminal string with arguments and press ENTER:"
-	echo ""
-	echo ""
-	echo "Example: $terminalGnome"
-	echo ""
-	echo ""
+		"4")
+		banner
+		echo ""
+		echo "Input a terminal string with arguments and press ENTER:"
+		echo ""
+		echo ""
+		echo "Example: $terminalGnome"
+		echo ""
+		echo ""
 
-	read newTerminal
+		read newTerminal
 
-	case "$newTerminal" in
+		case "$newTerminal" in
 
-	*)
-	terminal="$newTerminal"
-	terminalText="Custom"
-	;;
+			*)
+			terminal="$newTerminal"
+			terminalText="Custom"
+			;;
 
-	esac
+		esac
 
-	;;
+		;;
 
-	"5")
-	menuExtras
-	;;
+		"5")
+		menuExtras
+		;;
 
-	"M" | "m")
-	menuMain
-	;;
+		"M" | "m")
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	menuChangeTerminal
-	;;
+		*)
+		menuChangeTerminal
+		;;
 
 	esac
 
@@ -1994,47 +1995,47 @@ menuSessionSave(){
 
 	case "$getSession" in
 
-	"")
-	$lastMenuID
-	;;
+		"")
+		$lastMenuID
+		;;
 
-	"M" | "m")
-	menuMain
-	;;
+		"M" | "m")
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	sessionSave
-	;;
+		"S" | "s")
+		sessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	$lastMenuID
-	;;
+		*)
+		$lastMenuID
+		;;
 
 	esac
 
@@ -2074,47 +2075,47 @@ menuSessionLoad(){
 
 	case "$getSession" in
 
-	"")
-	$lastMenuID
-	;;
+		"")
+		$lastMenuID
+		;;
 
-	"M" | "m")
-	menuMain
-	;;
+		"M" | "m")
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	sessionLoad
-	;;
+		"L" | "l")
+		sessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	$lastMenuID
-	;;
+		*)
+		$lastMenuID
+		;;
 
 	esac
 
@@ -2155,72 +2156,72 @@ menuHoneyPotMode(){
 
 	case "$getHoneyPotOptionMain" in
 
-	"")
-	menuHoneyPotMode
-	#$lastMenuID
-	#menuMain
-	#menuAdvanced
-	;;
+		"")
+		menuHoneyPotMode
+		#$lastMenuID
+		#menuMain
+		#menuAdvanced
+		;;
 
-	"1")
-	getBSSID
-	$terminal airbase-ng -a $bssid -i $interfaceMonitor -h $macAddressMonitor -v &
-	;;
+		"1")
+		getBSSID
+		$terminal airbase-ng -a $bssid -i $interfaceMonitor -h $macAddressMonitor -v &
+		;;
 
-	"2")
-	getESSID
-	getChannel
-	$terminal wifi-honey $essid $channel $interfaceMonitor &
-	;;
+		"2")
+		getESSID
+		getChannel
+		$terminal wifi-honey $essid $channel $interfaceMonitor &
+		;;
 
-	"3")
-	echo "Custom Binary"
-	read pause
-	menuHoneyPotMode
-	;;
+		"3")
+		echo "Custom Binary"
+		read pause
+		menuHoneyPotMode
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	menuHoneyPotMode
-	#$lastMenuID
-	#menuMain
-	#menuAdvanced
-	;;
+		*)
+		menuHoneyPotMode
+		#$lastMenuID
+		#menuMain
+		#menuAdvanced
+		;;
 
 	esac
 
@@ -2255,59 +2256,59 @@ getESSID(){
 	echo ""
 
 	case "$encryptionTypeText" in
-	"WPS")
-	echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
-	echo ""
-	echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPS")
+		echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
+		echo ""
+		echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WEP")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WEP")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPA")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPA")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPA2")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPA2")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	echo "PASTE or type the Victim ESSID Here and press ENTER:"
@@ -2320,49 +2321,49 @@ getESSID(){
 
 	case "$getESSIDTemp" in
 
-	"")
-	getESSID
-	;;
+		"")
+		getESSID
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	essid="$getESSIDTemp"
-	;;
+		*)
+		essid="$getESSIDTemp"
+		;;
 
 	esac
 
@@ -2380,59 +2381,59 @@ getBSSID(){
 	echo ""
 
 	case "$encryptionTypeText" in
-	"WPS")
-	echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
-	echo ""
-	echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPS")
+		echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
+		echo ""
+		echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WEP")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WEP")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPA")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPA")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPA2")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPA2")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	echo "PASTE or type the Victim BSSID Here and press ENTER:"
@@ -2445,49 +2446,49 @@ getBSSID(){
 
 	case "$getBSSIDTemp" in
 
-	"")
-	getBSSID
-	;;
+		"")
+		getBSSID
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	bssid="$getBSSIDTemp"
-	;;
+		*)
+		bssid="$getBSSIDTemp"
+		;;
 
 	esac
 
@@ -2504,59 +2505,59 @@ getChannel(){
 	echo ""
 
 	case "$encryptionTypeText" in
-	"WPS")
-	echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
-	echo ""
-	echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPS")
+		echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
+		echo ""
+		echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WEP")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WEP")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPA")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPA")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	case "$encryptionTypeText" in
-	"WPA2")
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo ""
-	echo ""
-	;;
+		"WPA2")
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+		echo ""
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+		echo ""
+		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+		echo ""
+		echo ""
+		echo ""
+		;;
 	esac
 
 	echo "Enter the Victim CHANNEL and press ENTER:"
@@ -2569,49 +2570,49 @@ getChannel(){
 
 	case "$getChannelTemp" in
 
-	"")
-	getChannel
-	;;
+		"")
+		getChannel
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	channel="$getChannelTemp"
-	;;
+		*)
+		channel="$getChannelTemp"
+		;;
 
 	esac
 
@@ -2736,58 +2737,58 @@ spoofMacAddress(){
 
 	case "$getNewMacAdressTemp" in
 
-	"")
-	spoofMacAddress
-	;;
+		"")
+		spoofMacAddress
+		;;
 
-	"R" | "r")
-	getRandomMacAddress
-	getRandomMacAddressMonitor
-	$lastMenuID
-	;;
+		"R" | "r")
+		getRandomMacAddress
+		getRandomMacAddressMonitor
+		$lastMenuID
+		;;
 
-	"M" | "m")
-	spoofStatus="0"
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		spoofStatus="0"
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	setMacAddress
-	setMacAddressMonitor
-	$lastMenuID
-	;;
+		*)
+		setMacAddress
+		setMacAddressMonitor
+		$lastMenuID
+		;;
 
 	esac
 
@@ -2798,10 +2799,10 @@ checkSpoofStatus(){
 
 	case "$spoofStatus" in
 
-	"0")
-	#blank=""
-	initMonitorMode
-	;;
+		"0")
+		#blank=""
+		initMonitorMode
+		;;
 
 	esac
 
@@ -2839,53 +2840,53 @@ initMonitorMode(){
 
 	case "$initMon" in
 
-	"")
-	getMacAddress
-	setMonitorMode
-	getMacAddressMonitor
-	getWirelessInterfaces
-	;;
+		"")
+		getMacAddress
+		setMonitorMode
+		getMacAddressMonitor
+		getWirelessInterfaces
+		;;
 
-	"M" | "m")
-	menuMain
-	;;
+		"M" | "m")
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	getMacAddress
-	setMonitorMode
-	getMacAddressMonitor
-	getWirelessInterfaces
-	;;
+		*)
+		getMacAddress
+		setMonitorMode
+		getMacAddressMonitor
+		getWirelessInterfaces
+		;;
 
 	esac
 
@@ -3013,21 +3014,21 @@ autoModeUsePreviousSession(){
 
 	case "$encryptionType" in
 
-	"wep")
-	autoModeUsePreviousSessionWEP
-	;;
+		"wep")
+		autoModeUsePreviousSessionWEP
+		;;
 
-	"wps")
-	autoModeUsePreviousSessionWPS
-	;;
+		"wps")
+		autoModeUsePreviousSessionWPS
+		;;
 
-	"wpa")
-	autoModeUsePreviousSessionWPA
-	;;
+		"wpa")
+		autoModeUsePreviousSessionWPA
+		;;
 
-	"wpa2")
-	autoModeUsePreviousSessionWPA2
-	;;
+		"wpa2")
+		autoModeUsePreviousSessionWPA2
+		;;
 
 	esac
 
@@ -3040,21 +3041,21 @@ autoModeNoPreviousSession(){
 
 	case "$encryptionType" in
 
-	"wep")
-	autoModeNoPreviousSessionWEP
-	;;
+		"wep")
+		autoModeNoPreviousSessionWEP
+		;;
 
-	"wps")
-	autoModeNoPreviousSessionWPS
-	;;
+		"wps")
+		autoModeNoPreviousSessionWPS
+		;;
 
-	"wpa")
-	autoModeNoPreviousSessionWPA
-	;;
+		"wpa")
+		autoModeNoPreviousSessionWPA
+		;;
 
-	"wpa2")
-	autoModeNoPreviousSessionWPA2
-	;;
+		"wpa2")
+		autoModeNoPreviousSessionWPA2
+		;;
 
 	esac
 
@@ -3067,21 +3068,21 @@ adFileDump(){
 
 	case "$encryptionType" in
 
-	"wep")
-	adFileDumpWEP
-	;;
+		"wep")
+		adFileDumpWEP
+		;;
 
-	"wps")
-	adFileDumpWPS
-	;;
+		"wps")
+		adFileDumpWPS
+		;;
 
-	"wpa")
-	adFileDumpWPA
-	;;
+		"wpa")
+		adFileDumpWPA
+		;;
 
-	"wpa2")
-	adFileDumpWPA2
-	;;
+		"wpa2")
+		adFileDumpWPA2
+		;;
 
 	esac
 
@@ -3094,21 +3095,21 @@ adFileDumpNoChannel(){
 
 	case "$encryptionType" in
 
-	"wep")
-	adFileDumpNoChannelWEP
-	;;
+		"wep")
+		adFileDumpNoChannelWEP
+		;;
 
-	"wps")
-	adFileDumpNoChannelWPS
-	;;
+		"wps")
+		adFileDumpNoChannelWPS
+		;;
 
-	"wpa")
-	adFileDumpNoChannelWPA
-	;;
+		"wpa")
+		adFileDumpNoChannelWPA
+		;;
 
-	"wpa2")
-	adFileDumpNoChannelWPA2
-	;;
+		"wpa2")
+		adFileDumpNoChannelWPA2
+		;;
 
 	esac
 
@@ -3123,21 +3124,21 @@ aircrackDecrypt(){
 
 	case "$encryptionType" in
 
-	"wep")
-	aircrackDecryptWEP
-	;;
+		"wep")
+		aircrackDecryptWEP
+		;;
 
-	"wps")
-	aircrackDecryptWPS
-	;;
+		"wps")
+		aircrackDecryptWPS
+		;;
 
-	"wpa")
-	aircrackDecryptWPA
-	;;
+		"wpa")
+		aircrackDecryptWPA
+		;;
 
-	"wpa2")
-	aircrackDecryptWPA2
-	;;
+		"wpa2")
+		aircrackDecryptWPA2
+		;;
 
 	esac
 
@@ -3352,105 +3353,105 @@ menuAttacksWEP(){
 
 	case "$getBSSID" in
 
-	"")
-	menuAttacksWEP
-	;;
+		"")
+		menuAttacksWEP
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	"C" | "c")
-	aircrackDecrypt
-	;;
+		"C" | "c")
+		aircrackDecrypt
+		;;
 
-	"R" | "r")
-	arAssociate
-	;;
+		"R" | "r")
+		arAssociate
+		;;
 
-	"T" | "t")
-	arAttackTest
-	;;
+		"T" | "t")
+		arAttackTest
+		;;
 
-	"N" | "n")
-	adFileDump
-	;;
+		"N" | "n")
+		adFileDump
+		;;
 
-	"0")
-	arAttackDeAuthConstant
-	;;
+		"0")
+		arAttackDeAuthConstant
+		;;
 
-	"1")
-	arAttackDeAuth
-	;;
+		"1")
+		arAttackDeAuth
+		;;
 
-	"2")
-	arAttackFakeAuth
-	;;
+		"2")
+		arAttackFakeAuth
+		;;
 
-	"3")
-	arAttackInteractive
-	;;
+		"3")
+		arAttackInteractive
+		;;
 
-	"4")
-	arAttackArpReplay
-	;;
+		"4")
+		arAttackArpReplay
+		;;
 
-	"5")
-	arAttackChopChop
-	;;
+		"5")
+		arAttackChopChop
+		;;
 
-	"6")
-	arAttackFragment
-	;;
+		"6")
+		arAttackFragment
+		;;
 
-	"7")
-	arAttackCaffeLatte
-	;;
+		"7")
+		arAttackCaffeLatte
+		;;
 
-	"8")
-	arAttackCfrag
-	;;
+		"8")
+		arAttackCfrag
+		;;
 
-	"9")
-	arAttackMigMode
-	;;
+		"9")
+		arAttackMigMode
+		;;
 
-	*)
-	menuAttacksWEP
-	;;
+		*)
+		menuAttacksWEP
+		;;
 
 	esac
 
@@ -3791,26 +3792,26 @@ menuAttacksWPA(){
 	# Only run a deauth with default text and settings if not re-forced through menu
 	case "$retryDeauth" in
 
-	"0")
-	killAll
+		"0")
+		killAll
 
-	adFileDump
+		adFileDump
 
-	sleepMessage="Preparing to Capture WPA Handshake...."
-	doSleepMessage
-	sleep 2
+		sleepMessage="Preparing to Capture WPA Handshake...."
+		doSleepMessage
+		sleep 2
 
-	arAttackDeAuth
-	captureHandshakeWPA
-	;;
+		arAttackDeAuth
+		captureHandshakeWPA
+		;;
 
-	"1")
-	sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-	doSleepMessage
-	sleep 1
-	arAttackDeAuthOnRetry
-	captureHandshakeWPA
-	;;
+		"1")
+		sleepMessage="Preparing to De-Authenticate All Connected Stations...."
+		doSleepMessage
+		sleep 1
+		arAttackDeAuthOnRetry
+		captureHandshakeWPA
+		;;
 	esac
 
 }
@@ -3893,53 +3894,53 @@ aircrackDecryptWPA(){
 
 	case "$tmpPause" in
 
-	"")
-	$terminal aircrack-ng -w $wordlist -b $bssid *.cap
-	;;
+		"")
+		$terminal aircrack-ng -w $wordlist -b $bssid *.cap
+		;;
 
-	"C" | "c")
-	getCustomList
-	;;
+		"C" | "c")
+		getCustomList
+		;;
 
-	"B" | "b")
-	bessideMain
-	;;
+		"B" | "b")
+		bessideMain
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
 	esac
 
@@ -3973,46 +3974,46 @@ aircrackDecryptWPA(){
 
 	case "$acPause" in
 
-	"")
-	killAll
-	menuAttacksWPA
-	;;
+		"")
+		killAll
+		menuAttacksWPA
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
 	esac
 
@@ -4050,61 +4051,61 @@ captureHandshakeWPA(){
 
 	case "$captureHandshake" in
 
-	"")
-	killAirodump
-	killAireplay
+		"")
+		killAirodump
+		killAireplay
 
-	sleepMessage="Preparing capture files for aircrack-ng...."
-	doSleepMessage
-	sleep 2
+		sleepMessage="Preparing capture files for aircrack-ng...."
+		doSleepMessage
+		sleep 2
 
-	aircrackDecrypt
-	;;
+		aircrackDecrypt
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"D" | "d")
-	retryDeauth="1"
-	menuAttacksWPA
-	;;
+		"D" | "d")
+		retryDeauth="1"
+		menuAttacksWPA
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	menuAttacksWPA
-	;;
+		*)
+		menuAttacksWPA
+		;;
 
 	esac
 
@@ -4219,26 +4220,26 @@ menuAttacksWPA2(){
 	# Only run a deauth with default text and settings if not re-forced through menu
 	case "$retryDeauth" in
 
-	"0")
-	killAll
+		"0")
+		killAll
 
-	adFileDump
+		adFileDump
 
-	sleepMessage="Preparing to Capture WPA Handshake...."
-	doSleepMessage
-	sleep 2
+		sleepMessage="Preparing to Capture WPA Handshake...."
+		doSleepMessage
+		sleep 2
 
-	arAttackDeAuth
-	captureHandshakeWPA2
-	;;
+		arAttackDeAuth
+		captureHandshakeWPA2
+		;;
 
-	"1")
-	sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-	doSleepMessage
-	sleep 1
-	arAttackDeAuthOnRetry
-	captureHandshakeWPA2
-	;;
+		"1")
+		sleepMessage="Preparing to De-Authenticate All Connected Stations...."
+		doSleepMessage
+		sleep 1
+		arAttackDeAuthOnRetry
+		captureHandshakeWPA2
+		;;
 	esac
 
 }
@@ -4321,53 +4322,53 @@ aircrackDecryptWPA2(){
 
 	case "$tmpPause" in
 
-	"")
-	$terminal aircrack-ng -w $wordlist -b $bssid *.cap
-	;;
+		"")
+		$terminal aircrack-ng -w $wordlist -b $bssid *.cap
+		;;
 
-	"C" | "c")
-	getCustomList
-	;;
+		"C" | "c")
+		getCustomList
+		;;
 
-	"B" | "b")
-	bessideMain
-	;;
+		"B" | "b")
+		bessideMain
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
 	esac
 
@@ -4401,46 +4402,46 @@ aircrackDecryptWPA2(){
 
 	case "$acPause" in
 
-	"")
-	killAll
-	menuAttacksWPA2
-	;;
+		"")
+		killAll
+		menuAttacksWPA2
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
 	esac
 
@@ -4478,61 +4479,61 @@ captureHandshakeWPA2(){
 
 	case "$captureHandshake" in
 
-	"")
-	killAirodump
-	killAireplay
+		"")
+		killAirodump
+		killAireplay
 
-	sleepMessage="Preparing capture files for aircrack-ng...."
-	doSleepMessage
-	sleep 2
+		sleepMessage="Preparing capture files for aircrack-ng...."
+		doSleepMessage
+		sleep 2
 
-	aircrackDecrypt
-	;;
+		aircrackDecrypt
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"D" | "d")
-	retryDeauth="1"
-	menuAttacksWPA2
-	;;
+		"D" | "d")
+		retryDeauth="1"
+		menuAttacksWPA2
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	menuAttacksWPA2
-	;;
+		*)
+		menuAttacksWPA2
+		;;
 
 	esac
 
@@ -4853,69 +4854,69 @@ bessideMain(){
 
 	case "$getBessideMode" in
 
-	"")
-	bessideMain
-	;;
+		"")
+		bessideMain
+		;;
 
-	"1")
-	bessideNormal
-	;;
+		"1")
+		bessideNormal
+		;;
 
-	"2")
-	bessideWPAOnly
-	;;
+		"2")
+		bessideWPAOnly
+		;;
 
-	"3")
-	bessideUpload
-	;;
+		"3")
+		bessideUpload
+		;;
 
-	"4")
-	bessideSetFloodRate
-	;;
+		"4")
+		bessideSetFloodRate
+		;;
 
-	"5")
-	$lastMenuID
-	;;
+		"5")
+		$lastMenuID
+		;;
 
-	"M" | "m")
-	killAll
-	stopMonitorMode
-	menuMain
-	;;
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
 
-	"S" | "s")
-	menuSessionSave
-	;;
+		"S" | "s")
+		menuSessionSave
+		;;
 
-	"A" | "a")
-	menuAdvanced
-	;;
+		"A" | "a")
+		menuAdvanced
+		;;
 
-	"L" | "l")
-	menuSessionLoad
-	;;
+		"L" | "l")
+		menuSessionLoad
+		;;
 
-	"Z" | "z")
-	menuHoneyPotMode
-	;;
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
 
-	"H" | "h")
-	menuHelp
-	;;
+		"H" | "h")
+		menuHelp
+		;;
 
-	"E" | "e")
-	menuExtras
-	;;
+		"E" | "e")
+		menuExtras
+		;;
 
-	"X" | "x")
-	killAll
-	stopMonitorMode
-	bannerExit
-	;;
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
 
-	*)
-	bessideMain
-	;;
+		*)
+		bessideMain
+		;;
 
 	esac
 
@@ -5435,13 +5436,13 @@ getCustomList(){
 
 	case "$tmpCustomList" in
 
-	"")
-	getCustomList
-	;;
+		"")
+		getCustomList
+		;;
 
-	*)
-	wordlist="$tmpCustomList"
-	;;
+		*)
+		wordlist="$tmpCustomList"
+		;;
 
 	esac
 
