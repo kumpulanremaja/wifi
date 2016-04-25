@@ -265,7 +265,7 @@ checkLinuxVersion(){
 
 		"")
 		isKali=0
-
+		;;
 	esac
 
 	# Check For Kali Linux 2.x (Monitor Mode Is Different)
@@ -273,8 +273,7 @@ checkLinuxVersion(){
 
 		"")
 		isKaliTwo=0
-	;;
-
+		;;
 	esac
 
 	#echo "Linux Version: $linuxVersion"
