@@ -27,12 +27,13 @@
 ############################################################################
 
 # v1.3
-# - Fixed "wlan0mon" error in Kali Linux 2.x. See "fixKaliTwoMonError" function for more info.
-# - Added a function to check the Linux version, and specifically for Kali Linux 2.x.
+# - Added support for AirCrack Suite v1.2+ using the new wlanXmon format instead of monX.
+# - Fixed "wlanXmon" error in Kali Linux 2.x caused by new AirCrack Suite 1.2+. See "fixKaliTwoMonError" function for more info.
+# - Added a function to check the Linux version running.
 # - Removed Honeypot Mode from the banners. It has been relocated to the Advanced Menu.
 # - Added "$interfaceName" and "$interfaceMode" variables.
 # - Added interfaceName to the stats banner. This will display the current interface name (wlan0, mon0, wlan0mon, etc).
-# - Added interfaceMode to the main banner. Valid Interface Modes are 0=Managed / 1=Monitor Standard / 2=Monitor Kali 2.x / 3=Monitor Other / 4=Unknown
+# - Added interfaceMode to the main banner. Valid Interface Modes are 0=Managed / 1=Monitor Standard / 2=Monitor New / 3=Monitor Other / 4=Unknown
 # - Added "Open Interface Options" item to Extras Menu.
 # - Added "Interface Up", "Interface Down", "Interface Managed", and "Interface Monitor" to Extras Menu. The Up and Down functions affect the interface ONLY for monitor mode (mon0, mon1, wlan0mon, wlan1mon, etc) currently. Please use Enable/Disable Channel Hopping to bring up/down a managed interface (i.e. wlan0, wlan1, etc)
 
@@ -149,10 +150,10 @@
 ############################################################################
 
 
+# Add support for new airodump-ng "-wps" command
 # Add change options on the fly for WPS and other attack modes
 # Add bully support for WPS attacks
 # Add cowpatty support for WPA/WPA2 attacks
-# Fix "-1" channel error
 # Set an "ok so far" variable to wifi hacker for seeing if all dependencies are available
 # Set default $serverWPA veriable to some value other than blank
 # Add sniffing/wireshark support
