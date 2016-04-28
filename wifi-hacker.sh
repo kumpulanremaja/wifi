@@ -31,6 +31,8 @@
 # - Added "$interfaceName" and "$interfaceMode" variables.
 # - Added interfaceName to the stats banner. This will display the current interface name (wlan0, mon0, wlan0mon, etc).
 # - Added interfaceMode to the main banner. Valid Interface Modes are 0=Managed / 1=Monitor Standard / 2=Monitor Kali 2.x / 3=Monitor Other / 4=Unknown
+# - Added "Open Interface Options" item to Extras Menu.
+# - Added "Interface Up", "Interface Down", "Interface Managed", and "InterfaceMonitor" to Extras Menu. The Up and Down functions affect the interface ONLY for monitor mode (mon0, mon1, wlan0mon, wlan1mon, etc) currently. Please use Enable/Disable Channel Hopping to bring up/down a managed interface (i.e. wlan0, wlan1, etc)
 
 # v1.2
 # - Fixed the top text of disclaimer banner from being cut off.
@@ -897,7 +899,12 @@ bannerExit(){
 	clear
 	echo "Thank You For Playing Fair ;)"
 	echo ""
-	echo "esc0rtd3w 2016 / crackacademy.com"
+	echo "esc0rtd3w 2016"
+	echo ""
+	echo ""
+	echo "View My Other Projects On GitHub:"
+	echo ""
+	echo "https://github.com/esc0rtd3w"
 	echo ""
 	echo ""
 
@@ -1637,8 +1644,8 @@ menuExtras(){
 	echo "6) Stop NetworkManager"
 	echo "7) Stop wpa_supplicant"
 	echo "8) Stop wpa_cli"
-	echo "9) Enable Channel Hopping On $interface"
-	echo "0) Disable Channel Hopping On $interface"
+	echo ""
+	echo "9) Open Interface Options Menu"
 	echo ""
 	echo "R) Return To Previous Menu"
 	echo ""
@@ -1688,11 +1695,7 @@ menuExtras(){
 		;;
 
 		"9")
-		enableChannelHopping
-		;;
-
-		"0")
-		disableChannelHopping
+		menuExtrasInterface
 		;;
 
 		"r" | "R")
@@ -1740,6 +1743,112 @@ menuExtras(){
 	esac
 
 	menuExtras
+
+}
+
+menuExtrasInterface(){
+
+	currentTask="menuExtrasInterface"
+	#lastMenuID="menuExtrasInterface"
+
+	banner
+	bannerStats
+
+	echo ""
+
+	echo "1) Enable Channel Hopping On $interface"
+	echo "2) Disable Channel Hopping On $interface"
+	echo ""
+	echo "3) Bring Up Interface: $interfaceMonitor"
+	echo "4) Bring Down Interface: $interfaceMonitor"
+	echo ""
+	echo "5) Switch Interface To Managed"
+	echo "6) Switch Interface To Monitor"
+	echo ""
+	echo "R) Return To Previous Menu"
+	echo ""
+	echo ""
+	echo "Select an option from above and press ENTER:"
+	echo ""
+	echo ""
+
+	read getExtrasInterface
+
+	case "$getExtrasInterface" in
+
+		"")
+		menuInterface
+		;;
+
+		"1")
+		enableChannelHopping
+		;;
+
+		"2")
+		disableChannelHopping
+		;;
+
+		"3")
+		interfaceUp
+		;;
+
+		"4")
+		interfaceDown
+		;;
+
+		"5")
+		interfaceManaged
+		;;
+
+		"6")
+		interfaceMonitor
+		;;
+
+		"r" | "R")
+		$lastMenuID
+		;;
+
+		"M" | "m")
+		menuMain
+		;;
+
+		"A" | "a")
+		menuAdvanced
+		;;
+
+		"S" | "s")
+		menuSessionSave
+		;;
+
+		"L" | "l")
+		menuSessionLoad
+		;;
+
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
+
+		"H" | "h")
+		menuHelp
+		;;
+
+		"E" | "e")
+		menuExtras
+		;;
+
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
+
+		*)
+		menuExtrasInterface
+		;;
+
+	esac
+
+	menuExtrasInterface
 
 }
 
@@ -5538,6 +5647,32 @@ enableChannelHopping(){
 
 }
 
+interfaceUp(){
+
+	#ifconfig $interface up
+	ifconfig $interfaceMonitor up
+
+}
+
+interfaceDown(){
+
+	#ifconfig $interface down
+	ifconfig $interfaceMonitor down
+
+}
+
+interfaceManaged(){
+
+	iwconfig wlan0mon mode managed
+
+}
+
+interfaceMonitor(){
+
+	iwconfig wlan0mon mode monitor
+
+}
+
 fixKaliTwoMonError(){
 	echo "DEBUG: Kali 2.x Fix - Step 1"
 	echo ""
@@ -5545,15 +5680,11 @@ fixKaliTwoMonError(){
 	echo "$interfaceMonitor"
 	read pause
 
-	#ifconfig $interfaceMonitor down
-	#sleep 2
-	#iwconfig $interfaceMonitor mode monitor
-	#sleep 2
-	#ifconfig $interfaceMonitor up
-
-	ifconfig wlan0mon down
-	iwconfig wlan0mon mode monitor
-	ifconfig wlan0mon up
+	ifconfig $interfaceMonitor down
+	sleep 2
+	iwconfig $interfaceMonitor mode monitor
+	sleep 2
+	ifconfig $interfaceMonitor up
 
 	echo "DEBUG: Kali 2.x Fix - Step 2"
 	echo ""
@@ -5581,7 +5712,6 @@ initMain
 ############################################################################
 #   INITIAL LAUNCH END   ###################################################
 ############################################################################
-
 
 
 
