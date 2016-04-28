@@ -7,7 +7,9 @@
 
 
 # WiFi Hacker v1.3
-# esc0rtd3w 2016 / https://github.com/esc0rtd3w/wifi-hacker/
+# esc0rtd3w 2016
+
+# https://github.com/esc0rtd3w/wifi-hacker/
 
 # Uses parts of the aircrack-ng suite, reaver, wifite, and many other tools
 
@@ -32,7 +34,7 @@
 # - Added interfaceName to the stats banner. This will display the current interface name (wlan0, mon0, wlan0mon, etc).
 # - Added interfaceMode to the main banner. Valid Interface Modes are 0=Managed / 1=Monitor Standard / 2=Monitor Kali 2.x / 3=Monitor Other / 4=Unknown
 # - Added "Open Interface Options" item to Extras Menu.
-# - Added "Interface Up", "Interface Down", "Interface Managed", and "InterfaceMonitor" to Extras Menu. The Up and Down functions affect the interface ONLY for monitor mode (mon0, mon1, wlan0mon, wlan1mon, etc) currently. Please use Enable/Disable Channel Hopping to bring up/down a managed interface (i.e. wlan0, wlan1, etc)
+# - Added "Interface Up", "Interface Down", "Interface Managed", and "Interface Monitor" to Extras Menu. The Up and Down functions affect the interface ONLY for monitor mode (mon0, mon1, wlan0mon, wlan1mon, etc) currently. Please use Enable/Disable Channel Hopping to bring up/down a managed interface (i.e. wlan0, wlan1, etc)
 
 # v1.2
 # - Fixed the top text of disclaimer banner from being cut off.
@@ -270,7 +272,8 @@ checkLinuxVersion(){
 		;;
 	esac
 
-	# Check For Kali Linux 2.x (Monitor Mode Is Different)
+	# Check For Kali Linux 2.x
+	# Uses Aircrack-ng v1.2 RC2+ (Monitor Mode Is Different)
 	case "$kaliTwo" in
 
 		"")
@@ -5494,6 +5497,7 @@ getWirelessInterfaces(){
 		"0")
 		interface=$(iwconfig | grep "wlan" | head -c 5)
 		interfaceMonitor=$(iwconfig | grep "mon" | head -c 4)
+		interfaceName=$interfaceMonitor
 		;;
 
 		"1")
