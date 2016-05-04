@@ -35,7 +35,16 @@
 # - Added interfaceName to the stats banner. This will display the current interface name (wlan0, mon0, wlan0mon, etc).
 # - Added interfaceMode to the main banner. Valid Interface Modes are 0=Managed / 1=Monitor Standard / 2=Monitor New / 3=Monitor Other / 4=Unknown
 # - Added "Open Interface Options" item to Extras Menu.
-# - Added "Interface Up", "Interface Down", "Interface Managed", and "Interface Monitor" to Extras Menu. The Up and Down functions affect the interface ONLY for monitor mode (mon0, mon1, wlan0mon, wlan1mon, etc) currently. Please use Enable/Disable Channel Hopping to bring up/down a managed interface (i.e. wlan0, wlan1, etc)
+# - Added "Interface Up", "Interface Down", "Interface Managed", and "Interface Monitor" to Extras Menu. The Up and Down functions affect the interface ONLY for monitor mode (mon0, mon1, wlan0mon, wlan1mon, etc) currently. Please use Enable/Disable Channel Hopping to bring up/down a managed interface (i.e. wlan0, wlan1, etc).
+# - Added support for all new Reaver arguments and options for Kali 2.x build.
+# - Added airodump-ng WPS scanning options to now show WPS connections without using wifite to show them.
+# - Removed the wifite window from being launched with standard WPS attack. Replaced by --wps flag in airodump-ng.
+# - Added "fixAirmonCompat" function to send the command to kill any processes that may interfere.
+# - Removed the "initAirmon" function that was inactive.
+# - Added the airmon-ng conflicting process fix to Extras Menu.
+# - Added "wlanXmon" interfaces for monitor mode termination. A better way of doing this will be done soon!
+# - Fixed not returning to Extras Menu from "Open Interfaces Menu".
+# - Added "isDebugMode" variable to show/hide certain areas that may need additional testing output. Disabled by default.
 
 # v1.2
 # - Fixed the top text of disclaimer banner from being cut off.
@@ -163,7 +172,6 @@
 # Add "create wordlist" for phone numbers and possibly others. Add option for local
 # Add checks and copy files created by besside to appropriate directories
 # Add convert to .hccap support for ocl-hashcat and other compatible software
-# Get sessions loading and saving from *.sessions files
 # Get advanced mode working
 # Get help menu working
 
@@ -549,8 +557,9 @@ setVariablesRequired(){
 
 	currentTask="setVariablesRequired"
 
-	interface=""
-	interfaceMonitor=""
+	interface="wlan0"
+	#interfaceMonitor="mon0"
+	interfaceMonitor="wlan0mon"
 	interfaceName="wlan0"
 	interfaceMode="0"
 	bssid=""
@@ -585,6 +594,8 @@ setDefaults(){
 	versionBase="v1.3"
 
 	initPath="$PWD"
+
+	isDebugMode="0"
 
 }
 
@@ -678,6 +689,19 @@ setDefaultsWPS(){
 	reaverVerbose="-v"
 	reaverVerboseMore="-vv"
 
+	# Updated Options
+	reaverDaemonize="-D"
+	reaverExhaustive="-X"
+	reaverNoAutoPass="-Z"
+	reaverP1Index="-1"
+	reaverP2Index="-2"
+	reaverPixie="-K"
+	reaverPixieLoop="-P"
+	reaverGeneratePin="-W"
+
+	# -K Argument Number (Default 1)
+	pixieNumber="1"
+
 
 	wifite="wifite"
 	wifiteAttackAll="wifite -all"
@@ -769,7 +793,9 @@ showDisclaimer(){
 
 		"Y" | "y")
 		fixNegativeOneChannelError
-		startNetworkManager
+		#initAirmon
+		fixAirmonCompat
+		#startNetworkManager
 		#killNetworkManager
 		#killWpaSupplicant
 		#initMonitorMode
@@ -1036,6 +1062,14 @@ checkConnectionStatus(){
 }
 
 
+fixAirmonCompat(){
+
+	$terminal airmon-ng check kill&
+	#airmon-ng check kill&
+
+}
+
+
 checkWifiandDisplayMessage(){
 
 	case "$ipStatusText" in
@@ -1161,7 +1195,8 @@ isUnreleased(){
 
 		"Y" | "y")
 		fixNegativeOneChannelError
-		startNetworkManager
+		fixAirmonCompat
+		#startNetworkManager
 		#killNetworkManager
 		#killWpaSupplicant
 		#initMonitorMode
@@ -1760,14 +1795,16 @@ menuExtrasInterface(){
 
 	echo ""
 
-	echo "1) Enable Channel Hopping On $interface"
-	echo "2) Disable Channel Hopping On $interface"
+	echo "1) Enable Channel Hopping: $interface"
+	echo "2) Disable Channel Hopping: $interface"
 	echo ""
 	echo "3) Bring Up Interface: $interfaceMonitor"
 	echo "4) Bring Down Interface: $interfaceMonitor"
 	echo ""
 	echo "5) Switch Interface To Managed"
 	echo "6) Switch Interface To Monitor"
+	echo ""
+	echo "7) Fix Airmon Conflicting Processes"
 	echo ""
 	echo "R) Return To Previous Menu"
 	echo ""
@@ -1808,8 +1845,13 @@ menuExtrasInterface(){
 		interfaceMonitor
 		;;
 
+		"7")
+		fixAirmonCompat
+		;;
+
 		"r" | "R")
-		$lastMenuID
+		#$lastMenuID
+		menuExtras
 		;;
 
 		"M" | "m")
@@ -3028,78 +3070,90 @@ stopMonitorMode(){
 	echo ""
 	echo ""
 	$stopMonitorMode mon0
+	$stopMonitorMode wlan0mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon1
+	$stopMonitorMode wlan1mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon2
+	$stopMonitorMode wlan2mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon3
-	banner
+	$stopMonitorMode wlan3mon
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon4
+	$stopMonitorMode wlan4mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon5
+	$stopMonitorMode wlan5mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon6
+	$stopMonitorMode wlan6mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon7
+	$stopMonitorMode wlan7mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon8
+	$stopMonitorMode wlan8mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon9
+	$stopMonitorMode wlan9mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon10
+	$stopMonitorMode wlan10mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon11
+	$stopMonitorMode wlan11mon
 	banner
 	echo ""
 	echo "Killing all active previous monitor mode interfaces...."
 	echo ""
 	echo ""
 	$stopMonitorMode mon12
+	$stopMonitorMode wlan12mon
 
 	banner
 
@@ -3275,6 +3329,21 @@ adAPScan(){
 }
 
 
+adAPScanWPS(){
+
+	currentTask="adAPScanWPS"
+
+	echo ""
+	echo ""
+
+	$terminal airodump-ng --channel $channel -i $interfaceMonitor --wps&
+
+	echo ""
+	echo ""
+
+}
+
+
 adAPScanWifiteWPS(){
 
 	currentTask="adAPScanWifiteWPS"
@@ -3314,6 +3383,20 @@ adAPScanNoChannel(){
 	$terminal airodump-ng -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one -i $interfaceMonitor &
 	#read pause
+
+	echo ""
+	echo ""
+
+}
+
+
+adAPScanNoChannelWPS(){
+
+	currentTask="adAPScanNoChannelWPS"
+
+	echo ""
+	echo ""
+	$terminal airodump-ng -i $interfaceMonitor --wps&
 
 	echo ""
 	echo ""
@@ -4699,8 +4782,9 @@ autoModeNoPreviousSessionWPS(){
 
 	currentTask="autoModeNoPreviousSessionWPS"
 
-	adAPScanWifiteWPSNoChannel
-	adAPScanNoChannel
+	#adAPScanWifiteWPSNoChannel
+	#adAPScanNoChannel
+	adAPScanNoChannelWPS
 
 	sleepMessage="Setting Up User Input...."
 	doSleepMessage
@@ -4744,6 +4828,80 @@ menuAttacksWPS(){
 
 	currentTask="menuAttacksWPS"
 
+	banner
+	bannerStats
+
+	# Set Default Choice
+	pixieChoice="1"
+
+	echo ""
+	echo "1) Continue With PixieDust ENABLED (Recommended)"
+	echo ""
+	echo "2) Continue With PixieDust DISABLED"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Choose an Option and Press ENTER to continue...."
+	echo ""
+	echo ""
+
+	read pixieChoice
+
+	case "$pixieChoice" in
+
+		"")
+		blank=""
+		;;
+
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
+
+		"A" | "a")
+		menuAdvanced
+		;;
+
+		"S" | "s")
+		menuSessionSave
+		;;
+
+		"L" | "l")
+		menuSessionLoad
+		;;
+
+		"Z" | "z")
+		menuHoneyPotMode
+		;;
+
+		"H" | "h")
+		menuHelp
+		;;
+
+		"E" | "e")
+		menuExtras
+		;;
+
+		"X" | "x")
+		killAll
+		stopMonitorMode
+		bannerExit
+		;;
+
+		*)
+		blank=""
+		;;
+
+	esac
 
 	sleepMessage="Preparing Reaver Session...."
 	doSleepMessage
@@ -4770,7 +4928,19 @@ menuAttacksWPS(){
 	echo "Press CTRL+C At Any Time To Stop Current Session and Save"
 	sleep 2
 
-	$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+	case "$pixieChoice" in
+	
+		"1")
+		$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+		#$reaver -i $interfaceMonitor -b $bssid -c $channel -vv
+		;;
+	
+		"2")
+		#$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv -K $pixieNumber
+		$reaver -i $interfaceMonitor -b $bssid -c $channel -vv -K $pixieNumber
+		;;
+
+	esac
 
 	echo ""
 	echo ""
@@ -4807,7 +4977,7 @@ menuAttacksWPSWifiteAuto(){
 
 	killAll
 
-	#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
+	#$terminal $wifiteAttackWPS -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
 	$terminal $wifiteAttackWPS &
 
 	banner
@@ -5505,14 +5675,14 @@ getWirelessInterfaces(){
 		interface=$(iwconfig | grep "wlan" | head -c 5)
 		interfaceMonitor=$(iwconfig | grep "wlan" | head -c 8)
 		interfaceName=$interfaceMonitor
-		fixKaliTwoMonError
+		#fixKaliTwoMonError
 		;;
 
 	esac
 
-	echo "$interface"
-	echo "$interfaceMonitor"
-	read pause
+	#echo "$interface"
+	#echo "$interfaceMonitor"
+	#read pause
 
 }
 
@@ -5679,11 +5849,17 @@ interfaceMonitor(){
 }
 
 fixKaliTwoMonError(){
-	echo "DEBUG: Kali 2.x Fix - Step 1"
-	echo ""
-	echo "$interface"
-	echo "$interfaceMonitor"
-	read pause
+
+	case "$isDebugMode" in
+	
+		"1")
+		echo "DEBUG: Kali 2.x Fix - Step 1"
+		echo ""
+		echo "$interface"
+		echo "$interfaceMonitor"
+		read pause
+		;;
+	esac
 
 	ifconfig $interfaceMonitor down
 	sleep 2
@@ -5691,11 +5867,16 @@ fixKaliTwoMonError(){
 	sleep 2
 	ifconfig $interfaceMonitor up
 
-	echo "DEBUG: Kali 2.x Fix - Step 2"
-	echo ""
-	echo "$interface"
-	echo "$interfaceMonitor"
-	read pause
+	case "$isDebugMode" in
+	
+		"1")
+		echo "DEBUG: Kali 2.x Fix - Step 2"
+		echo ""
+		echo "$interface"
+		echo "$interfaceMonitor"
+		read pause
+		;;
+	esac
 }
 
 
@@ -5717,6 +5898,7 @@ initMain
 ############################################################################
 #   INITIAL LAUNCH END   ###################################################
 ############################################################################
+
 
 
 
