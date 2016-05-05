@@ -45,6 +45,7 @@
 # - Added "wlanXmon" interfaces for monitor mode termination. A better way of doing this will be done soon!
 # - Fixed not returning to Extras Menu from "Open Interfaces Menu".
 # - Added "isDebugMode" variable to show/hide certain areas that may need additional testing output. Disabled by default.
+# - Fixed default WEP dump scanning channel hopping during attack.
 
 # v1.2
 # - Fixed the top text of disclaimer banner from being cut off.
@@ -2802,6 +2803,14 @@ getMacAddressMonitor(){
 
 	macAddressMonitor=$(ip link show $interfaceMonitor | tail -n 1 |  cut -f 6 -d " ")
 
+	case "$isDebugMode" in
+		"1")
+		echo "interface: $interfaceMonitor"
+		echo "mac: $macAddressMonitor"
+		read pause
+		;;
+	esac
+
 }
 
 
@@ -3709,7 +3718,8 @@ adFileDumpWEP(){
 
 	disableChannelHopping
 
-	$terminal airodump-ng -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+	$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+	#$terminal airodump-ng -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
 	#read pause
 
@@ -3728,7 +3738,9 @@ adFileDumpNoChannelWEP(){
 	echo ""
 	echo ""
 
-	$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
+
+	#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
 	#read pause
 
@@ -3888,6 +3900,8 @@ aircrackDecryptWEP(){
 
 
 	aircrack-ng -e "$essid" -b $bssid -l "key_$essid" *.cap *.ivs&
+	#aircrack-ng -l "key_$essid" *.cap *.ivs&
+	#'aircrack-ng' " -l" "$capturePath/$encryptionType/key_$essid" "$capturePath/$encryptionType/*.cap" "$capturePath/$encryptionType/*.ivs"&
 
 	#echo ""
 	#echo ""
@@ -4024,6 +4038,7 @@ adFileDumpWPA(){
 	disableChannelHopping
 
 	$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
 
 	echo ""
 	echo ""
@@ -4038,7 +4053,8 @@ adFileDumpNoChannelWPA(){
 	echo ""
 	echo ""
 
-	$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
+	#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
 
 	#Working (uses session path)
 	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
@@ -4452,6 +4468,7 @@ adFileDumpWPA2(){
 	disableChannelHopping
 
 	$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
 
 	echo ""
 	echo ""
@@ -4466,7 +4483,8 @@ adFileDumpNoChannelWPA2(){
 	echo ""
 	echo ""
 
-	$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+	$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
+	#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
 
 	#Working (uses session path)
 	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
@@ -5667,13 +5685,15 @@ getWirelessInterfaces(){
 
 		"0")
 		interface=$(iwconfig | grep "wlan" | head -c 5)
-		interfaceMonitor=$(iwconfig | grep "mon" | head -c 4)
+		#interfaceMonitor=$(iwconfig | grep "mon" | head -c 4)
+		interfaceMonitor="$interface""mon"
 		interfaceName=$interfaceMonitor
 		;;
 
 		"1")
 		interface=$(iwconfig | grep "wlan" | head -c 5)
-		interfaceMonitor=$(iwconfig | grep "wlan" | head -c 8)
+		#interfaceMonitor=$(iwconfig | grep "wlan" | head -c 8)
+		interfaceMonitor="$interface""mon"
 		interfaceName=$interfaceMonitor
 		#fixKaliTwoMonError
 		;;
@@ -5838,13 +5858,15 @@ interfaceDown(){
 
 interfaceManaged(){
 
-	iwconfig wlan0mon mode managed
+	#iwconfig wlan0mon mode managed
+	iwconfig $interfaceMonitor mode managed
 
 }
 
 interfaceMonitor(){
 
-	iwconfig wlan0mon mode monitor
+	#iwconfig wlan0mon mode monitor
+	iwconfig $interfaceMonitor mode monitor
 
 }
 
