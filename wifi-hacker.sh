@@ -869,15 +869,17 @@ banner(){
 	currentTask="banner"
 
 	clear
-
+	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "|  [M] Main Menu    |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [X] Exit           |"
 	echo "---------------------    ****************************************************************    ----------------------"
+	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
+	$white
 
 }
 
@@ -889,15 +891,17 @@ bannerNoMenu(){
 	setWindowTitle
 
 	clear
-
+	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "|  [ CTRL+C ] Main  |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C x2 ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
+	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
+	$white
 
 }
 
@@ -909,15 +913,17 @@ bannerMain(){
 	setWindowTitle
 
 	clear
-
+	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "-------------------------------------------------------------------------------------------------------------------"
+	$orange
 	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
+	$white
 
 }
 
@@ -928,15 +934,17 @@ bannerMenu(){
 	setWindowTitle
 
 	clear
-
+	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
+	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
+	$white
 
 }
 
@@ -945,10 +953,12 @@ bannerStats(){
 
 	currentTask="bannerStats"
 
+	$cyan
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	echo "Interface Name: $interfaceName / MAC: $macAddressMonitor / ESSID: $essid / BSSID: $bssid / Channel: $channel"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	echo ""
+	$white
 
 }
 
@@ -965,6 +975,7 @@ bannerExit(){
 	enableChannelHopping
 
 	clear
+	$purple
 	echo "Thank You For Playing Fair ;)"
 	echo ""
 	echo "esc0rtd3w 2016"
@@ -1241,12 +1252,13 @@ isUnreleased(){
 	sessionRemoveEmpty
 
 	bannerMenu
-
+	$red
 	echo ""
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
 	echo ""
+	$cyan
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
@@ -1256,12 +1268,14 @@ isUnreleased(){
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
 	echo ""
+	$red
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
 	echo ""
 	echo ""
 	echo ""
+	$white
 	echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
 	echo ""
 	echo ""
@@ -1325,22 +1339,36 @@ menuMain(){
 	#echo "Welcome to the WiFi Hacker script!"
 	echo "Compatible with all WEP/WPA/WPA2/WPS protected WiFi routers."
 	echo ""
+	$red
 	echo "**********************************************************************"
 	echo "YOU MUST DISCONNECT FROM ANY WIRELESS CONNECTIONS BEFORE CONTINUING!!!"
 	echo "**********************************************************************"
 	echo ""
+
+	case "$ipStatus" in
+		"0")
+		$green
+		;;
+
+		"1")
+		$red
+		;;
+	esac
 	echo "You are currently connected to: $ipStatusText"
+	$white
 	echo ""
 	echo ""
+	#$cyan
 	echo "0) Full Automatic Mode (Applies To All Encryption Types)"
+	#$white
 	echo ""
 	echo "1) WEP Mode (Commands can be executed from a menu to easily circumvent any WEP connection)"
 	echo ""
 	echo "2) WPS Mode (May also have WPA, WPA2, or WEP displayed. Ignore this, as it has no effect on success rate)"
 	echo ""
-	echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others, VERY LOW SUCCESS RATE)"
+	echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others, LOW SUCCESS RATE)"
 	echo ""
-	echo "4) WPA2 Mode (Almost identical to WPA attacks. This mode also carries a VERY LOW SUCCESS RATE)"
+	echo "4) WPA2 Mode (Almost identical to WPA attacks. This mode also carries a LOW SUCCESS RATE)"
 	echo ""
 	echo ""
 	echo ""
@@ -1488,10 +1516,12 @@ menuAuto(){
 
 	banner
 	bannerStats
-
+	
+	#$green
 	echo ""
 	echo "You are ready to begin the $encryptionTypeText attack!"
 	echo ""
+	#$white
 
 	case "$encryptionTypeText" in
 		"WEP")
