@@ -27,7 +27,8 @@
 ############################################################################
 
 # v1.4
-# - Added terminal colors to a "setColor" function
+# - Added terminal colors to a "setTerminalColors" function.
+# - Added "checkUpdate" and "getUpdate" functions to grab the newest shell script directly.
 
 # v1.3
 # - Added support for AirCrack Suite v1.2+ using the new wlanXmon format instead of monX.
@@ -230,6 +231,7 @@ initMain(){
 
 	setDefaultSession
 
+	setTerminalColors
 
 	# Optionally show dependencies before launch
 	#showDependencies
@@ -528,20 +530,18 @@ resizeWindow(){
 }
 
 
-setColor(){
+setTerminalColors(){
 
-	currentTask="setColor"
+	currentTask="setTerminalColors"
 
-	blue=$(printf '\033[34m')
-	cyan=$(printf '\033[36m')
-	green=$(printf '\033[32m')
-	grey=$(printf '\033[37m')
-	orange=$(printf '\033[33m')
-	purple=$(printf '\033[35m')
-	red=$(printf '\033[31m')
-	white=$(printf '\033[0m')
-	
-	#read pause
+	blue=$(echo 'printf' '\033[34m')
+	cyan=$(echo 'printf' '\033[36m')
+	green=$(echo 'printf' '\033[32m')
+	grey=$(echo 'printf' '\033[37m')
+	orange=$(echo 'printf' '\033[33m')
+	purple=$(echo 'printf' '\033[35m')
+	red=$(echo 'printf' '\033[31m')
+	white=$(echo 'printf' '\033[0m')
 
 }
 
@@ -596,7 +596,8 @@ setVariablesRequired(){
 	essid=""
 	channel=""
 
-	updateMaster=https://github.com/esc0rtd3w/wifi-hacker/blob/master/wifi-hacker.sh
+	# Update Stuff
+	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
 	updateTemp="/tmp/update-check.tmp"
 
 }
@@ -624,7 +625,7 @@ setDefaults(){
 
 	currentTask="setDefaults"
 
-	versionBase="v1.3"
+	versionBase="v1.4"
 
 	initPath="$PWD"
 
@@ -791,10 +792,12 @@ showDisclaimer(){
 
 	bannerMenu
 
+	$red
 	echo ""
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
+	$white
 	echo ""
 	echo "By using this script, you are agreeing to the following terms:"
 	echo ""
@@ -808,9 +811,11 @@ showDisclaimer(){
 	echo ""
 	echo "4) Stay within legal limits of channel usage, depending on your country laws"
 	echo ""
+	$red
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
+	$white
 	echo ""
 	echo ""
 	echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
@@ -1019,6 +1024,12 @@ checkUpdate(){
 	
 	wget -O "$updateTemp" $updateMaster
 
+	cat $updateTemp | grep $versionBase
+
+	read pause
+
+	rm $updateTemp
+
 }
 
 
@@ -1030,7 +1041,9 @@ getUpdate(){
 	#script=$(printf '%s\n' "${0##*/}")
 	script=$(basename -- "$0")
 	
-	wget -O "$initPath/$script" $updateMaster
+	wget -O "$initPath/$script.tmp" $updateMaster
+
+	read pause
 
 }
 
@@ -5987,7 +6000,6 @@ initMain
 ############################################################################
 #   INITIAL LAUNCH END   ###################################################
 ############################################################################
-
 
 
 
