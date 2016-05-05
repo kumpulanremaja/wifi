@@ -1017,7 +1017,7 @@ checkUpdate(){
 
 	currentTask="checkUpdate"
 	
-	wget -O $updateTemp $updateMaster
+	wget -O "$updateTemp" $updateMaster
 
 }
 
@@ -1026,7 +1026,11 @@ getUpdate(){
 
 	currentTask="getUpdate"
 	
-	wget -O $initPath $updateMaster
+	# Get Base Script Name
+	#script=$(printf '%s\n' "${0##*/}")
+	script=$(basename -- "$0")
+	
+	wget -O "$initPath/$script" $updateMaster
 
 }
 
