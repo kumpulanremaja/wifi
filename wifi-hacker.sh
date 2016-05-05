@@ -27,6 +27,8 @@
 ############################################################################
 
 # v1.4
+# - Fixed previous Airodump and Aireplay windows not closing when launching a new dump session for WEP Attack Menu.
+# - Added "findCaptureFiles" function to list all available cap, ivs, csv, netxml files for cracking.
 # - Added terminal colors to a "setTerminalColors" function.
 # - Added "checkUpdate" and "getUpdate" functions to grab the newest shell script directly.
 
@@ -630,6 +632,13 @@ setDefaults(){
 	initPath="$PWD"
 
 	isDebugMode="0"
+	
+	# Default Capture Lists Values
+	listCap=0
+	listIvs=0
+	listXor=0
+	listCsv=0
+	listNetXml=0
 
 }
 
@@ -2582,7 +2591,8 @@ getESSID(){
 	echo "Example: NETGEAR"
 	echo ""
 	echo ""
-
+	
+	$cyan
 	read getESSIDTemp
 
 	case "$getESSIDTemp" in
@@ -2633,6 +2643,7 @@ getESSID(){
 
 	esac
 
+	$white
 }
 
 
@@ -2708,6 +2719,7 @@ getBSSID(){
 	echo ""
 	echo ""
 
+	$cyan
 	read getBSSIDTemp
 
 	case "$getBSSIDTemp" in
@@ -2758,6 +2770,7 @@ getBSSID(){
 
 	esac
 
+	$white
 }
 
 
@@ -2832,6 +2845,7 @@ getChannel(){
 	echo ""
 	echo ""
 
+	$cyan
 	read getChannelTemp
 
 	case "$getChannelTemp" in
@@ -2882,6 +2896,7 @@ getChannel(){
 
 	esac
 
+	$white
 }
 
 
@@ -3721,6 +3736,8 @@ menuAttacksWEP(){
 		;;
 
 		"N" | "n")
+		killAirodump
+		killAireplay
 		adFileDump
 		;;
 
@@ -4008,8 +4025,14 @@ aircrackDecryptWEP(){
 	echo ""
 	echo ""
 
+	findCaptureFiles
 
-	aircrack-ng -e "$essid" -b $bssid -l "key_$essid" *.cap *.ivs&
+	#echo "$listCap"
+	#echo "$listIvs"
+	#read pause
+
+	aircrack-ng -a $acMode -e "$essid" -b $bssid -l "key_$essid" $listCap $listIvs&
+	#aircrack-ng -e "$essid" -b $bssid -l "key_$essid" *.cap *.ivs&
 	#aircrack-ng -l "key_$essid" *.cap *.ivs&
 	#'aircrack-ng' " -l" "$capturePath/$encryptionType/key_$essid" "$capturePath/$encryptionType/*.cap" "$capturePath/$encryptionType/*.ivs"&
 
@@ -5826,6 +5849,19 @@ cleanCaptureFiles(){
 	rm *.xor
 	rm *.csv
 	rm *.netxml
+
+}
+
+
+findCaptureFiles(){
+
+	currentTask="findCaptureFiles"
+
+	listCap=$(ls | grep .cap)
+	listIvs=$(ls | grep .ivs)
+	listXor=$(ls | grep .xor)
+	listCsv=$(ls | grep .csv)
+	listNetXml=$(ls | grep .netxml)
 
 }
 
