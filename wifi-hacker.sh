@@ -6,7 +6,7 @@
 ############################################################################
 
 
-# WiFi Hacker v1.3
+# WiFi Hacker v1.4
 # esc0rtd3w 2016
 
 # https://github.com/esc0rtd3w/wifi-hacker/
@@ -25,6 +25,9 @@
 ############################################################################
 #   VERSION HISTORY BEGIN   ################################################
 ############################################################################
+
+# v1.4
+# - Added terminal colors to a "setColor" function
 
 # v1.3
 # - Added support for AirCrack Suite v1.2+ using the new wlanXmon format instead of monX.
@@ -160,7 +163,6 @@
 ############################################################################
 
 
-# Add support for new airodump-ng "-wps" command
 # Add change options on the fly for WPS and other attack modes
 # Add bully support for WPS attacks
 # Add cowpatty support for WPA/WPA2 attacks
@@ -330,6 +332,7 @@ setDependencies(){
 	pathSed="/bin/sed"
 	pathSleep="/bin/sleep"
 	pathTail="/usr/bin/tail"
+	pathWget="/usr/bin/wget"
 
 }
 
@@ -441,6 +444,13 @@ checkDependencies(){
 		   statusPathTail="NA"
 	fi
 
+	if [ -f $pathWget ];
+		then
+		   statusPathWget="OK"
+		else
+		   statusPathWget="NA"
+	fi
+
 }
 
 
@@ -474,6 +484,7 @@ showDependencies(){
 	echo "$pathSed - Status: $statusPathSed"
 	echo "$pathSleep - Status: $statusPathSleep"
 	echo "$pathTail - Status: $statusPathTail"
+	echo "$pathWget - Status: $statusPathWget"
 	echo ""
 	echo ""
 
@@ -501,7 +512,7 @@ setWindowTitle(){
 
 	currentTask="setWindowTitle"
 
-	title='echo -ne "\033]0;WiFi Hacker v1.3\007"'
+	title='echo -ne "\033]0;WiFi Hacker v1.4\007"'
 
 	$title
 
@@ -513,6 +524,24 @@ resizeWindow(){
 	currentTask="resizeWindow"
 
 	printf '\033[8;32;115t'
+
+}
+
+
+setColor(){
+
+	currentTask="setColor"
+
+	blue=$(printf '\033[34m')
+	cyan=$(printf '\033[36m')
+	green=$(printf '\033[32m')
+	grey=$(printf '\033[37m')
+	orange=$(printf '\033[33m')
+	purple=$(printf '\033[35m')
+	red=$(printf '\033[31m')
+	white=$(printf '\033[0m')
+	
+	#read pause
 
 }
 
@@ -566,6 +595,9 @@ setVariablesRequired(){
 	bssid=""
 	essid=""
 	channel=""
+
+	updateMaster=https://github.com/esc0rtd3w/wifi-hacker/blob/master/wifi-hacker.sh
+	updateTemp="/tmp/update-check.tmp"
 
 }
 
@@ -970,6 +1002,37 @@ doSleepMessage(){
 
 ############################################################################
 #   GLOBAL TEXT END   ######################################################
+############################################################################
+
+
+
+
+
+############################################################################
+#   UPDATE STUFF BEGIN   ###################################################
+############################################################################
+
+
+checkUpdate(){
+
+	currentTask="checkUpdate"
+	
+	wget -O $updateTemp $updateMaster
+
+}
+
+
+getUpdate(){
+
+	currentTask="getUpdate"
+	
+	wget -O $initPath $updateMaster
+
+}
+
+
+############################################################################
+#   UPDATE STUFF END   #####################################################
 ############################################################################
 
 
