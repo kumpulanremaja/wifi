@@ -27,6 +27,11 @@
 ############################################################################
 
 # v1.4
+# - Updated text for gathering target info on all the different encryption types.
+# - Updated sleep messages for WPS attacks.
+# - Fixed PixieDust option not setting correctly if nothing is selected at menu choice.
+# - Fixed all the killProcess functions to now kill the process until it no longer shows up under process list.
+# - Added a force exit for aircrack-ng before cracking attempt. This attempts to fix the corrupt errors when scanning IVS and CAP files.
 # - Fixed previous Airodump and Aireplay windows not closing when launching a new dump session for WEP Attack Menu.
 # - Added "findCaptureFiles" function to list all available cap, ivs, csv, netxml files for cracking.
 # - Added terminal colors to a "setTerminalColors" function.
@@ -1526,11 +1531,11 @@ menuAuto(){
 	banner
 	bannerStats
 	
-	#$green
+	$green
 	echo ""
 	echo "You are ready to begin the $encryptionTypeText attack!"
 	echo ""
-	#$white
+	$white
 
 	case "$encryptionTypeText" in
 		"WEP")
@@ -2532,16 +2537,20 @@ getESSID(){
 
 	case "$encryptionTypeText" in
 		"WPS")
-		echo "THERE SHOULD NOW BE TWO (2) TERMINAL WINDOWS OPEN"
+		echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
 		echo ""
-		echo "YOU CAN USE THE AIRODUMP WINDOW (ALL WHITE TEXT) TO GATHER ALL NEEDED INFORMATION"
+		echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
 		echo ""
 		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
 		echo ""
-		echo "THE WIFITE WINDOW (WITH GREEN TEXT) WILL HELP YOU TO DETERMINE WHICH TARGETS SUPPORT WPS"
+		echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
 		echo ""
-		echo "NOTE: YOU MAY HAVE TO MOVE ONE OF THE WINDOWS IF THEY ARE STACKED YOU MAY NOT SEE BOTH"
 		echo ""
+		$green
+		echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER WPS COLUMN"
+		echo ""
+		echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"WEP\", \"WPA\", or \"WPA2\" UNDER ENC COLUMN"
+		$white
 		echo ""
 		echo ""
 		;;
@@ -2555,6 +2564,12 @@ getESSID(){
 		echo ""
 		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
 		echo ""
+		echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
+		echo ""
+		echo ""
+		$green
+		echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
+		$white
 		echo ""
 		echo ""
 		;;
@@ -2568,6 +2583,12 @@ getESSID(){
 		echo ""
 		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
 		echo ""
+		echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
+		echo ""
+		echo ""
+		$green
+		echo "WPA TARGETS MAY HAVE \"WPA\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
+		$white
 		echo ""
 		echo ""
 		;;
@@ -2581,6 +2602,12 @@ getESSID(){
 		echo ""
 		echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
 		echo ""
+		echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
+		echo ""
+		echo ""
+		$green
+		echo "WPA2 TARGETS MAY HAVE \"WPA2\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
+		$white
 		echo ""
 		echo ""
 		;;
@@ -4031,6 +4058,8 @@ aircrackDecryptWEP(){
 	#echo "$listIvs"
 	#read pause
 
+	killAircrack
+
 	aircrack-ng -a $acMode -e "$essid" -b $bssid -l "key_$essid" $listCap $listIvs&
 	#aircrack-ng -e "$essid" -b $bssid -l "key_$essid" *.cap *.ivs&
 	#aircrack-ng -l "key_$essid" *.cap *.ivs&
@@ -4995,11 +5024,6 @@ menuAttacksWPS(){
 	echo ""
 	echo ""
 	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
 	echo "Choose an Option and Press ENTER to continue...."
 	echo ""
 	echo ""
@@ -5009,7 +5033,21 @@ menuAttacksWPS(){
 	case "$pixieChoice" in
 
 		"")
-		blank=""
+		menuAttacksWPS
+		;;
+
+		"1")
+		pixieChoice="1"
+		sleepMessage1="Preparing Reaver/PixieDust Session...."
+		sleepMessage2="Launching Reaver/PixieDust Session...."
+		sleepMessage3="Reaver Session Sprinkled With PixieDust Is Now Active!"
+		;;
+
+		"2")
+		pixieChoice="2"
+		sleepMessage1="Preparing Reaver Session...."
+		sleepMessage2="Preparing Reaver Session...."
+		sleepMessage3="Reaver Session Is Now Active!"
 		;;
 
 		"M" | "m")
@@ -5049,12 +5087,13 @@ menuAttacksWPS(){
 		;;
 
 		*)
-		blank=""
+		#pixieChoice="1"
+		menuAttacksWPS
 		;;
 
 	esac
 
-	sleepMessage="Preparing Reaver Session...."
+	sleepMessage="$sleepMessage1"
 	doSleepMessage
 	sleep 1
 
@@ -5062,19 +5101,21 @@ menuAttacksWPS(){
 
 	disableChannelHopping
 
-	sleepMessage="Preparing Reaver Session...."
+	sleepMessage="$sleepMessage1"
 	doSleepMessage
 	sleep 1
 
-	sleepMessage="Launching Reaver Session...."
+	sleepMessage="$sleepMessage2"
 	doSleepMessage
 	sleep 2
 
 	banner
 	bannerStats
 
-	sleepMessage="Reaver Session Active!"
+	sleepMessage="$sleepMessage3"
+	$green
 	doSleepMessage
+	$white
 	echo ""
 	echo "Press CTRL+C At Any Time To Stop Current Session and Save"
 	sleep 2
@@ -5082,11 +5123,15 @@ menuAttacksWPS(){
 	case "$pixieChoice" in
 	
 		"1")
+		#echo "PixeDust Enabled"
+		#read pause
 		$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
 		#$reaver -i $interfaceMonitor -b $bssid -c $channel -vv
 		;;
 	
 		"2")
+		#echo "PixeDust Disabled"
+		#read pause
 		#$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv -K $pixieNumber
 		$reaver -i $interfaceMonitor -b $bssid -c $channel -vv -K $pixieNumber
 		;;
@@ -5454,7 +5499,18 @@ killWifite(){
 	currentTask="killWifite"
 
 	findWifitePID=$(ps -A | grep "wifite" | head -c5)
-	killWifiteTemp=$(kill $findWifitePID)
+
+	case "$findWifitePID" in
+
+		"")
+		# No Process Found
+		;;
+
+		*)
+		killWifiteTemp=$(kill $findWifitePID)
+		;;
+	esac
+	
 
 }
 
@@ -5464,8 +5520,18 @@ killAirodump(){
 	currentTask="killAirodump"
 
 	findAirodumpPID=$(ps -A | grep "airodump-ng" | head -c5)
-	killAirodumpTemp=$(kill $findAirodumpPID)
-	killAirodumpTemp=$(killall airodump-ng)
+
+	case "$findAirodumpPID" in
+
+		"")
+		# No Process Found
+		;;
+
+		*)
+		killAirodumpTemp=$(kill $findAirodumpPID)
+		#killAirodumpTemp=$(killall airodump-ng)
+		;;
+	esac
 
 }
 
@@ -5475,7 +5541,17 @@ killAireplay(){
 	currentTask="killAireplay"
 
 	findAireplayPID=$(ps -A | grep "aireplay-ng" | head -c5)
-	killAireplayTemp=$(kill $findAireplayPID)
+
+	case "$findAireplayPID" in
+
+		"")
+		# No Process Found
+		;;
+
+		*)
+		killAireplayTemp=$(kill $findAireplayPID)
+		;;
+	esac
 
 }
 
@@ -5485,7 +5561,17 @@ killAircrack(){
 	currentTask="killAircrack"
 
 	findAircrackPID=$(ps -A | grep "aircrack-ng" | head -c5)
-	killAircrackTemp=$(kill $findAircrackPID)
+
+	case "$findAircrackPID" in
+
+		"")
+		# No Process Found
+		;;
+
+		*)
+		killAircrackTemp=$(kill $findAircrackPID)
+		;;
+	esac
 
 }
 
