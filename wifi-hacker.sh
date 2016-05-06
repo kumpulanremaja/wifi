@@ -667,7 +667,7 @@ setDefaultsWPA(){
 
 	currentTask="setDefaultsWPA"
 
-	wordlist="darkc0de.lst"
+	wordlist="/usr/share/wordlists/metasploit/password.lst"
 
 	retryDeauth="0"
 
@@ -4249,9 +4249,11 @@ aircrackDecryptWPA(){
 	echo ""
 	echo "You need darkc0de.lst to crack the key, or another list:"
 	echo ""
-	echo "Mirror (Direct):"
-	echo "https://drive.google.com/file/d/0B-c-aPfOv8-SOHA0QVRiOE5tRVk/edit?usp=sharing"
+	echo "Current List Loaded:"
 	echo ""
+	$green
+	echo "$wordlist"
+	$white
 	echo ""
 	echo "You may press C and ENTER to load a custom list"
 	echo ""
@@ -4411,7 +4413,9 @@ captureHandshakeWPA(){
 	echo "Once handshake is complete, you may close the airodump window."
 	echo ""
 	echo ""
+	$green
 	echo "Example: [ WPA handshake: $bssid ]"
+	$white
 	echo ""
 	echo ""
 	echo ""
@@ -4679,9 +4683,11 @@ aircrackDecryptWPA2(){
 	echo ""
 	echo "You need darkc0de.lst to crack the key, or another list:"
 	echo ""
-	echo "Mirror (Direct):"
-	echo "https://drive.google.com/file/d/0B-c-aPfOv8-SOHA0QVRiOE5tRVk/edit?usp=sharing"
+	echo "Current List Loaded:"
 	echo ""
+	$green
+	echo "$wordlist"
+	$white
 	echo ""
 	echo "You may press C and ENTER to load a custom list"
 	echo ""
@@ -4841,7 +4847,9 @@ captureHandshakeWPA2(){
 	echo "Once handshake is complete, you may close the airodump window."
 	echo ""
 	echo ""
+	$green
 	echo "Example: [ WPA handshake: $bssid ]"
+	$white
 	echo ""
 	echo ""
 	echo ""
@@ -6161,6 +6169,7 @@ initMain
 ############################################################################
 #   INITIAL LAUNCH END   ###################################################
 ############################################################################
+
 
 
 
