@@ -1609,7 +1609,7 @@ menuAuto(){
 	echo ""
 	echo ""
 	echo ""
-	echo "Press ENTER to clear the current session and select a victim...."
+	echo "Press ENTER to clear the current session and select a target...."
 	echo ""
 	echo "YOU MAY ALSO PRESS THE "\""P"\"" KEY ON KEYBOARD TO LOAD PREVIOUS SESSION"
 	echo ""
@@ -2623,7 +2623,7 @@ getESSID(){
 		;;
 	esac
 
-	echo "PASTE or type the Victim ESSID Here and press ENTER:"
+	echo "PASTE or type the Target ESSID Here and press ENTER:"
 	echo ""
 	echo "Example: NETGEAR"
 	echo ""
@@ -2750,7 +2750,7 @@ getBSSID(){
 		;;
 	esac
 
-	echo "PASTE or type the Victim BSSID Here and press ENTER:"
+	echo "PASTE or type the Target BSSID Here and press ENTER:"
 	echo ""
 	echo "Example: A1:B2:C3:D4:E5:F6"
 	echo ""
@@ -2876,7 +2876,7 @@ getChannel(){
 		;;
 	esac
 
-	echo "Enter the Victim CHANNEL and press ENTER:"
+	echo "Enter the Target CHANNEL and press ENTER:"
 	echo ""
 	echo "Example: 6"
 	echo ""
