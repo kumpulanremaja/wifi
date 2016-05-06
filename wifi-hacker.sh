@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.4
+# - Added "bannerSlim" function to use a "Title Only" banner for disclaimer and unreleased menus.
 # - Updated text for gathering target info on all the different encryption types.
 # - Updated sleep messages for WPS attacks.
 # - Fixed PixieDust option not setting correctly if nothing is selected at menu choice.
