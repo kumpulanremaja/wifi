@@ -810,10 +810,17 @@ showDisclaimer(){
 	sessionCreatePaths
 	sessionRemoveEmpty
 
-	bannerMenu
+	bannerSlim
 
-	$red
+	$cyan
 	echo ""
+	echo "****************************************************************************************************"
+	echo "THIS WILL TERMINATE ANY ACTIVE INTERNET CONNECTION! IF YOU HAVE ISSUES CONNECTING TO THE INTERNET"
+	echo "AFTER AN ATTACK HAS BEEN PERFORMED, USE THE EXTRAS OPTION IN TOOLBAR TO START AND STOP SERVICES."
+	echo "IF THIS DOES NOT WORK, THEN YOU CAN RESTART THIS SCRIPT, OR REBOOT THE MACHINE AND RETURN TO NORMAL."
+	echo "****************************************************************************************************"
+	echo ""
+	$red
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
@@ -821,21 +828,18 @@ showDisclaimer(){
 	echo ""
 	echo "By using this script, you are agreeing to the following terms:"
 	echo ""
-	echo "1) THIS WILL TERMINATE ANY ACTIVE INTERNET CONNECTION! IF YOU HAVE ISSUES CONNECTING TO THE INTERNET"
-	echo "   AFTER AN ATTACK HAS BEEN PERFORMED, USE THE EXTRAS OPTION IN TOOLBAR TO START AND STOP SERVICES."
-	echo "   IF THIS DOES NOT WORK, THEN YOU CAN RESTART THIS SCRIPT, OR REBOOT THE MACHINE AND RETURN TO NORMAL."
+	echo "1) Not to be used for attacking access points that you do not have permission to test"
 	echo ""
-	echo "2) Not to be used for attacking access points that you do not have permission to test"
+	echo "2) Stay within legal limits of transmission power, depending on your country laws"
 	echo ""
-	echo "3) Stay within legal limits of transmission power"
-	echo ""
-	echo "4) Stay within legal limits of channel usage, depending on your country laws"
+	echo "3) Stay within legal limits of channel usage, depending on your country laws"
 	echo ""
 	$red
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
 	$white
+	echo ""
 	echo ""
 	echo ""
 	echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
@@ -964,6 +968,21 @@ bannerMenu(){
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
+	$white
+
+}
+
+bannerSlim(){
+
+	currentTask="bannerSlim"
+
+	setWindowTitle
+
+	clear
+	$blue
+	echo "---------------------    ****************************************************************    ----------------------"
+	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
+	echo "---------------------    ****************************************************************    ----------------------"
 	$white
 
 }
@@ -1305,7 +1324,8 @@ isUnreleased(){
 	sessionCreatePaths
 	sessionRemoveEmpty
 
-	bannerMenu
+	bannerSlim
+
 	$red
 	echo ""
 	echo "**********************************************************"
