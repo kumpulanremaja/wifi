@@ -634,7 +634,8 @@ setDefaults(){
 
 	currentTask="setDefaults"
 
-	versionBase="v1.4"
+	versionBase="1.4"
+	versionRemote="0.0"
 
 	initPath="$PWD"
 
@@ -887,7 +888,7 @@ banner(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [M] Main Menu    |    * WiFi Hacker $versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [X] Exit           |"
+	echo "|  [M] Main Menu    |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [X] Exit           |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -909,7 +910,7 @@ bannerNoMenu(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ CTRL+C ] Main  |    * WiFi Hacker $versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C x2 ] Exit  |"
+	echo "|  [ CTRL+C ] Main  |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C x2 ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -931,7 +932,7 @@ bannerMain(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ ]              |    * WiFi Hacker $versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
+	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	$orange
@@ -952,7 +953,7 @@ bannerMenu(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ ]              |    * WiFi Hacker $versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
+	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -1044,6 +1045,32 @@ doSleepMessage(){
 ############################################################################
 #   UPDATE STUFF BEGIN   ###################################################
 ############################################################################
+
+
+menuUpdate(){
+
+	currentTask="menuUpdate"
+	
+	banner
+	
+	echo ""
+	echo "Update Menu"
+	echo ""
+	echo ""
+	echo ""
+	echo "Current Version: $versionBase"
+	echo ""
+	echo "Remote Version: $versionRemote"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+
+	read pause
+
+}
 
 
 checkUpdate(){
