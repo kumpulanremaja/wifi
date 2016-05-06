@@ -36,6 +36,7 @@
 # - Added "findCaptureFiles" function to list all available cap, ivs, csv, netxml files for cracking.
 # - Added terminal colors to a "setTerminalColors" function.
 # - Added "checkUpdate" and "getUpdate" functions to grab the newest shell script directly.
+# - Updated text on stats banner. Changed "Interface Name: " to "Interface: " to allow for longer ESSID names without flooding to the next line.
 
 # v1.3
 # - Added support for AirCrack Suite v1.2+ using the new wlanXmon format instead of monX.
@@ -969,7 +970,7 @@ bannerStats(){
 
 	$cyan
 	echo "-------------------------------------------------------------------------------------------------------------------"
-	echo "Interface Name: $interfaceName / MAC: $macAddressMonitor / ESSID: $essid / BSSID: $bssid / Channel: $channel"
+	echo "Interface: $interfaceName / MAC: $macAddressMonitor / ESSID: $essid / BSSID: $bssid / Channel: $channel"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	echo ""
 	$white
