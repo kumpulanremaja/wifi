@@ -5046,7 +5046,7 @@ menuAttacksWPS(){
 		"2")
 		pixieChoice="2"
 		sleepMessage1="Preparing Reaver Session...."
-		sleepMessage2="Preparing Reaver Session...."
+		sleepMessage2="Launching Reaver Session...."
 		sleepMessage3="Reaver Session Is Now Active!"
 		;;
 
