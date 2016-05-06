@@ -173,10 +173,13 @@
 ############################################################################
 
 
-# Add change options on the fly for WPS and other attack modes
+# Add "Choose Interface" options to manually override interface in case of a mislabled name
+# Fix sessions ZIP Backup overwriting previous file if the date is the same
+# Extend the width of the airodump windows when opening externally
+# Add change options on-the-fly for WPS and other attack modes
 # Add bully support for WPS attacks
 # Add cowpatty support for WPA/WPA2 attacks
-# Set an "ok so far" variable to wifi hacker for seeing if all dependencies are available
+# Set an "ok so far" temp variable to see if all dependencies are available
 # Set default $serverWPA veriable to some value other than blank
 # Add sniffing/wireshark support
 # Add support for packetforge-ng
