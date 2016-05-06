@@ -30,6 +30,7 @@
 # - Updated text for gathering target info on all the different encryption types.
 # - Updated sleep messages for WPS attacks.
 # - Fixed PixieDust option not setting correctly if nothing is selected at menu choice.
+# - Updated text for all banners. Changed the main title text and domain name.
 # - Fixed all the killProcess functions to now kill the process until it no longer shows up under process list.
 # - Added a force exit for aircrack-ng before cracking attempt. This attempts to fix the corrupt errors when scanning IVS and CAP files.
 # - Fixed previous Airodump and Aireplay windows not closing when launching a new dump session for WEP Attack Menu.
@@ -886,7 +887,7 @@ banner(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [M] Main Menu    |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [X] Exit           |"
+	echo "|  [M] Main Menu    |    * WiFi Hacker $versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [X] Exit           |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -908,7 +909,7 @@ bannerNoMenu(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ CTRL+C ] Main  |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C x2 ] Exit  |"
+	echo "|  [ CTRL+C ] Main  |    * WiFi Hacker $versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C x2 ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -930,7 +931,7 @@ bannerMain(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
+	echo "|  [ ]              |    * WiFi Hacker $versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	$orange
@@ -951,7 +952,7 @@ bannerMenu(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ ]              |    * WiFi Hacking Script $versionBase / esc0rtd3w 2016 / crackacademy.com *    | [CTRL+C    ] Exit  |"
+	echo "|  [ ]              |    * WiFi Hacker $versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$orange
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -990,12 +991,13 @@ bannerExit(){
 	enableChannelHopping
 
 	clear
-	$purple
+	$blue
 	echo "Thank You For Playing Fair ;)"
 	echo ""
 	echo "esc0rtd3w 2016"
 	echo ""
 	echo ""
+	$cyan
 	echo "View My Other Projects On GitHub:"
 	echo ""
 	echo "https://github.com/esc0rtd3w"
@@ -2548,9 +2550,9 @@ getESSID(){
 		echo ""
 		echo ""
 		$green
-		echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER WPS COLUMN"
+		echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER \"WPS\" COLUMN"
 		echo ""
-		echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"WEP\", \"WPA\", or \"WPA2\" UNDER ENC COLUMN"
+		echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"OPN\", \"WEP\", \"WPA\", or \"WPA2\" UNDER \"ENC\" COLUMN"
 		$white
 		echo ""
 		echo ""
@@ -5141,16 +5143,22 @@ menuAttacksWPS(){
 
 	echo ""
 	echo ""
+	$green
+	echo "*************************************"
 	echo "Your reaver session has been saved!"
+	echo "*************************************"
+	$white
 	echo ""
 	echo ""
 	echo ""
 	echo ""
+	$orange
 	echo "If the key is available, now would be a good time to do the following:"
 	echo ""
 	echo "1) Write down the WPA/WPA2 key and/or WPS pin"
 	echo ""
 	echo "2) Take a picture of the screen to keep a record of the keys"
+	$white
 	echo ""
 	echo ""
 	echo ""
