@@ -1223,8 +1223,8 @@ checkWifiandDisplayMessage(){
 		#fi
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -1488,8 +1488,8 @@ menuMain(){
 		#fi
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -1648,8 +1648,8 @@ menuAuto(){
 		#fi
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -1759,8 +1759,8 @@ menuAdvanced(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -1885,8 +1885,8 @@ menuExtras(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -1998,8 +1998,8 @@ menuExtrasInterface(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2081,8 +2081,8 @@ menuHelp(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2205,8 +2205,8 @@ menuChangeTerminal(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2298,8 +2298,8 @@ menuSessionSave(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2378,8 +2378,8 @@ menuSessionLoad(){
 		sessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2481,8 +2481,8 @@ menuHoneyPotMode(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2622,8 +2622,8 @@ getESSID(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2749,8 +2749,8 @@ getBSSID(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2875,8 +2875,8 @@ getChannel(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -3058,8 +3058,8 @@ spoofMacAddress(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -3155,8 +3155,8 @@ initMonitorMode(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -3708,8 +3708,8 @@ menuAttacksWEP(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -4276,8 +4276,8 @@ aircrackDecryptWPA(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -4349,8 +4349,8 @@ aircrackDecryptWPA(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -4439,8 +4439,8 @@ captureHandshakeWPA(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -4710,8 +4710,8 @@ aircrackDecryptWPA2(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -4783,8 +4783,8 @@ aircrackDecryptWPA2(){
 		menuAdvanced
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -4873,8 +4873,8 @@ captureHandshakeWPA2(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -5052,8 +5052,8 @@ menuAttacksWPS(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
@@ -5365,8 +5365,8 @@ bessideMain(){
 		menuSessionLoad
 		;;
 
-		"Z" | "z")
-		menuHoneyPotMode
+		"U" | "u")
+		menuUpdate
 		;;
 
 		"H" | "h")
