@@ -3825,9 +3825,9 @@ menuAttacksWEP(){
 	echo "C) Run Aircrack (Crack WEP Key) **If decryption fails, press ENTER from aircrack to return here**"
 	echo ""
 
-	read getBSSID
+	read getAttackWEP
 
-	case "$getBSSID" in
+	case "$getAttackWEP" in
 
 		"")
 		menuAttacksWEP
