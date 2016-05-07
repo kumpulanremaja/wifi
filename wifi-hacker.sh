@@ -595,7 +595,7 @@ setTerminalColors(){
 	currentTask="setTerminalColors"
 
 	# Foreground Colors
-	default=$(echo 'printf' '\033[39m')
+	defaultFG=$(echo 'printf' '\033[39m')
 	
 	black=$(echo 'printf' '\033[30m')
 	blue=$(echo 'printf' '\033[34m')
@@ -616,7 +616,7 @@ setTerminalColors(){
 	yellow=$(echo 'printf' '\033[33m')
 	
 	# Background Colors
-	default=$(echo 'printf' '\033[49m')
+	defaultBG=$(echo 'printf' '\033[49m')
 	
 	blackBG=$(echo 'printf' '\033[40m')
 	blueBG=$(echo 'printf' '\033[44m')
