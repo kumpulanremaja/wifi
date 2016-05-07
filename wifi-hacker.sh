@@ -362,6 +362,9 @@ setDependencies(){
 
 checkDependencies(){
 
+	
+
+	
 	if [ -f $pathAircrack ];
 		then
 		   statusPathAircrack="OK"
