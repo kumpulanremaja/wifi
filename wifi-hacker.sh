@@ -4122,17 +4122,27 @@ arAttackChopChop(){
 	$terminal aireplay-ng -4 -h $macAddressMonitor -b $bssid $interfaceMonitor &
 	
 	# Unauthenticated Method
-	#$terminal aireplay-ng -4 -b $bssid $interfaceMonitor &
+	$terminal aireplay-ng -4 -b $bssid $interfaceMonitor &
 
 }
 
 
-GenerateArpPacket(){
+generateArpPacket(){
 
 	currentTask="arAttackChopChop"
 
 	$terminal aireplay-ng -4 $interfaceMonitor &
+	
+	# Alt
+	$terminal aireplay-ng -4 -h $macAddressMonitor $interfaceMonitor &
 
+}
+
+
+tcpDump(){
+
+	$terminal tcpdump -s 0 -n -e -r $1 &
+	
 }
 
 
