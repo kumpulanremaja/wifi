@@ -3962,6 +3962,7 @@ menuAttacksWEP(){
 			;;
 
 			"1")
+			# Needs .cap as INPUT
 			tcpDump ""
 			;;
 
@@ -3970,11 +3971,13 @@ menuAttacksWEP(){
 			;;
 
 			"3")
+			# Needs .xor as INPUT
 			forgeArpRequest ""
 			;;
 
 			"4")
-			replayArpRequest ""
+			# Needs .cap as INPUT (Using Default From forgeArpRequest)
+			replayArpRequest
 			;;
 
 			"")
