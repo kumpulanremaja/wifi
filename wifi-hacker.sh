@@ -594,6 +594,7 @@ setTerminalColors(){
 
 	currentTask="setTerminalColors"
 
+	# Foreground Colors
 	default=$(echo 'printf' '\033[39m')
 	
 	black=$(echo 'printf' '\033[30m')
@@ -613,6 +614,26 @@ setTerminalColors(){
 	white=$(echo 'printf' '\033[0m')
 	whiteAlt=$(echo 'printf' '\033[97m')
 	yellow=$(echo 'printf' '\033[33m')
+	
+	# Background Colors
+	default=$(echo 'printf' '\033[49m')
+	
+	blackBG=$(echo 'printf' '\033[40m')
+	blueBG=$(echo 'printf' '\033[44m')
+	cyanBG=$(echo 'printf' '\033[46m')
+	darkGreyBG=$(echo 'printf' '\033[100m')
+	greenBG=$(echo 'printf' '\033[42m')
+	lightBlueBG=$(echo 'printf' '\033[104m')
+	lightCyanBG=$(echo 'printf' '\033[106m')
+	lightGreenBG=$(echo 'printf' '\033[102m')
+	lightGreyBG=$(echo 'printf' '\033[47m')
+	lightMagentaBG=$(echo 'printf' '\033[105m')
+	lightRedBG=$(echo 'printf' '\033[101m')
+	lightYellowBG=$(echo 'printf' '\033[103m')
+	magentaBG=$(echo 'printf' '\033[45m')
+	redBG=$(echo 'printf' '\033[41m')
+	whiteBG=$(echo 'printf' '\033[107m')
+	yellowBG=$(echo 'printf' '\033[43m')
 
 }
 
