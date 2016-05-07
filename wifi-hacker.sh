@@ -180,7 +180,7 @@
 ############################################################################
 
 
-# Add "Choose Interface" options to manually override interface in case of a mislabled name
+# Add support for packetforge-ng
 # Fix sessions ZIP Backup overwriting previous file if the date is the same
 # Extend the width of the airodump windows when opening externally
 # Add change options on-the-fly for WPS and other attack modes
@@ -339,6 +339,7 @@ checkLinuxVersion(){
 setDependencies(){
 
 	pathAircrack="/usr/bin/aircrack-ng"
+	pathAireplay="/usr/sbin/aireplay-ng"
 	pathAirodump="/usr/sbin/airodump-ng"
 	pathBesside="/usr/sbin/besside-ng"
 	pathCut="/usr/bin/cut"
@@ -348,6 +349,7 @@ setDependencies(){
 	pathLink="/usr/bin/link"
 	pathMacchanger="/usr/bin/macchanger"
 	pathMkdir="/bin/mkdir"
+	pathPacketforge="/usr/sbin/packetforge-ng"
 	pathReaver="/usr/bin/reaver"
 	pathRmdir="/bin/rmdir"
 	pathSed="/bin/sed"
@@ -372,6 +374,13 @@ checkDependencies(){
 		   statusPathAirodump="OK"
 		else
 		   statusPathAirodump="NA"
+	fi
+
+	if [ -f $pathAireplay ];
+		then
+		   statusPathAireplay="OK"
+		else
+		   statusPathAireplay="NA"
 	fi
 
 	if [ -f $pathBesside ];
@@ -428,6 +437,13 @@ checkDependencies(){
 		   statusPathMkdir="OK"
 		else
 		   statusPathMkdir="NA"
+	fi
+
+	if [ -f $pathPacketforge ];
+		then
+		   statusPathPacketforge="OK"
+		else
+		   statusPathPacketforge="NA"
 	fi
 
 	if [ -f $pathReaver ];
@@ -491,6 +507,7 @@ showDependencies(){
 	echo "List of File Dependencies Needed"
 	echo ""
 	echo "$pathAircrack - Status: $statusPathAircrack"
+	echo "$pathAireplay - Status: $statusPathAireplay"
 	echo "$pathAirodump - Status: $statusPathAirodump"
 	echo "$pathBesside - Status: $statusPathBesside"
 	echo "$pathCut - Status: $statusPathCut"
@@ -500,6 +517,7 @@ showDependencies(){
 	echo "$pathLink - Status: $statusPathLink"
 	echo "$pathMacchanger - Status: $statusPathMacchanger"
 	echo "$pathMkdir - Status: $statusPathMkdir"
+	echo "$pathPacketforge - Status: $statusPathPacketforge"
 	echo "$pathReaver - Status: $statusPathReaver"
 	echo "$pathRmdir - Status: $statusPathRmdir"
 	echo "$pathSed - Status: $statusPathSed"
