@@ -3939,9 +3939,9 @@ menuAttacksWEP(){
 		echo ""
 		echo "2) Generate ARP Packet"
 		echo ""
-		echo "3) Forge ARP Packet"
+		echo "3) Forge ARP Request"
 		echo ""
-		echo "4) Replay Forged ARP Packet"
+		echo "4) Replay Forged ARP Request"
 		echo ""
 		echo ""
 		echo ""
@@ -3956,6 +3956,26 @@ menuAttacksWEP(){
 		read getMore
 
 		case "$getMore" in
+
+			"")
+			menuAttacksWEP
+			;;
+
+			"1")
+			tcpDump ""
+			;;
+
+			"2")
+			generateArpPacket
+			;;
+
+			"3")
+			forgeArpRequest ""
+			;;
+
+			"4")
+			replayArpRequest ""
+			;;
 
 			"")
 			menuAttacksWEP
