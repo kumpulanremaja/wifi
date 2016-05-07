@@ -3805,7 +3805,7 @@ menuAttacksWEP(){
 	bannerStats
 
 	echo ""
-	echo "Choose an attack to perform and press ENTER:"
+	echo "Choose an attack to perform and press ENTER (Type \"more\" to see other options):"
 	echo ""
 	echo ""
 	echo "1) De-Auth (De-Authenticate All Stations) (0=Constant)"
