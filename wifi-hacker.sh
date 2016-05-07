@@ -4127,6 +4127,15 @@ arAttackChopChop(){
 }
 
 
+GenerateArpPacket(){
+
+	currentTask="arAttackChopChop"
+
+	$terminal aireplay-ng -4 $interfaceMonitor &
+
+}
+
+
 arAttackFragment(){
 
 	currentTask="arAttackFragment"
