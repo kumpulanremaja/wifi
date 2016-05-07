@@ -27,7 +27,7 @@
 ############################################################################
 
 # v1.5
-# - 
+# - Added a "more" option that can be typed under WEP Attack Menu.
 
 # v1.4
 # - Updated WPS attack to use PixieDust as a default option after 10 second timeout if no selection is made.
@@ -3980,10 +3980,6 @@ menuAttacksWEP(){
 			replayArpRequest
 			;;
 
-			"")
-			menuAttacksWEP
-			;;
-
 			"M" | "m")
 			killAll
 			stopMonitorMode
@@ -4023,7 +4019,10 @@ menuAttacksWEP(){
 			"R" | "r")
 			menuAttacksWEP
 			;;
+
+		esac
 		;;
+		
 
 		*)
 		menuAttacksWEP
