@@ -30,7 +30,7 @@
 # - 
 
 # v1.4
-# - Updated WPS attack to use PixieDust as a default option after 10 second timeout if no solection is made.
+# - Updated WPS attack to use PixieDust as a default option after 10 second timeout if no selection is made.
 # - Added a manual interface name override option to "getWirelessInterfaces" function. Set manually to wlan0, wlan1, wlan2, etc. This will automatically display during normal execution and you may ignore it for defaults.
 # - Added a "refresh" flag that is set to hide override text on subsequent calls to "getWirelessInterfaces" function.
 # - Added "bannerSlim" function to use a "Title Only" banner for disclaimer and unreleased menus.
