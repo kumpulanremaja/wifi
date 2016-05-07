@@ -4087,7 +4087,11 @@ arAttackFakeAuth(){
 
 	currentTask="arAttackFakeAuth"
 
-	$terminal aireplay-ng -1 1 -a $bssid -h $macAddressMonitor -e "$essid" $interfaceMonitor &
+	#$terminal aireplay-ng -1 1 -a $bssid -h $macAddressMonitor -e "$essid" $interfaceMonitor &
+	$terminal aireplay-ng -1 0 -a $bssid -h $macAddressMonitor -e "$essid" $interfaceMonitor &
+	
+	# Alt
+	#$terminal aireplay-ng -1 6000 -o 1 -q 10 -a $bssid -h $macAddressMonitor -e "$essid" $interfaceMonitor &
 
 }
 
