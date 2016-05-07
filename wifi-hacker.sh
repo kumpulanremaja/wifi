@@ -27,7 +27,9 @@
 ############################################################################
 
 # v1.5
-# - Added a "more" option that can be typed under WEP Attack Menu.
+# - Added "aireplay-ng" and "packetforge-ng" to dependency check.
+# - Added terminal background colors and updated foreground text color selection.
+# - Added a "more" option that can be typed under WEP Attack Menu. This menu has "TCP Dump", "Generate ARP Packet", "Forge ARP Request", and "Replay ARP Request" options.
 
 # v1.4
 # - Updated WPS attack to use PixieDust as a default option after 10 second timeout if no selection is made.
