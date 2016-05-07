@@ -3927,6 +3927,81 @@ menuAttacksWEP(){
 		arAttackMigMode
 		;;
 
+		"more")
+		banner
+		bannerStats
+
+		echo ""
+		echo "Choose an option and press ENTER:"
+		echo ""
+		echo ""
+		echo "1) TCP Dump"
+		echo ""
+		echo "2) Generate ARP Packet"
+		echo ""
+		echo "3) Forge ARP Packet"
+		echo ""
+		echo "4) Replay Forged ARP Packet"
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo "R) Return To Previous Page"
+		echo ""
+		echo ""
+		
+		read getMore
+
+		case "$getMore" in
+
+			"")
+			menuAttacksWEP
+			;;
+
+			"M" | "m")
+			killAll
+			stopMonitorMode
+			menuMain
+			;;
+
+			"A" | "a")
+			menuAdvanced
+			;;
+
+			"S" | "s")
+			menuSessionSave
+			;;
+
+			"L" | "l")
+			menuSessionLoad
+			;;
+
+			"U" | "u")
+			menuUpdate
+			;;
+
+			"H" | "h")
+			menuHelp
+			;;
+
+			"E" | "e")
+			menuExtras
+			;;
+
+			"X" | "x")
+			killAll
+			stopMonitorMode
+			bannerExit
+			;;
+
+			"R" | "r")
+			menuAttacksWEP
+			;;
+		;;
+
 		*)
 		menuAttacksWEP
 		;;
