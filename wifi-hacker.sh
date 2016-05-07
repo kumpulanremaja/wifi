@@ -6,7 +6,7 @@
 ############################################################################
 
 
-# WiFi Hacker v1.4
+# WiFi Hacker v1.5
 # esc0rtd3w 2016
 
 # https://github.com/esc0rtd3w/wifi-hacker/
@@ -25,6 +25,9 @@
 ############################################################################
 #   VERSION HISTORY BEGIN   ################################################
 ############################################################################
+
+# v1.5
+# - 
 
 # v1.4
 # - Updated WPS attack to use PixieDust as a default option after 10 second timeout if no solection is made.
@@ -530,7 +533,7 @@ setWindowTitle(){
 
 	currentTask="setWindowTitle"
 
-	title='echo -ne "\033]0;WiFi Hacker v1.4\007"'
+	title='echo -ne "\033]0;WiFi Hacker v1.5\007"'
 
 	$title
 
@@ -641,7 +644,7 @@ setDefaults(){
 
 	currentTask="setDefaults"
 
-	versionBase="1.4"
+	versionBase="1.5"
 	versionRemote="0.0"
 
 	initPath="$PWD"
