@@ -606,6 +606,20 @@ setTerminalColors(){
 }
 
 
+setTerminalTextEffects(){
+
+	currentTask="setTerminalTextEffects"
+
+	textBlink=$(echo -e "\e[5m")
+	textBold=$(echo -e "\e[1m")
+	textDim=$(echo -e "\e[2m"")
+	textHidden=$(echo -e "\e[8m")
+	textInverted=$(echo -e "\e[7m")
+	textUnderline=$(echo -e "\e[4m")
+
+}
+
+
 setVariables(){
 
 	currentTask="setVariables"
