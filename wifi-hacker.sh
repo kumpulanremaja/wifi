@@ -362,8 +362,28 @@ setDependencies(){
 
 checkDependencies(){
 
+	#tempCounter=0
+	#numberOfDependencies=0
 	
+	#tempPath=""
+	#tempStatus=""
 
+	# If counter is less than max dependencies, then build statuses
+	#if [ $tempCounter -lt $numberOfDependencies ];
+	#	then
+	#		# Set Path Name
+	#		if [ -f $tempPath ];
+	#			then
+	#				# Set Status As Available
+	#				$tempStatus="OK"
+	#			else
+	#				# Set Status As Unavailable
+	#				$tempStatus="NA"
+	#		fi
+	#	else
+	#		#echo "Done With Dependencies"
+	#		#read pause
+	#fi
 	
 	if [ -f $pathAircrack ];
 		then
