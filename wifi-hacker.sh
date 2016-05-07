@@ -27,6 +27,9 @@
 ############################################################################
 
 # v1.4
+# - Updated WPS attack to use PixieDust as a default option after 10 second timeout if no solection is made.
+# - Added a manual interface name override option to "getWirelessInterfaces" function. Set manually to wlan0, wlan1, wlan2, etc. This will automatically display during normal execution and you may ignore it for defaults.
+# - Added a "refresh" flag that is set to hide override text on subsequent calls to "getWirelessInterfaces" function.
 # - Added "bannerSlim" function to use a "Title Only" banner for disclaimer and unreleased menus.
 # - Updated text for gathering target info on all the different encryption types.
 # - Updated sleep messages for WPS attacks.
@@ -3184,7 +3187,7 @@ initMonitorMode(){
 		getMacAddress
 		setMonitorMode
 		getMacAddressMonitor
-		getWirelessInterfaces
+		getWirelessInterfaces "refresh"
 		;;
 
 		"M" | "m")
@@ -3225,7 +3228,7 @@ initMonitorMode(){
 		getMacAddress
 		setMonitorMode
 		getMacAddressMonitor
-		getWirelessInterfaces
+		#getWirelessInterfaces
 		;;
 
 	esac
@@ -3249,98 +3252,104 @@ stopMonitorMode(){
 
 	currentTask="stopMonitorMode"
 
+	# CLEAN THIS CRAP UP SOON!!!! (20160506)
+
+	killMsg="Killing all active previous monitor mode interfaces...."
+
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon0
 	$stopMonitorMode wlan0mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon1
 	$stopMonitorMode wlan1mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon2
 	$stopMonitorMode wlan2mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon3
 	$stopMonitorMode wlan3mon
+	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon4
 	$stopMonitorMode wlan4mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon5
 	$stopMonitorMode wlan5mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon6
 	$stopMonitorMode wlan6mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon7
 	$stopMonitorMode wlan7mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon8
 	$stopMonitorMode wlan8mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon9
 	$stopMonitorMode wlan9mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon10
 	$stopMonitorMode wlan10mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon11
 	$stopMonitorMode wlan11mon
 	banner
+	$white
 	echo ""
-	echo "Killing all active previous monitor mode interfaces...."
-	echo ""
-	echo ""
+	echo $killMsg
+	$red
 	$stopMonitorMode mon12
 	$stopMonitorMode wlan12mon
 
 	banner
+	$white
 
 }
 
@@ -5056,16 +5065,29 @@ menuAttacksWPS(){
 	echo ""
 	echo ""
 	echo ""
-	echo "Choose an Option and Press ENTER to continue...."
+	echo "Choose an Option and Press ENTER to continue"
+	echo ""
+	echo ""
+	echo ""
+	$cyan
+	echo "If No Selection Is Made, It Will Continue Automatically Using PixieDust"
+	$white
+	echo ""
+	echo ""
+	echo "Continuing In 10 Seconds...."
 	echo ""
 	echo ""
 
-	read pixieChoice
+	read -t 10 pixieChoice
 
 	case "$pixieChoice" in
 
 		"")
-		menuAttacksWPS
+		#menuAttacksWPS
+		pixieChoice="1"
+		sleepMessage1="Preparing Reaver/PixieDust Session...."
+		sleepMessage2="Launching Reaver/PixieDust Session...."
+		sleepMessage3="Reaver Session Sprinkled With PixieDust Is Now Active!"
 		;;
 
 		"1")
@@ -5119,7 +5141,6 @@ menuAttacksWPS(){
 		;;
 
 		*)
-		#pixieChoice="1"
 		menuAttacksWPS
 		;;
 
@@ -5938,21 +5959,132 @@ getWirelessInterfaces(){
 
 	currentTask="getWirelessInterfaces"
 
-	case "$isKaliTwo" in
+	# Check for the "refresh" flag and DO NOT display text if enabled
+	# This is for the 2nd "getWirelessInterfaces" call for some forgotten reason :rolleyes: (Hides Text)
+	case "$1" in
 
-		"0")
-		interface=$(iwconfig | grep "wlan" | head -c 5)
-		#interfaceMonitor=$(iwconfig | grep "mon" | head -c 4)
-		interfaceMonitor="$interface""mon"
-		interfaceName=$interfaceMonitor
+		# This is just splashing some text to wait out the 5 minute timeout....make it look useful!!
+		"refresh")
+		banner
+		echo ""
+		$cyan
+		echo "Preparing $encryptionTypeText Attack...."
+		$white
+		echo ""
 		;;
 
-		"1")
-		interface=$(iwconfig | grep "wlan" | head -c 5)
-		#interfaceMonitor=$(iwconfig | grep "wlan" | head -c 8)
-		interfaceMonitor="$interface""mon"
-		interfaceName=$interfaceMonitor
-		#fixKaliTwoMonError
+		*)
+		banner
+		echo ""
+		echo "Auto-Setting Wireless Interface Modes"
+		echo ""
+		echo ""
+		echo ""
+		echo "To Change Adapter Settings, Press \"M\" Now"
+		echo ""
+		echo ""
+		$cyan
+		echo "TO USE DEFAULTS, JUST PRESS ENTER!"
+		$white
+		echo ""
+		echo ""
+		echo ""
+		echo "Continuing In 5 Seconds...."
+		echo ""
+		echo ""
+		;;
+
+	esac
+
+	read -t 5 manualInterface
+
+	case "$manualInterface" in
+
+		"")
+		case "$isKaliTwo" in
+
+			"0")
+			interface=$(iwconfig | grep "wlan" | head -c 5)
+			#interfaceMonitor=$(iwconfig | grep "mon" | head -c 4)
+			interfaceMonitor="$interface""mon"
+			interfaceName=$interfaceMonitor
+			;;
+
+			"1")
+			interface=$(iwconfig | grep "wlan" | head -c 5)
+			#interfaceMonitor=$(iwconfig | grep "wlan" | head -c 8)
+			interfaceMonitor="$interface""mon"
+			interfaceName=$interfaceMonitor
+			#fixKaliTwoMonError
+			;;
+
+		esac
+		;;
+
+		"M" | "m")
+		banner
+		echo ""
+		echo "Enter Managed Mode Interface Name and press ENTER:"
+		echo ""
+		echo ""
+		echo ""
+		echo "Example: wlan0"
+		echo ""
+		echo ""
+		echo ""
+		$cyan
+		echo "If Nothing Is Entered, Then Default Values Are Used"
+		$white
+		echo ""
+		echo ""
+
+		read manualSelectionManaged
+
+		case "$manualSelectionManaged" in
+
+			"")
+			interface=$(iwconfig | grep "wlan" | head -c 5)
+			;;
+
+			*)
+			interface="$manualSelectionManaged"
+			;;
+
+		esac
+
+		banner
+		echo ""
+		echo "Enter Monitor Mode Interface Name and press ENTER:"
+		echo ""
+		echo ""
+		echo ""
+		echo "Example: $manualSelectionManaged""mon"
+		echo ""
+		echo ""
+		echo ""
+		$cyan
+		echo "If Nothing Is Entered, Then Default Values Are Used"
+		$white
+		echo ""
+		echo ""
+
+		read manualSelectionMonitor
+
+		case "$manualSelectionMonitor" in
+
+			"")
+			interfaceMonitor="$interface""mon"
+			;;
+
+			*)
+			interfaceMonitor="$manualSelectionMonitor""mon"
+			;;
+
+		esac
+		;;
+
+		*)
+		getWirelessInterfaces
 		;;
 
 	esac
@@ -6190,6 +6322,7 @@ initMain
 ############################################################################
 #   INITIAL LAUNCH END   ###################################################
 ############################################################################
+
 
 
 
