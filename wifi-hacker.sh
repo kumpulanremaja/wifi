@@ -4129,7 +4129,7 @@ arAttackChopChop(){
 
 generateArpPacket(){
 
-	currentTask="arAttackChopChop"
+	currentTask="generateArpPacket"
 
 	$terminal aireplay-ng -4 $interfaceMonitor &
 	
