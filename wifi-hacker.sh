@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.5
+# - Updated Misc Menu Text
 # - Added "aireplay-ng" and "packetforge-ng" to dependency check.
 # - Added terminal background colors and updated foreground text color selection.
 # - Added a "more" option that can be typed under WEP Attack Menu. This menu has "TCP Dump", "Generate ARP Packet", "Forge ARP Request", and "Replay ARP Request" options.
@@ -1714,7 +1715,7 @@ menuAuto(){
 	esac
 
 	echo ""
-	echo "YOU MAY NOW OPTIONALLY PRESS THE "\""W"\"" KEY ON KEYBOARD TO YOUR SPOOF MAC ADDRESS"
+	echo "YOU MAY NOW OPTIONALLY PRESS THE \"W\" KEY ON KEYBOARD TO YOUR SPOOF MAC ADDRESS"
 	echo ""
 	echo ""
 	echo ""
@@ -1726,7 +1727,7 @@ menuAuto(){
 	echo ""
 	echo "Press ENTER to clear the current session and select a target...."
 	echo ""
-	echo "YOU MAY ALSO PRESS THE "\""P"\"" KEY ON KEYBOARD TO LOAD PREVIOUS SESSION"
+	echo "YOU MAY ALSO PRESS THE \"P\" KEY ON KEYBOARD TO LOAD PREVIOUS SESSION"
 	echo ""
 
 	read readyForAirodumpScan
@@ -6556,7 +6557,6 @@ initMain
 ############################################################################
 #   INITIAL LAUNCH END   ###################################################
 ############################################################################
-
 
 
 
