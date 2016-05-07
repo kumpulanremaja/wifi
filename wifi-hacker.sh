@@ -5464,7 +5464,7 @@ generateArpPacket(){
 
 tcpDump(){
 
-	# Accepts a CAP file as an argument
+	# Accepts a CAP file as INPUT
 	$terminal tcpdump -s 0 -n -e -r $1 &
 	
 }
@@ -5472,8 +5472,21 @@ tcpDump(){
 
 forgeArpRequest(){
 
-	# Accepts an XOR file as an argument
-	packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w "$initPath/$bssid-arp.cap"
+	# Accepts an XOR file as INPUT
+	packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w "$initPath/$bssid-arp.cap" &
+
+	# Accepts an XOR file as INPUT and a CAP file as OUTPUT
+	#packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w $2 &
+
+}
+
+
+replayArpRequest(){
+
+	aireplay-ng -2 -r "$initPath/$bssid-arp.cap" $interfaceMonitor &
+
+	# Accepts a CAP file as INPUT
+	#aireplay-ng -2 -r $1 $interfaceMonitor &
 
 }
 
