@@ -594,14 +594,25 @@ setTerminalColors(){
 
 	currentTask="setTerminalColors"
 
+	default=$(echo 'printf' '\033[39m')
+	
+	black=$(echo 'printf' '\033[30m')
 	blue=$(echo 'printf' '\033[34m')
 	cyan=$(echo 'printf' '\033[36m')
+	darkGrey=$(echo 'printf' '\033[90m')
 	green=$(echo 'printf' '\033[32m')
-	grey=$(echo 'printf' '\033[37m')
-	orange=$(echo 'printf' '\033[33m')
-	purple=$(echo 'printf' '\033[35m')
+	lightBlue=$(echo 'printf' '\033[94m')
+	lightCyan=$(echo 'printf' '\033[96m')
+	lightGreen=$(echo 'printf' '\033[92m')
+	lightGrey=$(echo 'printf' '\033[37m')
+	lightMagenta=$(echo 'printf' '\033[95m')
+	lightRed=$(echo 'printf' '\033[91m')
+	lightYellow=$(echo 'printf' '\033[93m')
+	magenta=$(echo 'printf' '\033[35m')
 	red=$(echo 'printf' '\033[31m')
 	white=$(echo 'printf' '\033[0m')
+	whiteAlt=$(echo 'printf' '\033[97m')
+	yellow=$(echo 'printf' '\033[33m')
 
 }
 
@@ -959,7 +970,7 @@ banner(){
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "|  [M] Main Menu    |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [X] Exit           |"
 	echo "---------------------    ****************************************************************    ----------------------"
-	$orange
+	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
@@ -981,7 +992,7 @@ bannerNoMenu(){
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "|  [ CTRL+C ] Main  |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C x2 ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
-	$orange
+	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
@@ -1004,7 +1015,7 @@ bannerMain(){
 	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "-------------------------------------------------------------------------------------------------------------------"
-	$orange
+	$yellow
 	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -1024,7 +1035,7 @@ bannerMenu(){
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2016  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
-	$orange
+	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo "| Connection: $ipStatus  |  [A] Advanced  |  [Z] HoneyPot Mode  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
@@ -5260,7 +5271,7 @@ menuAttacksWPS(){
 	echo ""
 	echo ""
 	echo ""
-	$orange
+	$yellow
 	echo "If the key is available, now would be a good time to do the following:"
 	echo ""
 	echo "1) Write down the WPA/WPA2 key and/or WPS pin"
