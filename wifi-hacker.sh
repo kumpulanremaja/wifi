@@ -27,6 +27,9 @@
 ############################################################################
 
 # v1.5
+# - Now saving session files after Wifite Auto Attacks to prevent the .cap, .xor, etc files from being deleted.
+# - Updated minimal number of IVs to 5000 before cracking for Wifite WEP Auto Attacks.
+# - Fixed Wifite auto arguments for all encryption types.
 # - Updated Misc Menu Text
 # - Added "aireplay-ng" and "packetforge-ng" to dependency check.
 # - Added terminal background colors and updated foreground text color selection.
@@ -855,11 +858,11 @@ setDefaultsWPS(){
 
 
 	wifite="wifite"
-	wifiteAttackAll="wifite -all"
-	wifiteAttackWEP="wifite -wep"
-	wifiteAttackWPA="wifite -wpa"
-	wifiteAttackWPA2="wifite -wpa"
-	wifiteAttackWPS="wifite -wps"
+	wifiteAttackAll="wifite --all"
+	wifiteAttackWEP="wifite --all --wep"
+	wifiteAttackWPA="wifite --all --wpa"
+	wifiteAttackWPA2="wifite --all --wpa"
+	wifiteAttackWPS="wifite --all --wps"
 	
 }
 
@@ -3966,7 +3969,8 @@ menuAttacksWEP(){
 
 			"1")
 			# Needs .cap as INPUT
-			tcpDump ""
+			#tcpDump ""
+			tcpDump "$initPath/$bssid-arp.cap"
 			;;
 
 			"2")
@@ -3975,7 +3979,9 @@ menuAttacksWEP(){
 
 			"3")
 			# Needs .xor as INPUT
-			forgeArpRequest ""
+			#forgeArpRequest ""
+			getXorFile=$(ls | grep xor | grep $essid)
+			forgeArpRequest "$getXorFile" "$initPath/$bssid-arp.cap"
 			;;
 
 			"4")
@@ -4045,8 +4051,8 @@ menuAttacksWEPWifiteAuto(){
 
 	killAll
 
-	#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 1000 &
-	$terminal $wifiteAttackWEP -wepsave -wepca 1000 &
+	#$terminal $wifiteAttackWEP -c $channel -b $bssid -e $essid -wepsave -wepca 5000 &
+	$terminal $wifiteAttackWEP -wepsave "$initPath" -wepca 5000 &
 
 	banner
 	bannerStats
@@ -4060,6 +4066,8 @@ menuAttacksWEPWifiteAuto(){
 	echo ""
 
 	read pause
+
+	sessionCopyNewCaptureFiles
 
 	killAll
 	menuAuto
@@ -4740,6 +4748,8 @@ menuAttacksWPAWifiteAuto(){
 
 	read pause
 
+	sessionCopyNewCaptureFiles
+
 	killAll
 	menuAuto
 
@@ -5174,6 +5184,8 @@ menuAttacksWPA2WifiteAuto(){
 
 	read pause
 
+	sessionCopyNewCaptureFiles
+
 	killAll
 	menuAuto
 
@@ -5569,10 +5581,10 @@ tcpDump(){
 forgeArpRequest(){
 
 	# Accepts an XOR file as INPUT
-	packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w "$initPath/$bssid-arp.cap" &
+	#packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w "$initPath/$bssid-arp.cap" &
 
 	# Accepts an XOR file as INPUT and a CAP file as OUTPUT
-	#packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w $2 &
+	packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w $2 &
 
 }
 
