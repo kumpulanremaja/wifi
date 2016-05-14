@@ -26,6 +26,9 @@
 #   VERSION HISTORY BEGIN   ################################################
 ############################################################################
 
+# v1.6
+# - Fixed (mostly) the issue with backup ZIP files overwriting old backups.
+
 # v1.5
 # - Updated code to handle new cleaning invoked backup options for "backupSessionFiles" function.
 # - Added progress text for "cleanCaptureFiles", "cleanSessionFiles", and backupSessionFiles" functions.
@@ -583,7 +586,7 @@ setWindowTitle(){
 
 	currentTask="setWindowTitle"
 
-	title='echo -ne "\033]0;WiFi Hacker v1.5\007"'
+	title='echo -ne "\033]0;WiFi Hacker v1.6\007"'
 
 	$title
 
@@ -748,7 +751,7 @@ setDefaults(){
 
 	currentTask="setDefaults"
 
-	versionBase="1.5"
+	versionBase="1.6"
 	versionRemote="0.0"
 
 	initPath="$PWD"
@@ -1765,6 +1768,7 @@ menuAuto(){
 		;;
 
 		"W" | "w")
+		#returnTo="menuAuto"
 		spoofMacAddress
 		menuAuto
 		;;
@@ -3170,7 +3174,7 @@ spoofMacAddress(){
 	bannerStats
 
 	echo ""
-	echo "To choose a random MAC Address, press the "\"R"\" key and press ENTER"
+	echo "To choose a random MAC Address, press the \"R\" key and press ENTER"
 	echo ""
 	echo ""
 	echo "Enter the New MAC Address and press ENTER:"
@@ -3190,7 +3194,7 @@ spoofMacAddress(){
 		"R" | "r")
 		getRandomMacAddress
 		getRandomMacAddressMonitor
-		$lastMenuID
+		#$returnTo
 		;;
 
 		"M" | "m")
@@ -3233,7 +3237,7 @@ spoofMacAddress(){
 		*)
 		setMacAddress
 		setMacAddressMonitor
-		$lastMenuID
+		#$returnTo
 		;;
 
 	esac
@@ -4237,7 +4241,7 @@ arAttackChopChop(){
 	$terminal aireplay-ng -4 -h $macAddressMonitor -b $bssid $interfaceMonitor &
 	
 	# Unauthenticated Method
-	$terminal aireplay-ng -4 -b $bssid $interfaceMonitor &
+	#$terminal aireplay-ng -4 -b $bssid $interfaceMonitor &
 
 }
 
@@ -5990,9 +5994,27 @@ backupSessionFiles(){
 
 	currentTask="backupSessionFiles"
 
+	backupName="sessions-backup-$displayDate3"
+	backupDir="sessions"
+	#nextBackupSlot=0
+
+	if [ -f "$backupName.zip" ]; then 
+		nextBackupSlot=$((nextBackupSlot+1))
+		backupName="$backupName-$nextBackupSlot"
+	fi
+		
+
+	#echo "$backupName"
+	#echo "$nextBackupSlot"
+	#read pause
+
 	banner
 	echo ""
-	echo "Backing Up Session Files To ZIP...."
+	echo "Backing Up Session Files To:"
+	echo ""
+	$cyan
+	echo "$backupName...."
+	$white
 	echo ""
 	echo ""
 
@@ -6003,7 +6025,7 @@ backupSessionFiles(){
 		banner
 		echo ""
 		sleep 2
-		zip -9 -r sessions-backup-$displayDate3.zip sessions
+		zip -9 -r $backupName $backupDir
 		sleep 1
 		cleanCaptureFiles
 		backupFromCaptureErase="0"
@@ -6014,12 +6036,12 @@ backupSessionFiles(){
 
 		"0")
 		sleep 3
-		zip -9 -r sessions-backup-$displayDate3.zip sessions
+		zip -9 -r $backupName $backupDir
 		;;
 
 		"1")
 		sleep 2
-		zip -9 -r sessions-backup-$displayDate3.zip sessions
+		zip -9 -r $backupName $backupDir
 		sleep 1
 		cleanSessionFiles
 		backupFromSessionErase="0"
@@ -6082,20 +6104,20 @@ sessionRemoveEmpty(){
 
 	currentTask="sessionRemoveEmpty"
 
-	banner
-	echo ""
-	echo "Checking Network Status...."
-	echo ""
-	echo ""
+	#banner
+	#echo ""
+	#echo "Removing Empty Sessions...."
+	#echo ""
+	#echo ""
 
 	rm "$capturePath/$encryptionType/empty.sessions"
 	rmdir "$capturePath/empty"
 
 	banner
 	echo ""
-	echo "Checking Network Status...."
-	echo ""
-	echo ""
+	#echo "Removing Empty Sessions...."
+	#echo ""
+	#echo ""
 
 }
 
@@ -6305,9 +6327,7 @@ getWirelessInterfaces(){
 		"refresh")
 		banner
 		echo ""
-		$cyan
 		echo "Preparing $encryptionTypeText Attack...."
-		$white
 		echo ""
 		;;
 
@@ -6320,21 +6340,30 @@ getWirelessInterfaces(){
 		echo ""
 		echo "To Change Adapter Settings, Press \"M\" Now"
 		echo ""
-		echo ""
 		$cyan
-		echo "TO USE DEFAULTS, JUST PRESS ENTER!"
+		echo "Current: $interface"
 		$white
+		#echo ""
+		#echo ""
+		#echo "To Spoof MAC Address, Press \"W\" Now"
+		#echo ""
+		#$cyan
+		#echo "Current: $macAddress"
+		#$white
 		echo ""
 		echo ""
 		echo ""
-		echo "Continuing In 5 Seconds...."
+		echo "TO USE DEFAULTS, JUST PRESS ENTER!"
+		echo ""
+		echo ""
+		echo "Continuing In 10 Seconds...."
 		echo ""
 		echo ""
 		;;
 
 	esac
 
-	read -t 5 manualInterface
+	read -t 10 manualInterface
 
 	case "$manualInterface" in
 
@@ -6421,6 +6450,12 @@ getWirelessInterfaces(){
 		esac
 		;;
 
+		"W" | "w")
+		#returnTo="getWirelessInterfaces"
+		#spoofMacAddress
+		getWirelessInterfaces
+		;;
+
 		*)
 		getWirelessInterfaces
 		;;
@@ -6469,6 +6504,14 @@ cleanCaptureFiles(){
 	case "$eraseCaptureConfirm" in
 
 		"")
+		banner
+		echo ""
+		echo "Cleaning Capture Files...."
+		echo ""
+		echo ""
+
+		sleep 3
+
 		rm *.cap
 		rm *.ivs
 		rm *.xor
