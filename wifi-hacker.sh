@@ -27,6 +27,9 @@
 ############################################################################
 
 # v1.5
+# - Updated code to handle new cleaning invoked backup options for "backupSessionFiles" function.
+# - Added progress text for "cleanCaptureFiles", "cleanSessionFiles", and backupSessionFiles" functions.
+# - Fixed "Clean Session Files" and Clean Capture Files" options from Extras Menu.
 # - Now saving session files after Wifite Auto Attacks to prevent the .cap, .xor, etc files from being deleted.
 # - Updated minimal number of IVs to 5000 before cracking for Wifite WEP Auto Attacks.
 # - Fixed Wifite auto arguments for all encryption types.
@@ -711,6 +714,14 @@ setVariablesRequired(){
 	# Update Stuff
 	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
 	updateTemp="/tmp/update-check.tmp"
+
+
+
+	# This is used to return from backupCaptureFiles if invoked from backupCaptureFiles
+	backupFromCaptureErase="0"
+
+	# This is used to return from backupSessionFiles if invoked from backupSessionFiles
+	backupFromSessionErase="0"
 
 }
 
@@ -5911,20 +5922,66 @@ cleanSessionFiles(){
 
 	banner
 	echo ""
-	echo "Checking Network Status...."
+	$red
+	echo "*** THIS WILL ERASE ALL CURRENT SESSION FILES!!!"
+	$white
+	echo ""
+	echo ""
+	echo "If you would like to create a backup before doing this, press B and ENTER"
+	echo ""
+	echo ""
+	echo "If you would like to CANCEL, press C and ENTER"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	$cyan
+	echo "Automatically Continuing In 10 Seconds"
+	$white
 	echo ""
 	echo ""
 
-	rm "$capturePath/wep/wep.sessions"
-	rm "$capturePath/wps/wps.sessions"
-	rm "$capturePath/wpa/wpa.sessions"
-	rm "$capturePath/wpa2/wpa2.sessions"
+	read -t 10 eraseSessionConfirm
 
-	banner
-	echo ""
-	echo "Checking Network Status...."
-	echo ""
-	echo ""
+	case "$eraseSessionConfirm" in
+
+		"")
+		banner
+		echo ""
+		echo "Cleaning Session Files...."
+		echo ""
+		echo ""
+
+		#rm "$capturePath/wep/wep.sessions"
+		#rm "$capturePath/wps/wps.sessions"
+		#rm "$capturePath/wpa/wpa.sessions"
+		#rm "$capturePath/wpa2/wpa2.sessions"
+
+		rm -r "$capturePath"
+		sleep 1
+		mkdir "$capturePath"
+
+		banner
+		echo ""
+		echo "Cleaning Session Files...."
+		echo ""
+		echo ""
+		;;
+
+		"c" | "C")
+		menuExtras
+		;;
+
+		"b" | "B")
+		backupFromSessionErase="1"
+		backupSessionFiles
+		;;
+
+		*)
+		cleanSessionFiles
+		;;
+
+	esac
 
 }
 
@@ -5933,7 +5990,41 @@ backupSessionFiles(){
 
 	currentTask="backupSessionFiles"
 
-	zip -9 -r sessions-backup-$displayDate3.zip sessions
+	banner
+	echo ""
+	echo "Backing Up Session Files To ZIP...."
+	echo ""
+	echo ""
+
+	case "$backupFromCaptureErase" in
+
+		"1")
+		sessionCopyNewCaptureFiles
+		banner
+		echo ""
+		sleep 2
+		zip -9 -r sessions-backup-$displayDate3.zip sessions
+		sleep 1
+		cleanCaptureFiles
+		backupFromCaptureErase="0"
+		;;
+	esac
+
+	case "$backupFromSessionErase" in
+
+		"0")
+		sleep 3
+		zip -9 -r sessions-backup-$displayDate3.zip sessions
+		;;
+
+		"1")
+		sleep 2
+		zip -9 -r sessions-backup-$displayDate3.zip sessions
+		sleep 1
+		cleanSessionFiles
+		backupFromSessionErase="0"
+		;;
+	esac
 
 }
 
@@ -6347,11 +6438,58 @@ cleanCaptureFiles(){
 
 	currentTask="cleanCaptureFiles"
 
-	rm *.cap
-	rm *.ivs
-	rm *.xor
-	rm *.csv
-	rm *.netxml
+	banner
+	echo ""
+	$red
+	echo "*** THIS WILL ERASE ALL CURRENT CAPTURE FILES!!!"
+	$white
+	echo ""
+	echo ""
+	echo "If you would like to create a backup before doing this, press B and ENTER"
+	echo ""
+	echo ""
+	echo "If you would like to CANCEL, press C and ENTER"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Files will be copied to the \"/sessions/\" directory and backed up to a ZIP file"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	$cyan
+	echo "Automatically Continuing In 10 Seconds..."
+	$white
+	echo ""
+	echo ""
+
+	read -t 10 eraseCaptureConfirm
+
+	case "$eraseCaptureConfirm" in
+
+		"")
+		rm *.cap
+		rm *.ivs
+		rm *.xor
+		rm *.csv
+		rm *.netxml
+		;;
+
+		"c" | "C")
+		menuExtras
+		;;
+
+		"b" | "B")
+		backupFromCaptureErase="1"
+		backupSessionFiles
+		;;
+
+		*)
+		cleanCaptureFiles
+		;;
+
+	esac
 
 }
 
