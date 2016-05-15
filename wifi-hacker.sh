@@ -3284,8 +3284,6 @@ stopMonitorMode(){
 
 	currentTask="stopMonitorMode"
 
-	# CLEAN THIS CRAP UP SOON!!!! (20160506)
-
 	killMsg="Killing all active previous monitor mode interfaces...."
 
 	# Older style airmon-ng
@@ -3309,13 +3307,14 @@ stopMonitorMode(){
 		$stopMonitorMode $killMonA$killCounter
 		$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp
 
-		echo "$stopMonitorMode $killMonA$killCounter"
-		echo "$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp"
-		read pause
+		#echo "$stopMonitorMode $killMonA$killCounter"
+		#echo "$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp"
+		#read pause
 		;;
 
 	esac
 
+	# I just selected 12 as a number that I feel nobody would have more wifi adapters than
 	while [ $killCounter -le 12 ]
 
 	do
@@ -3329,9 +3328,9 @@ stopMonitorMode(){
 
 		killCounter=$(($killCounter+1))
 
-		echo "$stopMonitorMode $killMonA$killCounter"
-		echo "$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp"
-		read pause
+		#echo "$stopMonitorMode $killMonA$killCounter"
+		#echo "$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp"
+		#read pause
 	done
 
 	banner
