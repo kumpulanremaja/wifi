@@ -6,7 +6,7 @@
 ############################################################################
 
 
-# WiFi Hacker v1.5
+# WiFi Hacker v1.6
 # esc0rtd3w 2016
 
 # https://github.com/esc0rtd3w/wifi-hacker/
@@ -27,6 +27,9 @@
 ############################################################################
 
 # v1.6
+# - Added support for bully, used for WPS attacks.
+# - Fixed issue with active network connection not force disconnecting before attacks begin.
+# - Updated text for several menus.
 # - Fixed (mostly) the issue with backup ZIP files overwriting old backups.
 
 # v1.5
@@ -192,11 +195,8 @@
 ############################################################################
 
 
-# Add support for packetforge-ng
-# Fix sessions ZIP Backup overwriting previous file if the date is the same
 # Extend the width of the airodump windows when opening externally
 # Add change options on-the-fly for WPS and other attack modes
-# Add bully support for WPS attacks
 # Add cowpatty support for WPA/WPA2 attacks
 # Set an "ok so far" temp variable to see if all dependencies are available
 # Set default $serverWPA veriable to some value other than blank
@@ -211,7 +211,7 @@
 # Get help menu working
 
 
-# Post-Exploitation Attacks To Add
+# Post-Exploitation Attacks To Add (Probably Scrap 20160514)
 
 # driftnet
 # nmap
@@ -726,6 +726,13 @@ setVariablesRequired(){
 	# This is used to return from backupSessionFiles if invoked from backupSessionFiles
 	backupFromSessionErase="0"
 
+	
+	# Default Attack Methods
+	attackMethodWEP=""
+	attackMethodWPS="reaver"
+	attackMethodWPA=""
+	attackMethodWPA2=""
+
 }
 
 
@@ -877,6 +884,9 @@ setDefaultsWPS(){
 	wifiteAttackWPA="wifite --all --wpa"
 	wifiteAttackWPA2="wifite --all --wpa"
 	wifiteAttackWPS="wifite --all --wps"
+
+	# Bully Options
+	#bully <options> interface
 	
 }
 
@@ -1358,7 +1368,7 @@ checkWifiandDisplayMessage(){
 		;;
 
 		"S" | "s")
-		checkForEmptyEncrytionType
+		checkForEmptyEncryptionType
 
 		case "$bssid" in
 
@@ -1374,7 +1384,7 @@ checkWifiandDisplayMessage(){
 		;;
 
 		"L" | "l")
-		checkForEmptyEncrytionType
+		checkForEmptyEncryptionType
 
 		#case "$bssid" in
 
@@ -1515,10 +1525,20 @@ menuMain(){
 
 	# This double call to the below function fixes an issue with the ipStatusText not refreshing when returning to main menu from any option
 	checkConnectionStatus
-	checkConnectionStatus
+	#checkConnectionStatus
 
 	banner
+	echo ""
+	echo "Loading Menu...."	
+	echo ""
 
+	# Force disconnect
+	disableChannelHopping
+	enableChannelHopping
+
+
+
+	banner
 	echo ""
 	#echo "Welcome to the WiFi Hacker script!"
 	echo "Compatible with all WEP/WPA/WPA2/WPS protected WiFi routers."
@@ -1624,7 +1644,7 @@ menuMain(){
 		;;
 
 		"S" | "s")
-		checkForEmptyEncrytionType
+		checkForEmptyEncryptionType
 
 		case "$bssid" in
 
@@ -1640,7 +1660,7 @@ menuMain(){
 		;;
 
 		"L" | "l")
-		checkForEmptyEncrytionType
+		checkForEmptyEncryptionType
 
 		#case "$bssid" in
 
@@ -1753,12 +1773,12 @@ menuAuto(){
 
 		"")
 		killAll
-		checkForEmptyEncrytionType
+		checkForEmptyEncryptionType
 		autoModeNoPreviousSession
 		;;
 
 		"P" | "p")
-		checkForEmptyEncrytionType
+		checkForEmptyEncryptionType
 
 		checkForEmptyBSSID
 		checkForEmptyESSID
@@ -1785,7 +1805,7 @@ menuAuto(){
 		;;
 
 		"S" | "s")
-		checkForEmptyEncrytionType
+		checkForEmptyEncryptionType
 
 		case "$bssid" in
 
@@ -1801,7 +1821,7 @@ menuAuto(){
 		;;
 
 		"L" | "l")
-		checkForEmptyEncrytionType
+		checkForEmptyEncryptionType
 
 		#case "$bssid" in
 
@@ -3541,7 +3561,7 @@ adFileDump(){
 		;;
 
 		"wps")
-		adFileDumpWPS
+		#adFileDumpWPS
 		;;
 
 		"wpa")
@@ -3568,7 +3588,7 @@ adFileDumpNoChannel(){
 		;;
 
 		"wps")
-		adFileDumpNoChannelWPS
+		#adFileDumpNoChannelWPS
 		;;
 
 		"wpa")
@@ -3597,7 +3617,7 @@ aircrackDecrypt(){
 		;;
 
 		"wps")
-		aircrackDecryptWPS
+		#aircrackDecryptWPS
 		;;
 
 		"wpa")
@@ -4314,6 +4334,9 @@ aircrackDecryptWEP(){
 	#aircrack-ng -e "$essid" -b $bssid -l "key_$essid" *.cap *.ivs&
 	#aircrack-ng -l "key_$essid" *.cap *.ivs&
 	#'aircrack-ng' " -l" "$capturePath/$encryptionType/key_$essid" "$capturePath/$encryptionType/*.cap" "$capturePath/$encryptionType/*.ivs"&
+
+	# Killing aircrack-ng to stop auto-checking from overlapping WEP Attack menu
+	killAircrack
 
 	#echo ""
 	#echo ""
@@ -5248,9 +5271,20 @@ autoModeNoPreviousSessionWPS(){
 	killWifite
 
 	getBSSIDCharOnly
-	reaverSaveAllSessionFiles
 
-	menuAttacksWPS
+	# Choose WPS Attack Method
+	case "$attackMethodWPS" in
+
+		"reaver")
+		reaverSaveAllSessionFiles
+		menuAttacksWPS
+		;;
+
+		"bully")
+		menuBullyMain
+		;;
+
+	esac
 
 }
 
@@ -5530,6 +5564,33 @@ currentTask="reaverSaveCurrentSessionFile"
 		cp ../../$reaverSessionPath/*.wpc "$capturePathWPS"
 
 	fi
+
+}
+
+
+menuBullyMain() {
+
+banner
+echo ""
+echo "Bully WPS Attack Menu"
+echo ""
+echo ""
+echo ""
+echo ""
+echo "Choose an option and press ENTER:"
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
 
 }
 
@@ -6202,9 +6263,9 @@ sessionLoad(){
 ############################################################################
 
 
-checkForEmptyEncrytionType(){
+checkForEmptyEncryptionType(){
 
-	currentTask="checkForEmptyEncrytionType"
+	currentTask="checkForEmptyEncryptionType"
 
 	if [ "$encryptionType" == "empty" ];then
 
@@ -6339,9 +6400,9 @@ getWirelessInterfaces(){
 		echo ""
 		echo ""
 		echo "To Change Adapter Settings, Press \"M\" Now"
-		echo ""
-		$cyan
-		echo "Current: $interface"
+		#echo ""
+		#$cyan
+		#echo "Current: $interface"
 		$white
 		#echo ""
 		#echo ""
