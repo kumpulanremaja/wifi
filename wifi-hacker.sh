@@ -27,7 +27,7 @@
 ############################################################################
 
 # v1.6
-# - Merged "checkForEmptyCredentials "bssid"", "checkForEmptyCredentials "essid"", and "checkForEmptyCredentials "channel"" into "checkForEmptyCredentials" function.
+# - Merged "checkForEmptyBSSID", "checkForEmptyESSID", and "checkForEmptyChannel" into "checkForEmptyCredentials" function.
 # - Removed "arAttackDeAuthOnRetry" function. This was a duplicate and now uses "arAttackDeAuth" function instead.
 # - Cleaned up "stopMonitorMode" function.
 # - Added support for bully, used for WPS attacks.
