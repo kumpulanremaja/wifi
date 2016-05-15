@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.6
+# - Cleaned up "stopMonitorMode" function.
 # - Added support for bully, used for WPS attacks.
 # - Fixed issue with active network connection not force disconnecting before attacks begin.
 # - Updated text for several menus.
@@ -3287,97 +3288,51 @@ stopMonitorMode(){
 
 	killMsg="Killing all active previous monitor mode interfaces...."
 
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon0
-	$stopMonitorMode wlan0mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon1
-	$stopMonitorMode wlan1mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon2
-	$stopMonitorMode wlan2mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon3
-	$stopMonitorMode wlan3mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon4
-	$stopMonitorMode wlan4mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon5
-	$stopMonitorMode wlan5mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon6
-	$stopMonitorMode wlan6mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon7
-	$stopMonitorMode wlan7mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon8
-	$stopMonitorMode wlan8mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon9
-	$stopMonitorMode wlan9mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon10
-	$stopMonitorMode wlan10mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon11
-	$stopMonitorMode wlan11mon
-	banner
-	$white
-	echo ""
-	echo $killMsg
-	$red
-	$stopMonitorMode mon12
-	$stopMonitorMode wlan12mon
+	# Older style airmon-ng
+	killMonA="mon"
+
+	# Newer 1.2+ style airmon-ng
+	killMonB1temp="wlan"
+	killMonB2temp="mon"
+
+	killCounter="0"
+
+	# Initial mon0 or wlan0mon before loop
+	case "$killCounter" in
+
+		"0")
+		banner
+		$white
+		echo ""
+		echo $killMsg
+		$red
+		$stopMonitorMode $killMonA$killCounter
+		$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp
+
+		echo "$stopMonitorMode $killMonA$killCounter"
+		echo "$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp"
+		read pause
+		;;
+
+	esac
+
+	while [ $killCounter -le 12 ]
+
+	do
+		banner
+		$white
+		echo ""
+		echo $killMsg
+		$red
+		$stopMonitorMode $killMonA$killCounter
+		$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp
+
+		killCounter=$(($killCounter+1))
+
+		echo "$stopMonitorMode $killMonA$killCounter"
+		echo "$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp"
+		read pause
+	done
 
 	banner
 	$white
