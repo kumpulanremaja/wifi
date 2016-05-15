@@ -3298,6 +3298,9 @@ stopMonitorMode(){
 
 	killCounter="0"
 
+	# I just selected 12 as a number that I feel nobody would have more wifi adapters than
+	killCounterMax="12"
+
 	# Initial mon0 or wlan0mon before loop
 	case "$killCounter" in
 
@@ -3317,8 +3320,7 @@ stopMonitorMode(){
 
 	esac
 
-	# I just selected 12 as a number that I feel nobody would have more wifi adapters than
-	while [ $killCounter -le 12 ]
+	while [ $killCounter -le $killCounterMax ]
 
 	do
 		banner
