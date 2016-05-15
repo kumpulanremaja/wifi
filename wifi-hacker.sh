@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.6
+# - Merged "checkForEmptyCredentials "bssid"", "checkForEmptyCredentials "essid"", and "checkForEmptyCredentials "channel"" into "checkForEmptyCredentials" function.
 # - Removed "arAttackDeAuthOnRetry" function. This was a duplicate and now uses "arAttackDeAuth" function instead.
 # - Cleaned up "stopMonitorMode" function.
 # - Added support for bully, used for WPS attacks.
@@ -1784,9 +1785,9 @@ menuAuto(){
 		"P" | "p")
 		checkForEmptyEncryptionType
 
-		checkForEmptyBSSID
-		checkForEmptyESSID
-		checkForEmptyChannel
+		checkForEmptyCredentials "bssid"
+		checkForEmptyCredentials "essid"
+		checkForEmptyCredentials "channel"
 
 		autoModeUsePreviousSession
 		;;
@@ -6132,77 +6133,73 @@ checkForEmptyEncryptionType(){
 }
 
 
-checkForEmptyBSSID(){
+checkForEmptyCredentials(){
 
-	currentTask="checkForEmptyBSSID"
+	currentTask="checkForEmptyCredentials"
 
-	if [ "$bssid" == "" ];then
+	case "$1" in
 
-		banner
-		bannerStats
+		"bssid")
+		if [ "$bssid" == "" ];then
 
-		echo ""
-		echo "There is currently no BSSID saved in the previous session!"
-		echo ""
-		echo ""
-		echo "Press ENTER to return to previous menu...."
-		echo ""
-		echo ""
+			banner
+			bannerStats
 
-		read pause
+			echo ""
+			echo "There is currently no BSSID saved in the previous session!"
+			echo ""
+			echo ""
+			echo "Press ENTER to return to previous menu...."
+			echo ""
+			echo ""
 
-		$lastMenuID
-	fi
+			read pause
 
-}
+			$lastMenuID
+		fi
+		;;
 
+		"essid")
+		if [ "$essid" == "" ];then
 
-checkForEmptyESSID(){
+			banner
+			bannerStats
 
-	currentTask="checkForEmptyESSID"
+			echo ""
+			echo "There is currently no ESSID saved in the previous session!"
+			echo ""
+			echo ""
+			echo "Press ENTER to return to previous menu...."
+			echo ""
+			echo ""
 
-	if [ "$essid" == "" ];then
+			read pause
 
-		banner
-		bannerStats
+		fi
 
-		echo ""
-		echo "There is currently no ESSID saved in the previous session!"
-		echo ""
-		echo ""
-		echo "Press ENTER to return to previous menu...."
-		echo ""
-		echo ""
+		;;
 
-		read pause
+		"channel")
+		if [ "$channel" == "" ];then
 
-		$lastMenuID
-	fi
+			banner
+			bannerStats
 
-}
+			echo ""
+			echo "There is currently no CHANNEL saved in the previous session!"
+			echo ""
+			echo ""
+			echo "Press ENTER to return to previous menu...."
+			echo ""
+			echo ""
 
+			read pause
 
-checkForEmptyChannel(){
+			$lastMenuID
+		fi
+		;;
 
-	currentTask="checkForEmptyChannel"
-
-	if [ "$channel" == "" ];then
-
-		banner
-		bannerStats
-
-		echo ""
-		echo "There is currently no CHANNEL saved in the previous session!"
-		echo ""
-		echo ""
-		echo "Press ENTER to return to previous menu...."
-		echo ""
-		echo ""
-
-		read pause
-
-		$lastMenuID
-	fi
+	esac
 
 }
 
