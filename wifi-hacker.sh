@@ -1293,7 +1293,9 @@ noRootAccess(){
 	banner
 	bannerStats
 
+	$red
 	echo "Yikes! No Root Access!"
+	$white
 	echo ""
 	echo ""
 	echo "I Currently Have Nothing Scripted To Handle This :("
@@ -2454,7 +2456,7 @@ menuSessionSave(){
 	echo ""
 	echo ""
 	echo ""
-	echo "Press "\""S"\" "and ENTER to save session file now"
+	echo "Press \"S\" and ENTER to save session file now"
 	echo ""
 	echo ""
 	echo "You may also just press ENTER to return to the previous menu...."
@@ -2534,7 +2536,7 @@ menuSessionLoad(){
 	echo ""
 	echo ""
 	echo ""
-	echo "Press "\""L"\" "and ENTER to load session file now"
+	echo "Press \"L\" and ENTER to load session file now"
 	echo ""
 	echo ""
 	echo "You may also just press ENTER to return to the previous menu...."
@@ -2716,6 +2718,62 @@ menuHoneyPotMode(){
 #   GET CREDENTIALS BEGIN   ################################################
 ############################################################################
 
+textGetTargetInfo(){
+
+echo ""
+echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+echo ""
+echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+echo ""
+echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+echo ""
+echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
+echo ""
+echo ""
+
+case "$encryptionTypeText" in
+	"WPS")
+	$green
+	echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER \"WPS\" COLUMN"
+	echo ""
+	echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"OPN\", \"WEP\", \"WPA\", or \"WPA2\" UNDER \"ENC\" COLUMN"
+	$white
+	echo ""
+	echo ""
+	;;
+esac
+
+case "$encryptionTypeText" in
+	"WEP")
+	$green
+	echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
+	$white
+	echo ""
+	echo ""
+	;;
+esac
+
+case "$encryptionTypeText" in
+	"WPA")
+	$green
+	echo "WPA TARGETS MAY HAVE \"WPA\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
+	$white
+	echo ""
+	echo ""
+	;;
+esac
+
+case "$encryptionTypeText" in
+	"WPA2")
+	$green
+	echo "WPA2 TARGETS MAY HAVE \"WPA2\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
+	$white
+	echo ""
+	echo ""
+	;;
+esac
+
+}
 
 getESSID(){
 
@@ -2724,58 +2782,7 @@ getESSID(){
 	banner
 	bannerStats
 
-	echo ""
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
-	echo ""
-	echo ""
-
-	case "$encryptionTypeText" in
-		"WPS")
-		$green
-		echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER \"WPS\" COLUMN"
-		echo ""
-		echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"OPN\", \"WEP\", \"WPA\", or \"WPA2\" UNDER \"ENC\" COLUMN"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WEP")
-		$green
-		echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WPA")
-		$green
-		echo "WPA TARGETS MAY HAVE \"WPA\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WPA2")
-		$green
-		echo "WPA2 TARGETS MAY HAVE \"WPA2\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
+	textGetTargetInfo
 
 	echo "PASTE or type the Target ESSID Here and press ENTER:"
 	echo ""
@@ -2843,65 +2850,13 @@ getBSSID(){
 	currentTask="getBSSID"
 
 	banner
-
 	bannerStats
 
-	echo ""
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
-	echo ""
-	echo ""
-
-	case "$encryptionTypeText" in
-		"WPS")
-		$green
-		echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER \"WPS\" COLUMN"
-		echo ""
-		echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"OPN\", \"WEP\", \"WPA\", or \"WPA2\" UNDER \"ENC\" COLUMN"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WEP")
-		$green
-		echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WPA")
-		$green
-		echo "WPA TARGETS MAY HAVE \"WPA\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WPA2")
-		$green
-		echo "WPA2 TARGETS MAY HAVE \"WPA2\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
+	textGetTargetInfo
 
 	echo "PASTE or type the Target BSSID Here and press ENTER:"
 	echo ""
-	echo "Example: A1:B2:C3:D4:E5:F6"
+	echo "Example: 00:11:22:33:44:55"
 	echo ""
 	echo ""
 
@@ -2967,60 +2922,9 @@ getChannel(){
 	banner
 	bannerStats
 
-	echo ""
-	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
-	echo ""
-	echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
-	echo ""
-	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-	echo ""
-	echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
-	echo ""
-	echo ""
+	textGetTargetInfo
 
-	case "$encryptionTypeText" in
-		"WPS")
-		$green
-		echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER \"WPS\" COLUMN"
-		echo ""
-		echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"OPN\", \"WEP\", \"WPA\", or \"WPA2\" UNDER \"ENC\" COLUMN"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WEP")
-		$green
-		echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WPA")
-		$green
-		echo "WPA TARGETS MAY HAVE \"WPA\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	case "$encryptionTypeText" in
-		"WPA2")
-		$green
-		echo "WPA2 TARGETS MAY HAVE \"WPA2\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
-		$white
-		echo ""
-		echo ""
-		;;
-	esac
-
-	echo "Enter the Target CHANNEL and press ENTER:"
+	echo "PASTE or type the Target Channel Here and press ENTER:"
 	echo ""
 	echo "Example: 6"
 	echo ""
