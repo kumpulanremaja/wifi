@@ -146,7 +146,7 @@
 # - Added a new variable called $lastMenuID for (hopefully) proper navigation between menus.
 # - Moved code for checking MAC Spoof Status into a checkSpoofStatus() function. Can now be used globally.
 # - Fixed a typo in Load Session function.
-# - Updated sessions save folder and organized by encrytion type.
+# - Updated sessions save folder and organized by encryption type.
 # - Added saving reaver session WPC files to default sessions folder.
 
 # v0.5
