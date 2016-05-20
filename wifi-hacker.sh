@@ -27,6 +27,8 @@
 ############################################################################
 
 # v1.6
+# - Added a "forceDisconnectWiFi" function to help fix active internet connection issues.
+# - Changed the handling of "WiFi Force Disconnect". Now, after accepting the agreement, the main menu will only load if the connection status is "0". If the status is "1", meaning the WiFi is connected to an access point, the "forceDisconnectWiFi" and "checkNetworkStatus" functions are called until the connection is released. This allows for better control of correcting errors resulting in having an active network connection.
 # - Added "ifconfig" and "iwconfig" output to Extras Interface Menu
 # - Merged "checkForEmptyBSSID", "checkForEmptyESSID", and "checkForEmptyChannel" into "checkForEmptyCredentials" function.
 # - Removed "arAttackDeAuthOnRetry" function. This was a duplicate and now uses "arAttackDeAuth" function instead.
@@ -1541,186 +1543,188 @@ menuMain(){
 	sessionCreatePaths
 	sessionRemoveEmpty
 
-	# This double call to the below function fixes an issue with the ipStatusText not refreshing when returning to main menu from any option
 	checkConnectionStatus
 
-	banner
-	echo ""
-	echo "Loading Menu...."	
-	echo ""
-
 	case "$ipStatus" in
 
 		"1")
+		banner
+		echo ""
+		echo "Loading Menu...."	
+		echo ""
+		echo ""
+
+		forceDisconnectWifi
+		checkConnectionStatus
 		menuMain
-		#forceDisconnectWifi
-		#checkConnectionStatus
 		;;
 
-	esac
-
-
-	banner
-	echo ""
-	#echo "Welcome to the WiFi Hacker script!"
-	echo "Compatible with all WEP/WPA/WPA2/WPS protected WiFi routers."
-	echo ""
-	$red
-	echo "**********************************************************************"
-	echo "YOU MUST DISCONNECT FROM ANY WIRELESS CONNECTIONS BEFORE CONTINUING!!!"
-	echo "**********************************************************************"
-	echo ""
-
-	case "$ipStatus" in
 		"0")
-		$green
-		;;
-
-		"1")
+		banner
+		echo ""
+		#echo "Welcome to the WiFi Hacker script!"
+		echo "Compatible with all WEP/WPA/WPA2/WPS protected WiFi routers."
+		echo ""
 		$red
-		;;
-	esac
-	echo "You are currently connected to: $ipStatusText"
-	$white
-	echo ""
-	echo ""
-	#$cyan
-	echo "0) Full Automatic Mode (Applies To All Encryption Types)"
-	#$white
-	echo ""
-	echo "1) WEP Mode (Commands can be executed from a menu to easily circumvent any WEP connection)"
-	echo ""
-	echo "2) WPS Mode (May also have WPA, WPA2, or WEP displayed. Ignore this, as it has no effect on success rate)"
-	echo ""
-	echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others, LOW SUCCESS RATE)"
-	echo ""
-	echo "4) WPA2 Mode (Almost identical to WPA attacks. This mode also carries a LOW SUCCESS RATE)"
-	echo ""
-	echo ""
-	echo ""
-	echo "Select a mode from above and press Enter:"
-	echo ""
+		echo "**********************************************************************"
+		echo "YOU MUST DISCONNECT FROM ANY WIRELESS CONNECTIONS BEFORE CONTINUING!!!"
+		echo "**********************************************************************"
+		echo ""
 
-	read getMode
+		case "$ipStatus" in
+			"0")
+			$green
+			;;
+
+			"1")
+			$red
+			;;
+		esac
+		echo "You are currently connected to: $ipStatusText"
+		$white
+		echo ""
+		echo ""
+		#$cyan
+		echo "0) Full Automatic Mode (Applies To All Encryption Types)"
+		#$white
+		echo ""
+		echo "1) WEP Mode (Commands can be executed from a menu to easily circumvent any WEP connection)"
+		echo ""
+		echo "2) WPS Mode (May also have WPA, WPA2, or WEP displayed. Ignore this, as it has no effect on success rate)"
+		echo ""
+		echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others, LOW SUCCESS RATE)"
+		echo ""
+		echo "4) WPA2 Mode (Almost identical to WPA attacks. This mode also carries a LOW SUCCESS RATE)"
+		echo ""
+		echo ""
+		echo ""
+		echo "Select a mode from above and press Enter:"
+		echo ""
+
+		read getMode
 
 
-	case "$getMode" in
+		case "$getMode" in
 
-		"0")
-		checkConnectionStatus
-		checkWifiandDisplayMessage
-		menuAttacksAllWifiteAuto
-		menuMain
-		;;
+			"0")
+			checkConnectionStatus
+			checkWifiandDisplayMessage
+			menuAttacksAllWifiteAuto
+			menuMain
+			;;
 
-		"1")
-		checkConnectionStatus
-		checkWifiandDisplayMessage
-		mkdir $capturePathWEP
-		encryptionType="wep"
-		encryptionTypeText="WEP"
-		checkSpoofStatus
-		menuAuto
-		;;
+			"1")
+			checkConnectionStatus
+			checkWifiandDisplayMessage
+			mkdir $capturePathWEP
+			encryptionType="wep"
+			encryptionTypeText="WEP"
+			checkSpoofStatus
+			menuAuto
+			;;
 
-		"2")
-		checkConnectionStatus
-		checkWifiandDisplayMessage
-		mkdir $capturePathWPS
-		encryptionType="wps"
-		encryptionTypeText="WPS"
-		checkSpoofStatus
-		menuAuto
-		;;
+			"2")
+			checkConnectionStatus
+			checkWifiandDisplayMessage
+			mkdir $capturePathWPS
+			encryptionType="wps"
+			encryptionTypeText="WPS"
+			checkSpoofStatus
+			menuAuto
+			;;
 
-		"3")
-		checkConnectionStatus
-		checkWifiandDisplayMessage
-		mkdir $capturePathWPA
-		encryptionType="wpa"
-		encryptionTypeText="WPA"
-		checkSpoofStatus
-		menuAuto
-		;;
+			"3")
+			checkConnectionStatus
+			checkWifiandDisplayMessage
+			mkdir $capturePathWPA
+			encryptionType="wpa"
+			encryptionTypeText="WPA"
+			checkSpoofStatus
+			menuAuto
+			;;
 
-		"4")
-		checkConnectionStatus
-		checkWifiandDisplayMessage
-		mkdir $capturePathWPA2
-		encryptionType="wpa2"
-		encryptionTypeText="WPA2"
-		checkSpoofStatus
-		menuAuto
-		;;
-
-		"")
-		menuMain
-		;;
-
-		"M" | "m")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		checkForEmptyEncryptionType
-
-		case "$bssid" in
+			"4")
+			checkConnectionStatus
+			checkWifiandDisplayMessage
+			mkdir $capturePathWPA2
+			encryptionType="wpa2"
+			encryptionTypeText="WPA2"
+			checkSpoofStatus
+			menuAuto
+			;;
 
 			"")
 			menuMain
 			;;
 
+			"M" | "m")
+			menuMain
+			;;
+
+			"A" | "a")
+			menuAdvanced
+			;;
+
+			"S" | "s")
+			checkForEmptyEncryptionType
+
+			case "$bssid" in
+
+				"")
+				menuMain
+				;;
+
+			esac
+
+			if [ "$bssid" != "" ]; then
+				menuSessionSave
+			fi
+			;;
+
+			"L" | "l")
+			checkForEmptyEncryptionType
+
+			#case "$bssid" in
+
+			#"")
+			#menuMain
+			#;;
+
+			#esac
+
+			#if [ "$bssid" != "" ]; then
+			menuSessionLoad
+			#fi
+			;;
+
+			"U" | "u")
+			menuUpdate
+			;;
+
+			"H" | "h")
+			menuHelp
+			;;
+
+			"E" | "e")
+			menuExtras
+			;;
+
+			"X" | "x")
+			killAll
+			stopMonitorMode
+			bannerExit
+			;;
+
+			*)
+			menuMain
+			;;
+
 		esac
-
-		if [ "$bssid" != "" ]; then
-			menuSessionSave
-		fi
-		;;
-
-		"L" | "l")
-		checkForEmptyEncryptionType
-
-		#case "$bssid" in
-
-		#"")
-		#menuMain
-		#;;
-
-		#esac
-
-		#if [ "$bssid" != "" ]; then
-		menuSessionLoad
-		#fi
-		;;
-
-		"U" | "u")
-		menuUpdate
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
-		*)
-		menuMain
 		;;
 
 	esac
 
+	#menuMain
 }
 
 
