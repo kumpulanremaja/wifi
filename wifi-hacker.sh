@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.6
+# - Added "ifconfig" and "iwconfig" output to Extras Interface Menu
 # - Merged "checkForEmptyBSSID", "checkForEmptyESSID", and "checkForEmptyChannel" into "checkForEmptyCredentials" function.
 # - Removed "arAttackDeAuthOnRetry" function. This was a duplicate and now uses "arAttackDeAuth" function instead.
 # - Cleaned up "stopMonitorMode" function.
@@ -2127,6 +2128,9 @@ menuExtrasInterface(){
 	echo ""
 	echo "7) Fix Airmon Conflicting Processes"
 	echo ""
+	echo "8) Get \"ifconfig\" Output"
+	echo "9) Get \"iwconfig\" Output"
+	echo ""
 	echo "R) Return To Previous Menu"
 	echo ""
 	echo ""
@@ -2168,6 +2172,36 @@ menuExtrasInterface(){
 
 		"7")
 		fixAirmonCompat
+		;;
+
+		"8")
+		showIfConfig=$(ifconfig)
+		banner
+		bannerStats
+		echo ""
+		echo "$showIfConfig"
+		echo ""
+		echo ""	
+		echo ""	
+		echo "Press ENTER to continue..."	
+		echo ""	
+		echo ""	
+		read pause
+		;;
+
+		"9")
+		showIwConfig=$(iwconfig)
+		banner
+		bannerStats
+		echo ""
+		echo "$showIwConfig"
+		echo ""
+		echo ""	
+		echo ""	
+		echo "Press ENTER to continue..."	
+		echo ""	
+		echo ""	
+		read pause
 		;;
 
 		"r" | "R")
