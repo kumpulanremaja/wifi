@@ -989,6 +989,7 @@ showDisclaimer(){
 		#killNetworkManager
 		#killWpaSupplicant
 		#initMonitorMode
+		#stopMonitorMode
 		menuMain
 		;;
 
@@ -1133,9 +1134,7 @@ bannerExit(){
 
 	sessionRemoveEmpty
 
-	NetworkManager
-
-	enableChannelHopping
+	forceDisconnectWifi
 
 	clear
 	$blue
@@ -1495,6 +1494,7 @@ isUnreleased(){
 		#killNetworkManager
 		#killWpaSupplicant
 		#initMonitorMode
+		#stopMonitorMode
 		menuMain
 		;;
 
@@ -1503,6 +1503,18 @@ isUnreleased(){
 		;;
 
 	esac
+
+}
+
+
+# Tries fixing issues with connection staying persistant to WiFi
+forceDisconnectWifi() {
+
+	#stopMonitorMode
+	#killNetworkManager
+	NetworkManager
+	#disableChannelHopping
+	enableChannelHopping
 
 }
 
@@ -1531,17 +1543,21 @@ menuMain(){
 
 	# This double call to the below function fixes an issue with the ipStatusText not refreshing when returning to main menu from any option
 	checkConnectionStatus
-	#checkConnectionStatus
 
 	banner
 	echo ""
 	echo "Loading Menu...."	
 	echo ""
 
-	# Force disconnect
-	disableChannelHopping
-	enableChannelHopping
+	case "$ipStatus" in
 
+		"1")
+		menuMain
+		#forceDisconnectWifi
+		#checkConnectionStatus
+		;;
+
+	esac
 
 
 	banner
@@ -6274,7 +6290,9 @@ getWirelessInterfaces(){
 		echo ""
 		echo ""
 		echo ""
+		$cyan
 		echo "To Change Adapter Settings, Press \"M\" Now"
+		$white
 		#echo ""
 		#$cyan
 		#echo "Current: $interface"
