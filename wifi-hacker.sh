@@ -1593,11 +1593,11 @@ menuMain(){
 		echo ""
 		echo "1) WEP Mode (Commands can be executed from a menu to easily circumvent any WEP connection)"
 		echo ""
-		echo "2) WPS Mode (May also have WPA, WPA2, or WEP displayed. Ignore this, as it has no effect on success rate)"
+		echo "2) WPS Mode (May also have WPA, WPA2, or WEP displayed)"
 		echo ""
-		echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others, LOW SUCCESS RATE)"
+		echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others)"
 		echo ""
-		echo "4) WPA2 Mode (Almost identical to WPA attacks. This mode also carries a LOW SUCCESS RATE)"
+		echo "4) WPA2 Mode (Almost identical to WPA attacks)"
 		echo ""
 		echo ""
 		echo ""
@@ -2784,7 +2784,7 @@ textGetTargetInfo(){
 echo ""
 echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
 echo ""
-echo "YOU CAN USE THE AIRODUMP WINDOW TO GATHER ALL NEEDED INFORMATION"
+echo "YOU CAN USE THIS AIRODUMP-NG WINDOW TO GATHER ALL NEEDED INFORMATION"
 echo ""
 echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
 echo ""
@@ -2807,7 +2807,8 @@ esac
 case "$encryptionTypeText" in
 	"WEP")
 	$green
-	echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
+	#echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
+	echo "CURRENTLY SET TO ONLY SCAN FOR \"WEP\" TARGETS"
 	$white
 	echo ""
 	echo ""
@@ -3351,8 +3352,8 @@ stopMonitorMode(){
 	killMonA="mon"
 
 	# Newer 1.2+ style airmon-ng
-	killMonB1temp="wlan"
-	killMonB2temp="mon"
+	killMonB1="wlan"
+	killMonB2="mon"
 
 	killCounter="0"
 
@@ -3369,11 +3370,7 @@ stopMonitorMode(){
 		echo $killMsg
 		$red
 		$stopMonitorMode $killMonA$killCounter
-		$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp
-
-		#echo "$stopMonitorMode $killMonA$killCounter"
-		#echo "$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp"
-		#read pause
+		$stopMonitorMode $killMonB1$killCounter$killMonB2
 		;;
 
 	esac
@@ -3387,13 +3384,9 @@ stopMonitorMode(){
 		echo $killMsg
 		$red
 		$stopMonitorMode $killMonA$killCounter
-		$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp
+		$stopMonitorMode $killMonB1$killCounter$killMonB2
 
 		killCounter=$(($killCounter+1))
-
-		#echo "$stopMonitorMode $killMonA$killCounter"
-		#echo "$stopMonitorMode $killMonB1temp$killCounter$killMonB2temp"
-		#read pause
 	done
 
 	banner
