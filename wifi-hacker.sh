@@ -3471,19 +3471,49 @@ adFileDump(){
 	case "$encryptionType" in
 
 		"wep")
-		adFileDumpWEP
-		;;
+		echo ""
+		echo ""
 
-		"wps")
-		#adFileDumpWPS
+		disableChannelHopping
+
+		$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+		#$terminal airodump-ng -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+		#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+		#read pause
+
+		#Working (uses session path)
+		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+
+		echo ""
+		echo ""
 		;;
 
 		"wpa")
-		adFileDumpWPA
+		sleepMessage="Preparing to Capture WPA Handshake...."
+		doSleepMessage
+		sleep 3
+
+		disableChannelHopping
+
+		$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+
+		echo ""
+		echo ""
 		;;
 
 		"wpa2")
-		adFileDumpWPA2
+		sleepMessage="Preparing to Capture WPA Handshake...."
+		doSleepMessage
+		sleep 3
+
+		disableChannelHopping
+
+		$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+
+		echo ""
+		echo ""
 		;;
 
 	esac
@@ -3498,19 +3528,48 @@ adFileDumpNoChannel(){
 	case "$encryptionType" in
 
 		"wep")
-		adFileDumpNoChannelWEP
-		;;
+		echo ""
+		echo ""
 
-		"wps")
-		#adFileDumpNoChannelWPS
+		$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
+
+		#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+		#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+		#read pause
+
+		#Working (uses session path)
+		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
+
+		echo ""
+		echo ""
 		;;
 
 		"wpa")
-		adFileDumpNoChannelWPA
+		echo ""
+		echo ""
+
+		$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
+		#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+
+		#Working (uses session path)
+		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
+
+		echo ""
+		echo ""
 		;;
 
 		"wpa2")
-		adFileDumpNoChannelWPA2
+		echo ""
+		echo ""
+
+		$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
+		#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+
+		#Working (uses session path)
+		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
+
+		echo ""
+		echo ""
 		;;
 
 	esac
@@ -3528,10 +3587,6 @@ aircrackDecrypt(){
 
 		"wep")
 		aircrackDecryptWEP
-		;;
-
-		"wps")
-		#aircrackDecryptWPS
 		;;
 
 		"wpa")
@@ -4048,50 +4103,6 @@ arAssociate(){
 }
 
 
-adFileDumpWEP(){
-
-	currentTask="adFileDumpWEP"
-
-	echo ""
-	echo ""
-
-	disableChannelHopping
-
-	$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
-	#$terminal airodump-ng -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-	#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-	#read pause
-
-	#Working (uses session path)
-	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-
-	echo ""
-	echo ""
-
-}
-
-adFileDumpNoChannelWEP(){
-
-	currentTask="adFileDumpNoChannelWEP"
-
-	echo ""
-	echo ""
-
-	$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
-
-	#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-	#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-	#read pause
-
-	#Working (uses session path)
-	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-	echo ""
-	echo ""
-
-}
-
-
 arAttackDeAuth(){
 
 	currentTask="arAttackDeAuth"
@@ -4366,44 +4377,6 @@ menuAttacksWPA(){
 }
 
 
-adFileDumpWPA(){
-
-	currentTask="adFileDumpWPA"
-
-	sleepMessage="Preparing to Capture WPA Handshake...."
-	doSleepMessage
-	sleep 3
-
-	disableChannelHopping
-
-	$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
-	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-
-	echo ""
-	echo ""
-
-}
-
-
-adFileDumpNoChannelWPA(){
-
-	currentTask="adFileDumpNoChannelWPA"
-
-	echo ""
-	echo ""
-
-	$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
-	#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-	#Working (uses session path)
-	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-	echo ""
-	echo ""
-
-}
-
-
 aircrackDecryptWPA(){
 
 	currentTask="aircrackDecryptWPA"
@@ -4421,7 +4394,7 @@ aircrackDecryptWPA(){
 	bannerStats
 
 	echo ""
-	echo "You need darkc0de.lst to crack the key, or another list:"
+	echo "You need a wordlist to crack the key!"
 	echo ""
 	echo "Current List Loaded:"
 	echo ""
@@ -4439,7 +4412,7 @@ aircrackDecryptWPA(){
 	echo "You may also press B and ENTER to run a besside-ng attack"
 	echo ""
 	echo ""
-	echo "Press ENTER once you have a list file in the same directory as the script"
+	echo "Press ENTER once you have a valid wordlist ready!"
 	echo ""
 	echo ""
 
@@ -4448,7 +4421,7 @@ aircrackDecryptWPA(){
 	case "$tmpPause" in
 
 		"")
-		$terminal aircrack-ng -w $wordlist -b $bssid *.cap
+		$terminal aircrack-ng -w "$wordlist" -b $bssid *.cap
 		;;
 
 		"C" | "c")
@@ -4802,44 +4775,6 @@ menuAttacksWPA2(){
 }
 
 
-adFileDumpWPA2(){
-
-	currentTask="adFileDumpWPA2"
-
-	sleepMessage="Preparing to Capture WPA Handshake...."
-	doSleepMessage
-	sleep 3
-
-	disableChannelHopping
-
-	$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
-	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-
-	echo ""
-	echo ""
-
-}
-
-
-adFileDumpNoChannelWPA2(){
-
-	currentTask="adFileDumpNoChannelWPA2"
-
-	echo ""
-	echo ""
-
-	$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
-	#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-	#Working (uses session path)
-	#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-	echo ""
-	echo ""
-
-}
-
-
 aircrackDecryptWPA2(){
 
 	currentTask="aircrackDecryptWPA2"
@@ -4857,7 +4792,7 @@ aircrackDecryptWPA2(){
 	bannerStats
 
 	echo ""
-	echo "You need darkc0de.lst to crack the key, or another list:"
+	echo "You need a wordlist to crack the key!"
 	echo ""
 	echo "Current List Loaded:"
 	echo ""
@@ -4875,7 +4810,7 @@ aircrackDecryptWPA2(){
 	echo "You may also press B and ENTER to run a besside-ng attack"
 	echo ""
 	echo ""
-	echo "Press ENTER once you have a list file in the same directory as the script"
+	echo "Press ENTER once you have a valid wordlist ready!"
 	echo ""
 	echo ""
 
@@ -4884,7 +4819,7 @@ aircrackDecryptWPA2(){
 	case "$tmpPause" in
 
 		"")
-		$terminal aircrack-ng -w $wordlist -b $bssid *.cap
+		$terminal aircrack-ng -w "$wordlist" -b $bssid *.cap
 		;;
 
 		"C" | "c")
