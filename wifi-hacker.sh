@@ -6,7 +6,7 @@
 ############################################################################
 
 
-# WiFi Hacker v1.6
+# WiFi Hacker v1.7
 # esc0rtd3w 2016
 
 # https://github.com/esc0rtd3w/wifi-hacker/
@@ -25,6 +25,9 @@
 ############################################################################
 #   VERSION HISTORY BEGIN   ################################################
 ############################################################################
+
+# v1.7
+# - Updated airodump-ng windows to only scan for the encryption type that is currently being targeted.
 
 # v1.6
 # - Added a "forceDisconnectWiFi" function to help fix active internet connection issues.
@@ -592,7 +595,7 @@ setWindowTitle(){
 
 	currentTask="setWindowTitle"
 
-	title='echo -ne "\033]0;WiFi Hacker v1.6\007"'
+	title='echo -ne "\033]0;WiFi Hacker v1.7\007"'
 
 	$title
 
@@ -764,7 +767,7 @@ setDefaults(){
 
 	currentTask="setDefaults"
 
-	versionBase="1.6"
+	versionBase="1.7"
 	versionRemote="0.0"
 
 	initPath="$PWD"
@@ -3558,8 +3561,11 @@ adAPScan(){
 	echo ""
 	echo ""
 
-	$terminal airodump-ng --channel $channel -i $interfaceMonitor &
+	#$terminal airodump-ng --channel $channel -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one --channel $channel -i $interfaceMonitor &
+
+	$terminal airodump-ng --channel $channel --encrypt $encryptionType -i $interfaceMonitor &
+
 	#read pause
 
 	echo ""
@@ -3576,6 +3582,8 @@ adAPScanWPS(){
 	echo ""
 
 	$terminal airodump-ng --channel $channel -i $interfaceMonitor --wps&
+
+	#$terminal airodump-ng --channel $channel --encrypt $encryptionType -i $interfaceMonitor --$encryptionType&
 
 	echo ""
 	echo ""
@@ -3619,8 +3627,10 @@ adAPScanNoChannel(){
 
 	echo ""
 	echo ""
-	$terminal airodump-ng -i $interfaceMonitor &
+	#$terminal airodump-ng -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one -i $interfaceMonitor &
+
+	$terminal airodump-ng --encrypt $encryptionType -i $interfaceMonitor &
 	#read pause
 
 	echo ""
@@ -3636,6 +3646,8 @@ adAPScanNoChannelWPS(){
 	echo ""
 	echo ""
 	$terminal airodump-ng -i $interfaceMonitor --wps&
+
+	#$terminal airodump-ng --encrypt $encryptionType -i $interfaceMonitor --$encryptionType&
 
 	echo ""
 	echo ""
