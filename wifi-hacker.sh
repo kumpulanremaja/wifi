@@ -722,6 +722,9 @@ setVariablesRequired(){
 	interfaceMonitor="wlan0mon"
 	interfaceName="wlan0"
 	interfaceMode="0"
+	interfaceNumber="0"
+	interfaceNumberMax="99"
+	interfacesFound="0"
 	bssid=""
 	essid=""
 	channel=""
@@ -1038,7 +1041,7 @@ banner(){
 	echo "---------------------    ****************************************************************    ----------------------"
 	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
-	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "| Interfaces: $interfacesFound  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
 	$white
@@ -1059,7 +1062,7 @@ bannerNoMenu(){
 	echo "---------------------    ****************************************************************    ----------------------"
 	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
-	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "| Interfaces: $interfacesFound  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
 	$white
@@ -1080,7 +1083,7 @@ bannerMain(){
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	$yellow
-	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "| Interfaces: $interfacesFound  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
 	$white
@@ -1100,7 +1103,7 @@ bannerMenu(){
 	echo "---------------------    ****************************************************************    ----------------------"
 	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
-	echo "| Connection: $ipStatus  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
+	echo "| Interfaces: $interfacesFound  |  Interface Mode: $interfaceMode  |  [A] Advanced  |  Sessions: [S] Save  [L] Load  |  [E] Extras  [H] Help  |"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	#echo ""
 	$white
@@ -6180,6 +6183,55 @@ checkForEmptyCredentials(){
 #   MISC STUFF BEGIN   #####################################################
 ############################################################################
 
+checkMultipleAdapters(){
+
+	currentTask="checkMultipleAdapters"
+
+	interfaceNumber="0"
+	interfaceNumberMax="99"
+	interfacesFound="0"
+
+	while [ $interfaceNumber -le $interfaceNumberMax ]
+
+	do
+		banner
+		$white
+		echo ""
+		echo "Checking WiFi Adapters...."
+		echo ""
+		echo ""
+
+		interfaceCheck=$(iwconfig | grep "wlan$interfaceNumber" | head -c 5)
+		interfaceMonitor="$interfaceCheck""mon"
+		interfaceName=$interfaceMonitor
+
+		case "$interfaceCheck" in
+
+			"")
+			interfaceNumber="99"
+			interfaceNumberMax="99"
+			break;
+			;;
+
+			*)
+			#interface="$interfaceCheck"
+			interfaceNumber=$(($interfaceNumber+1))
+			interfacesFound=$(($interfacesFound+1))
+			;;
+
+		esac
+
+		#echo "interfaceNumber: $interfaceNumber"
+		#echo "interfaceNumberMax: $interfaceNumberMax"
+		#echo "interfaceCheck: $interfaceCheck"
+		#echo "interfacesFound: $interfacesFound"
+		#read pause
+
+		
+	done
+
+}
+
 
 getWirelessInterfaces(){
 
@@ -6198,6 +6250,8 @@ getWirelessInterfaces(){
 		;;
 
 		*)
+		checkMultipleAdapters
+
 		banner
 		echo ""
 		echo "Auto-Setting Wireless Interface Modes"
