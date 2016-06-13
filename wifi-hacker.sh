@@ -27,6 +27,11 @@
 ############################################################################
 
 # v1.7
+# - Currently supports up to 10 wifi wdapters.
+# - Added adapter check after disclaimer is agreed, so the main menu will show the correct number of adapters.
+# - Updated "killCounterMax" to use "interfacesFound" value for "stopMonitorMode()" function
+# - Added "checkMultipleAdapters" Function
+# - Added number of interfaces displayed on stats banner.
 # - Fixed "Interface Name" on stats banner.
 # - Updated airodump-ng scripting for several functions.
 # - Fixed PixeDust toggles. They were reversed, disable turned on and vice/versa.
@@ -1003,6 +1008,7 @@ showDisclaimer(){
 		#killWpaSupplicant
 		#initMonitorMode
 		#stopMonitorMode
+		#checkMultipleAdapters
 		menuMain
 		;;
 
@@ -1508,6 +1514,7 @@ isUnreleased(){
 		#killWpaSupplicant
 		#initMonitorMode
 		#stopMonitorMode
+		#checkMultipleAdapters
 		menuMain
 		;;
 
@@ -1553,6 +1560,8 @@ menuMain(){
 	checkRootStatus
 	sessionCreatePaths
 	sessionRemoveEmpty
+
+	checkMultipleAdapters
 
 	checkConnectionStatus
 
@@ -3366,7 +3375,10 @@ stopMonitorMode(){
 	killCounter="0"
 
 	# I just selected 12 as a number that I feel nobody would have more wifi adapters than
-	killCounterMax="12"
+	#killCounterMax="12"
+
+	# Using number of found adapters to determine max
+	killCounterMax="$interfacesFound"
 
 	# Initial mon0 or wlan0mon before loop
 	case "$killCounter" in
@@ -6254,24 +6266,113 @@ getWirelessInterfaces(){
 
 		banner
 		echo ""
-		echo "Auto-Setting Wireless Interface Modes"
-		echo ""
-		echo ""
-		echo ""
-		$cyan
+		$yellow
 		echo "To Change Adapter Settings, Press \"M\" Now"
 		$white
 		#echo ""
 		#$cyan
 		#echo "Current: $interface"
 		$white
-		#echo ""
-		#echo ""
-		#echo "To Spoof MAC Address, Press \"W\" Now"
-		#echo ""
-		#$cyan
-		#echo "Current: $macAddress"
-		#$white
+		echo ""
+		echo ""
+		echo "To Select Interface From Discovered, Choose From Below"
+		echo ""
+		$cyan
+
+		# If no adpaters found
+		if [ $interfacesFound -eq "0" ]; then
+			$red
+			echo "NO WIFI ADAPTER FOUND!!!"
+			$cyan
+		fi
+
+		# If only one device detected
+		if [ $interfacesFound -eq "1" ]; then
+			echo "1) wlan0"
+		fi
+
+		if [ $interfacesFound -eq "2" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+		fi
+
+		if [ $interfacesFound -eq "3" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+			echo "3) wlan2"
+		fi
+
+		if [ $interfacesFound -eq "4" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+			echo "3) wlan2"
+			echo "4) wlan3"
+		fi
+
+		if [ $interfacesFound -eq "5" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+			echo "3) wlan2"
+			echo "4) wlan3"
+			echo "5) wlan4"
+		fi
+
+		if [ $interfacesFound -eq "6" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+			echo "3) wlan2"
+			echo "4) wlan3"
+			echo "5) wlan4"
+			echo "6) wlan5"
+		fi
+
+		if [ $interfacesFound -eq "7" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+			echo "3) wlan2"
+			echo "4) wlan3"
+			echo "5) wlan4"
+			echo "6) wlan5"
+			echo "7) wlan6"
+		fi
+
+		if [ $interfacesFound -eq "8" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+			echo "3) wlan2"
+			echo "4) wlan3"
+			echo "5) wlan4"
+			echo "6) wlan5"
+			echo "7) wlan6"
+			echo "8) wlan7"
+		fi
+
+		if [ $interfacesFound -eq "9" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+			echo "3) wlan2"
+			echo "4) wlan3"
+			echo "5) wlan4"
+			echo "6) wlan5"
+			echo "7) wlan6"
+			echo "8) wlan7"
+			echo "9) wlan8"
+		fi
+
+		if [ $interfacesFound -eq "10" ]; then
+			echo "1) wlan0"
+			echo "2) wlan1"
+			echo "3) wlan2"
+			echo "4) wlan3"
+			echo "5) wlan4"
+			echo "6) wlan5"
+			echo "7) wlan6"
+			echo "8) wlan7"
+			echo "9) wlan8"
+			echo "10) wlan9"
+		fi
+
+		$white
 		echo ""
 		echo ""
 		echo ""
@@ -6308,6 +6409,66 @@ getWirelessInterfaces(){
 			;;
 
 		esac
+		;;
+
+		"1")
+		interface="wlan0"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"2")
+		interface="wlan1"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"3")
+		interface="wlan2"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"4")
+		interface="wlan3"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"5")
+		interface="wlan4"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"6")
+		interface="wlan5"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"7")
+		interface="wlan6"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"8")
+		interface="wlan7"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"9")
+		interface="wlan8"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
+		;;
+
+		"10")
+		interface="wlan9"
+		interfaceMonitor="$interface""mon"
+		interfaceName="$interfaceMonitor"
 		;;
 
 		"M" | "m")
