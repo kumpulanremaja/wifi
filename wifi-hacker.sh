@@ -28,6 +28,7 @@
 
 # v1.7
 # - Currently supports up to 10 wifi wdapters.
+# - Changed hotkey for "Manual Adapter Entry" from "M" to "C", because of conflicting with main menu hotkey
 # - Added adapter check after disclaimer is agreed, so the main menu will show the correct number of adapters.
 # - Updated "killCounterMax" to use "interfacesFound" value for "stopMonitorMode()" function
 # - Added "checkMultipleAdapters" Function
@@ -1562,6 +1563,7 @@ menuMain(){
 	sessionRemoveEmpty
 
 	checkMultipleAdapters
+	checkInterfaceMode
 
 	checkConnectionStatus
 
@@ -1763,6 +1765,8 @@ menuAuto(){
 
 	#sessionCopyNewCaptureFiles
 	sessionRemoveEmpty
+
+	checkInterfaceMode
 
 	banner
 	bannerStats
@@ -6195,6 +6199,29 @@ checkForEmptyCredentials(){
 #   MISC STUFF BEGIN   #####################################################
 ############################################################################
 
+checkInterfaceMode(){
+
+	currentTask="checkInterfaceMode"
+
+	interfaceModeCheck=$(iwconfig | grep "$interfaceMonitor" | head -c 5)
+
+	case "$interfaceModeCheck" in
+
+		"")
+		interfaceMode="0"
+		#break;
+		;;
+
+		*)
+		interfaceMode="2"
+		#break;
+		;;
+
+	esac
+		
+}
+
+
 checkMultipleAdapters(){
 
 	currentTask="checkMultipleAdapters"
@@ -6266,8 +6293,8 @@ getWirelessInterfaces(){
 
 		banner
 		echo ""
-		$yellow
-		echo "To Change Adapter Settings, Press \"M\" Now"
+		$cyan
+		echo "To Change Adapter Settings, Press \"C\" Now"
 		$white
 		#echo ""
 		#$cyan
@@ -6277,7 +6304,7 @@ getWirelessInterfaces(){
 		echo ""
 		echo "To Select Interface From Discovered, Choose From Below"
 		echo ""
-		$cyan
+		$green
 
 		# If no adpaters found
 		if [ $interfacesFound -eq "0" ]; then
@@ -6471,7 +6498,7 @@ getWirelessInterfaces(){
 		interfaceName="$interfaceMonitor"
 		;;
 
-		"M" | "m")
+		"C" | "c")
 		banner
 		echo ""
 		echo "Enter Managed Mode Interface Name and press ENTER:"
@@ -6494,11 +6521,12 @@ getWirelessInterfaces(){
 
 			"")
 			interface=$(iwconfig | grep "wlan" | head -c 5)
+			manualSelectionManaged="$interface"
 			;;
 
 			*)
 			interface="$manualSelectionManaged"
-			interfaceName="$manualSelectionManaged"
+			interfaceName="$interface$manualSelectionManaged"
 			;;
 
 		esac
@@ -6534,6 +6562,13 @@ getWirelessInterfaces(){
 
 		esac
 		;;
+
+		"M" | "m")
+		killAll
+		stopMonitorMode
+		menuMain
+		;;
+
 
 		"W" | "w")
 		#returnTo="getWirelessInterfaces"
