@@ -6,7 +6,7 @@
 ############################################################################
 
 
-# WiFi Hacker v1.7
+# WiFi Hacker v1.8
 # esc0rtd3w 2016
 
 # https://github.com/esc0rtd3w/wifi-hacker/
@@ -26,8 +26,10 @@
 #   VERSION HISTORY BEGIN   ################################################
 ############################################################################
 
+# v1.8
+
 # v1.7
-# - Currently supports up to 10 wifi wdapters.
+# - Currently supports up to 10 wifi adapters.
 # - Changed hotkey for "Manual Adapter Entry" from "M" to "C", because of conflicting with main menu hotkey
 # - Added adapter check after disclaimer is agreed, so the main menu will show the correct number of adapters.
 # - Updated "killCounterMax" to use "interfacesFound" value for "stopMonitorMode()" function
@@ -604,7 +606,7 @@ setWindowTitle(){
 
 	currentTask="setWindowTitle"
 
-	title='echo -ne "\033]0;WiFi Hacker v1.7\007"'
+	title='echo -ne "\033]0;WiFi Hacker v1.8\007"'
 
 	$title
 
@@ -781,7 +783,7 @@ setDefaults(){
 
 	currentTask="setDefaults"
 
-	versionBase="1.7"
+	versionBase="1.8"
 	versionRemote="0.0"
 
 	initPath="$PWD"
@@ -1214,7 +1216,7 @@ doSleepMessage(){
 
 menuUpdate(){
 
-	currentTask="menuUpdate"
+	#currentTask="menuUpdate"
 	
 	banner
 	
@@ -1223,8 +1225,10 @@ menuUpdate(){
 	echo ""
 	echo ""
 	echo ""
+	$green
 	echo "Current Version: v$versionBase"
 	echo ""
+	$white
 	echo "Remote Version: v$versionRemote"
 	echo ""
 	echo ""
@@ -1239,8 +1243,31 @@ menuUpdate(){
 	echo "2) Apply New Update"
 	echo ""
 	echo ""
+	echo "R) Return To Previous Page"
+	echo ""
+	echo ""
 
-	read pause
+	read updateChoice
+
+	case "$updateChoice" in
+
+		"")
+		menuUpdate
+		;;
+
+		"1")
+		checkUpdate
+		;;
+
+		"2")
+		getUpdate
+		;;
+
+		"R" | "r")
+		currentTask
+		;;
+
+	esac
 
 }
 
@@ -1251,7 +1278,7 @@ checkUpdate(){
 	
 	wget -O "$updateTemp" $updateMaster
 
-	cat $updateTemp | grep $versionBase
+	cat $updateTemp | grep versionBase
 
 	read pause
 
@@ -2180,7 +2207,7 @@ menuExtrasInterface(){
 	echo ""
 	echo "Select an option from above and press ENTER:"
 	echo ""
-	echo ""
+	#echo ""
 
 	read getExtrasInterface
 
