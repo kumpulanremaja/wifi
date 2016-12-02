@@ -6326,7 +6326,7 @@ getWirelessInterfaces(){
 	# This is for the 2nd "getWirelessInterfaces" call for some forgotten reason :rolleyes: (Hides Text)
 	case "$1" in
 
-		# This is just splashing some text to wait out the 5 minute timeout....make it look useful!!
+		# This is just splashing some text to wait out the 5 second timeout....make it look useful!!
 		"refresh")
 		banner
 		echo ""
