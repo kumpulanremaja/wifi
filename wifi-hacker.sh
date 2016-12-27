@@ -2833,7 +2833,7 @@ menuHoneyPotMode(){
 textGetTargetInfo(){
 
 echo ""
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN"
+echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN, ONLY SHOWING $encryptionTypeText TARGETS"
 echo ""
 echo "YOU CAN USE THIS AIRODUMP-NG WINDOW TO GATHER ALL NEEDED INFORMATION"
 echo ""
@@ -2858,8 +2858,8 @@ esac
 case "$encryptionTypeText" in
 	"WEP")
 	$green
-	#echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
-	echo "CURRENTLY SET TO ONLY SCAN FOR \"WEP\" TARGETS"
+	echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
+	#echo "CURRENTLY SET TO ONLY SCAN FOR \"WEP\" TARGETS"
 	$white
 	echo ""
 	echo ""
