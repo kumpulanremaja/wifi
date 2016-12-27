@@ -1637,16 +1637,16 @@ menuMain(){
 		echo ""
 		echo ""
 		#$cyan
-		echo "0) Full Automatic Mode (Applies To All Encryption Types)"
+		echo "0) Auto Mode    (Uses WiFite In Full Automatic Mode. Applies To All Encryption Types)"
 		#$white
 		echo ""
-		echo "1) WEP Mode (Commands can be executed from a menu to easily circumvent any WEP connection)"
+		echo "1) WEP Mode     (Menu Options Can Be Selected To Easily Circumvent Any WEP Connection)"
 		echo ""
-		echo "2) WPS Mode (May also have WPA, WPA2, or WEP displayed)"
+		echo "2) WPS Mode     (Pin Vulnerability Attack. May Also Have WPA, WPA2, or WEP Displayed)"
 		echo ""
-		echo "3) WPA Mode (Capture 4-way handshake, dictionary attack, bruteforce and others)"
+		echo "3) WPA Mode     (Capture 4-way Handshake, Dictionary Attack, Bruteforce, Custom Wordlist, and More)"
 		echo ""
-		echo "4) WPA2 Mode (Almost identical to WPA attacks)"
+		echo "4) WPA2 Mode    (Identical To WPA Attacks, Except Target Encryption Type)"
 		echo ""
 		echo ""
 		echo ""
@@ -6326,7 +6326,7 @@ getWirelessInterfaces(){
 	# This is for the 2nd "getWirelessInterfaces" call for some forgotten reason :rolleyes: (Hides Text)
 	case "$1" in
 
-		# This is just splashing some text to wait out the 5 second timeout....make it look useful!!
+		# This is just splashing some text to wait out the 5 minute timeout....make it look useful!!
 		"refresh")
 		banner
 		echo ""
