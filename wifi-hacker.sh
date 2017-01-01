@@ -289,10 +289,10 @@ initMain(){
 	#showDependencies
 
 	# Optionally Show Disclaimer Before Launch
-	showDisclaimer
+	#showDisclaimer
 
 	# Optionally Show Unreleased Text Before Launch
-	#isUnreleased
+	isUnreleased
 
 	# Load Main Menu
 	menuMain
@@ -758,6 +758,29 @@ setVariablesRequired(){
 	attackMethodWPS="reaver"
 	attackMethodWPA=""
 	attackMethodWPA2=""
+
+
+	#Find Network Adapter Commands
+	showAdapterPciAll=$(lspci | egrep -i 'network|ethernet')
+	showAdapterUsbAll=$(lsusb | egrep -i '')
+	showAdapterUsbAtheros=$(lsusb | egrep -i 'atheros|0cf3')
+
+	# Atheros WiFi Adapters
+	showAdapterUsbAtherosAR9271=$(lsusb | egrep -i 'AR9271' | cut -d ":" -f3)
+
+	# Support For 10 Adapter Names
+	adapterNameDefault="No Adapter Name Parsed"
+	showAdapterOneName="$adapterNameDefault"
+	showAdapterTwoName="$adapterNameDefault"
+	showAdapterThreeName="$adapterNameDefault"
+	showAdapterFourName="$adapterNameDefault"
+	showAdapterFiveName="$adapterNameDefault"
+	showAdapterSixName="$adapterNameDefault"
+	showAdapterSevenName="$adapterNameDefault"
+	showAdapterEightName="$adapterNameDefault"
+	showAdapterNineName="$adapterNameDefault"
+	showAdapterTenName="$adapterNameDefault"
+	
 
 }
 
@@ -3709,7 +3732,7 @@ adAPScanNoChannelWPS(){
 
 	echo ""
 	echo ""
-	$terminal airodump-ng -i $interfaceMonitor --wps&
+	$terminal airodump-ng -i $interfaceMonitor --wps &
 
 	#$terminal airodump-ng --encrypt $encryptionType -i $interfaceMonitor --$encryptionType&
 
@@ -6318,6 +6341,19 @@ checkMultipleAdapters(){
 }
 
 
+getWirelessInterfaceNames(){
+
+	currentTask="getWirelessInterfaceNames"
+
+	if [ ! -z "$showAdapterUsbAtherosAR9271" ]; then
+	
+		showAdapterOneName="$showAdapterUsbAtherosAR9271"
+
+	fi 
+
+}
+
+
 getWirelessInterfaces(){
 
 	currentTask="getWirelessInterfaces"
@@ -6361,88 +6397,98 @@ getWirelessInterfaces(){
 
 		# If only one device detected
 		if [ $interfacesFound -eq "1" ]; then
-			echo "1) wlan0"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
 		fi
 
 		if [ $interfacesFound -eq "2" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
 		fi
 
 		if [ $interfacesFound -eq "3" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
-			echo "3) wlan2"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
+			echo "3) wlan2 ($showAdapterThreeName)"
 		fi
 
 		if [ $interfacesFound -eq "4" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
-			echo "3) wlan2"
-			echo "4) wlan3"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
+			echo "3) wlan2 ($showAdapterThreeName)"
+			echo "4) wlan3 ($showAdapterFourName)"
 		fi
 
 		if [ $interfacesFound -eq "5" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
-			echo "3) wlan2"
-			echo "4) wlan3"
-			echo "5) wlan4"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
+			echo "3) wlan2 ($showAdapterThreeName)"
+			echo "4) wlan3 ($showAdapterFourName)"
+			echo "5) wlan4 ($showAdapterFiveName)"
 		fi
 
 		if [ $interfacesFound -eq "6" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
-			echo "3) wlan2"
-			echo "4) wlan3"
-			echo "5) wlan4"
-			echo "6) wlan5"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
+			echo "3) wlan2 ($showAdapterThreeName)"
+			echo "4) wlan3 ($showAdapterFourName)"
+			echo "5) wlan4 ($showAdapterFiveName)"
+			echo "6) wlan5 ($showAdapterSixName)"
 		fi
 
 		if [ $interfacesFound -eq "7" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
-			echo "3) wlan2"
-			echo "4) wlan3"
-			echo "5) wlan4"
-			echo "6) wlan5"
-			echo "7) wlan6"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
+			echo "3) wlan2 ($showAdapterThreeName)"
+			echo "4) wlan3 ($showAdapterFourName)"
+			echo "5) wlan4 ($showAdapterFiveName)"
+			echo "6) wlan5 ($showAdapterSixName)"
+			echo "7) wlan6 ($showAdapterSevenName)"
 		fi
 
 		if [ $interfacesFound -eq "8" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
-			echo "3) wlan2"
-			echo "4) wlan3"
-			echo "5) wlan4"
-			echo "6) wlan5"
-			echo "7) wlan6"
-			echo "8) wlan7"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
+			echo "3) wlan2 ($showAdapterThreeName)"
+			echo "4) wlan3 ($showAdapterFourName)"
+			echo "5) wlan4 ($showAdapterFiveName)"
+			echo "6) wlan5 ($showAdapterSixName)"
+			echo "7) wlan6 ($showAdapterSevenName)"
+			echo "8) wlan7 ($showAdapterEightName)"
 		fi
 
 		if [ $interfacesFound -eq "9" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
-			echo "3) wlan2"
-			echo "4) wlan3"
-			echo "5) wlan4"
-			echo "6) wlan5"
-			echo "7) wlan6"
-			echo "8) wlan7"
-			echo "9) wlan8"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
+			echo "3) wlan2 ($showAdapterThreeName)"
+			echo "4) wlan3 ($showAdapterFourName)"
+			echo "5) wlan4 ($showAdapterFiveName)"
+			echo "6) wlan5 ($showAdapterSixName)"
+			echo "7) wlan6 ($showAdapterSevenName)"
+			echo "8) wlan7 ($showAdapterEightName)"
+			echo "9) wlan8 ($showAdapterNineName)"
 		fi
 
 		if [ $interfacesFound -eq "10" ]; then
-			echo "1) wlan0"
-			echo "2) wlan1"
-			echo "3) wlan2"
-			echo "4) wlan3"
-			echo "5) wlan4"
-			echo "6) wlan5"
-			echo "7) wlan6"
-			echo "8) wlan7"
-			echo "9) wlan8"
-			echo "10) wlan9"
+			getWirelessInterfaceNames
+			echo "1) wlan0 ($showAdapterOneName)"
+			echo "2) wlan1 ($showAdapterTwoName)"
+			echo "3) wlan2 ($showAdapterThreeName)"
+			echo "4) wlan3 ($showAdapterFourName)"
+			echo "5) wlan4 ($showAdapterFiveName)"
+			echo "6) wlan5 ($showAdapterSixName)"
+			echo "7) wlan6 ($showAdapterSevenName)"
+			echo "8) wlan7 ($showAdapterEightName)"
+			echo "9) wlan8 ($showAdapterNineName)"
+			echo "10) wlan9 ($showAdapterTenName)"
 		fi
 
 		$white
