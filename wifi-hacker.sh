@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.8
+# - Added support for parsing network adapter names for displaying when selecting adapter to use.
 # - Added a check for PixieWPS attacks. If failed, will now default to normal Reaver attack.
 
 # v1.7
@@ -768,8 +769,11 @@ setVariablesRequired(){
 	# Atheros WiFi Adapters
 	showAdapterUsbAtherosAR9271=$(lsusb | egrep -i 'AR9271' | cut -d ":" -f3)
 
+	# Intel WiFi Adapters
+	showAdapterUsbIntel6205=$(lspci | egrep -i 'Intel Corporation Centrino Advanced-N 6205' | cut -d ":" -f3)
+
 	# Support For 10 Adapter Names
-	adapterNameDefault="No Adapter Name Parsed"
+	adapterNameDefault="No Adapter Name Available"
 	showAdapterOneName="$adapterNameDefault"
 	showAdapterTwoName="$adapterNameDefault"
 	showAdapterThreeName="$adapterNameDefault"
@@ -6345,11 +6349,11 @@ getWirelessInterfaceNames(){
 
 	currentTask="getWirelessInterfaceNames"
 
-	if [ ! -z "$showAdapterUsbAtherosAR9271" ]; then
+	#if [ ! -z "$showAdapterUsbAtherosAR9271" ]; then
 	
-		showAdapterOneName="$showAdapterUsbAtherosAR9271"
+	#	showAdapterOneName="$showAdapterUsbAtherosAR9271"
 
-	fi 
+	#fi 
 
 }
 
