@@ -784,6 +784,9 @@ setVariablesRequired(){
 	showAdapterEightName="$adapterNameDefault"
 	showAdapterNineName="$adapterNameDefault"
 	showAdapterTenName="$adapterNameDefault"
+
+	# Default Clean Connection (Used For Updating Before Using Monitor Mode)
+	virginConnection="1"
 	
 
 }
@@ -1055,6 +1058,80 @@ showDisclaimer(){
 }
 
 
+isUnreleased(){
+
+	currentTask="isUnreleased"
+	lastMenuID="isUnreleased"
+
+	sessionCreatePaths
+	sessionRemoveEmpty
+
+	bannerSlim
+
+	$red
+	echo ""
+	echo "****************************************************************************************************"
+	echo "THIS WILL TERMINATE ANY ACTIVE INTERNET CONNECTION! IF YOU HAVE ISSUES CONNECTING TO THE INTERNET"
+	echo "AFTER AN ATTACK HAS BEEN PERFORMED, USE THE EXTRAS OPTION IN TOOLBAR TO START AND STOP SERVICES."
+	echo "IF THIS DOES NOT WORK, THEN YOU CAN RESTART THIS SCRIPT, OR REBOOT THE MACHINE AND RETURN TO NORMAL."
+	echo "****************************************************************************************************"
+	echo ""
+	$red
+	echo "**********************************************************"
+	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
+	echo "**********************************************************"
+	echo ""
+	$cyan
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
+	echo ""
+	$red
+	echo "**********************************************************"
+	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
+	echo "**********************************************************"
+	echo ""
+	echo ""
+	echo ""
+	$white
+	echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
+	echo ""
+
+	read agreeToDisclaimer
+
+	case "$agreeToDisclaimer" in
+
+		"")
+		bannerExit
+		;;
+
+		"Y" | "y")
+		fixNegativeOneChannelError
+		#initAirmon
+		fixAirmonCompat
+		#startNetworkManager
+		#killNetworkManager
+		#killWpaSupplicant
+		#initMonitorMode
+		#stopMonitorMode
+		#checkMultipleAdapters
+		menuMain
+		;;
+
+		*)
+		bannerExit
+		;;
+
+	esac
+
+}
+
+
 ############################################################################
 #   DISCLAIMER END   #######################################################
 ############################################################################
@@ -1250,6 +1327,16 @@ menuUpdate(){
 	#currentTask="menuUpdate"
 	
 	banner
+
+	#Check for a clean internet connection
+	case "$virginConnection" in
+
+		"0")
+		currentTask
+		;;
+
+	esac
+
 	
 	echo ""
 	echo "Update Menu"
@@ -1267,14 +1354,17 @@ menuUpdate(){
 	echo "Choose an option and press ENTER:"
 	echo ""
 	echo ""
-	echo ""
 	echo "1) Check For New Update"
 	echo ""
 	echo "2) Apply New Update"
 	echo ""
 	echo ""
-	echo "R) Return To Previous Page"
 	echo ""
+	echo ""
+	echo ""
+	#echo "R) Return To Previous Page"
+	$cyan
+	echo "YOU CAN SIMPLY PRESS ENTER TO SKIP UPDATE PROCESS...."
 	echo ""
 
 	read updateChoice
@@ -1282,7 +1372,8 @@ menuUpdate(){
 	case "$updateChoice" in
 
 		"")
-		menuUpdate
+		#menuUpdate
+		currentTask
 		;;
 
 		"1")
@@ -1293,9 +1384,9 @@ menuUpdate(){
 		getUpdate
 		;;
 
-		"R" | "r")
-		currentTask
-		;;
+		#"R" | "r")
+		#currentTask
+		#;;
 
 	esac
 
@@ -1518,72 +1609,6 @@ checkWifiandDisplayMessage(){
 
 }
 
-isUnreleased(){
-
-	currentTask="isUnreleased"
-	lastMenuID="isUnreleased"
-
-	sessionCreatePaths
-	sessionRemoveEmpty
-
-	bannerSlim
-
-	$red
-	echo ""
-	echo "**********************************************************"
-	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
-	echo "**********************************************************"
-	echo ""
-	$cyan
-	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
-	echo ""
-	$red
-	echo "**********************************************************"
-	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
-	echo "**********************************************************"
-	echo ""
-	echo ""
-	echo ""
-	$white
-	echo "PLEASE PRESS "\""Y"\"" AND ENTER TO ACCEPT AND CONTINUE"
-	echo ""
-	echo ""
-
-	read agreeToDisclaimer
-
-	case "$agreeToDisclaimer" in
-
-		"")
-		bannerExit
-		;;
-
-		"Y" | "y")
-		fixNegativeOneChannelError
-		fixAirmonCompat
-		#startNetworkManager
-		#killNetworkManager
-		#killWpaSupplicant
-		#initMonitorMode
-		#stopMonitorMode
-		#checkMultipleAdapters
-		menuMain
-		;;
-
-		*)
-		bannerExit
-		;;
-
-	esac
-
-}
-
 
 # Tries fixing issues with connection staying persistant to WiFi
 forceDisconnectWifi() {
@@ -1615,6 +1640,15 @@ menuMain(){
 	currentTask="menuMain"
 	lastMenuID="menuMain"
 
+	# If connection can connect to internet, check for update
+	case "$virginConnection" in
+
+		"1")
+		menuUpdate
+		;;
+
+	esac
+
 	checkRootStatus
 	sessionCreatePaths
 	sessionRemoveEmpty
@@ -1623,6 +1657,10 @@ menuMain(){
 	checkInterfaceMode
 
 	checkConnectionStatus
+
+	# Setting Virgin Connection Status To False
+	virginConnection="0"
+
 
 	case "$ipStatus" in
 
