@@ -744,8 +744,7 @@ setVariablesRequired(){
 	# Update Stuff
 	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
 	updateTemp="/tmp/update-check.tmp"
-
-
+	updateChecked="0"
 
 	# This is used to return from backupCaptureFiles if invoked from backupCaptureFiles
 	backupFromCaptureErase="0"
@@ -816,6 +815,7 @@ setDefaults(){
 
 	versionBase="1.8"
 	versionRemote="0.0"
+	versionRemoteTemp="0.0"
 
 	initPath="$PWD"
 
@@ -1037,6 +1037,7 @@ showDisclaimer(){
 		;;
 
 		"Y" | "y")
+		checkForUpdates
 		fixNegativeOneChannelError
 		#initAirmon
 		fixAirmonCompat
@@ -1111,6 +1112,7 @@ isUnreleased(){
 		;;
 
 		"Y" | "y")
+		checkForUpdates
 		fixNegativeOneChannelError
 		#initAirmon
 		fixAirmonCompat
@@ -1322,6 +1324,20 @@ doSleepMessage(){
 ############################################################################
 
 
+checkForUpdates(){
+
+	# If connection can connect to internet, check for update
+	case "$virginConnection" in
+
+		"1")
+		menuUpdate
+		;;
+
+	esac
+
+}
+
+
 menuUpdate(){
 
 	#currentTask="menuUpdate"
@@ -1337,6 +1353,14 @@ menuUpdate(){
 
 	esac
 
+	# Check remote server for update version
+	case "$updateChecked" in
+
+		"0")
+		checkUpdate
+		;;
+
+	esac
 	
 	echo ""
 	echo "Update Menu"
@@ -1377,6 +1401,8 @@ menuUpdate(){
 		;;
 
 		"1")
+		# Reset updateChecked Flag
+		updateChecked="0"
 		checkUpdate
 		;;
 
@@ -1399,11 +1425,17 @@ checkUpdate(){
 	
 	wget -O "$updateTemp" $updateMaster
 
-	cat $updateTemp | grep versionBase
+	versionRemoteTemp=$(cat $updateTemp | grep versionBase= | cut -d "\"" -f2)
 
-	read pause
+	versionRemote="$versionRemoteTemp"
+
+	#read pause
 
 	rm $updateTemp
+
+	updateChecked="1"
+
+	menuUpdate
 
 }
 
@@ -1419,6 +1451,8 @@ getUpdate(){
 	wget -O "$initPath/$script.tmp" $updateMaster
 
 	read pause
+
+	menuUpdate
 
 }
 
@@ -1639,15 +1673,6 @@ menuMain(){
 
 	currentTask="menuMain"
 	lastMenuID="menuMain"
-
-	# If connection can connect to internet, check for update
-	case "$virginConnection" in
-
-		"1")
-		menuUpdate
-		;;
-
-	esac
 
 	checkRootStatus
 	sessionCreatePaths
