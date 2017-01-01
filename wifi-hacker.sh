@@ -1301,7 +1301,7 @@ bannerExitUpdate(){
 	echo ""
 	echo ""
 	echo ""
-	echo "To launch the new script, press UP on your keyboard to load last script command or type ./$newVersionScript"
+	echo "To launch the new script type \"./$newVersionScript\" in terminal WITHOUT QUOTES"
 	echo ""
 	echo ""
 	echo ""
