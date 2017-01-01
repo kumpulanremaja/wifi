@@ -746,6 +746,9 @@ setVariablesRequired(){
 	updateTemp="/tmp/update-check.tmp"
 	updateChecked="0"
 
+	# Setting default update downloaded script value
+	newVersionScript="0.0"
+
 	# This is used to return from backupCaptureFiles if invoked from backupCaptureFiles
 	backupFromCaptureErase="0"
 
@@ -1286,6 +1289,39 @@ bannerExit(){
 
 }
 
+bannerExitUpdate(){
+
+	currentTask="bannerExitUpdate"
+
+	clear
+	$green
+	echo "The WiFi Hacker Script Has Been Updated To Version $versionRemote"
+	echo ""
+	echo "The New Script Is Located At $initPath/$newVersionScript"
+	echo ""
+	echo ""
+	echo ""
+	echo "To launch the new script, press UP on your keyboard to load last script command or type ./$newVersionScript"
+	echo ""
+	echo ""
+	echo ""
+	$blue
+	echo "Thank You For Playing Fair ;)"
+	echo ""
+	echo "esc0rtd3w 2017"
+	echo ""
+	echo ""
+	$cyan
+	echo "View My Other Projects On GitHub:"
+	echo ""
+	echo "https://github.com/esc0rtd3w"
+	echo ""
+	echo ""
+
+	exit
+
+}
+
 
 ############################################################################
 #   BANNERS END   ##########################################################
@@ -1445,26 +1481,26 @@ getUpdate(){
 	currentTask="getUpdate"
 	
 	# Get Base Script Name
-	#script=$(printf '%s\n' "${0##*/}")
-	script=$(basename -- "$0")
+	#newVersionScript=$(printf '%s\n' "${0##*/}")
+	newVersionScript=$(basename -- "$0")
 	
 	# Download New Script
-	wget -O "$initPath/$script.tmp" $updateMaster
+	wget -O "$initPath/$newVersionScript.tmp" $updateMaster
 
 	#read pause
 
 	# Remove Old Script
-	rm -f "$initPath/$script"
+	rm -f "$initPath/$newVersionScript"
 
 	# Copy New Script
-	cp "$initPath/$script.tmp" "$initPath/$script"
+	cp "$initPath/$newVersionScript.tmp" "$initPath/$newVersionScript"
 
 	# Remove Temp Script
-	rm -f "$initPath/$script.tmp"
+	rm -f "$initPath/$newVersionScript.tmp"
 
-	read pause
+	#read pause
 
-	menuUpdate
+	bannerExitUpdate
 
 }
 
