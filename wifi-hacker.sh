@@ -1489,6 +1489,9 @@ getUpdate(){
 
 	#read pause
 
+	# Make Backup of Original Script
+	cp "$initPath/$newVersionScript" "$initPath/$newVersionScript.BACKUP"
+
 	# Remove Old Script
 	rm -f "$initPath/$newVersionScript"
 
