@@ -1448,7 +1448,19 @@ getUpdate(){
 	#script=$(printf '%s\n' "${0##*/}")
 	script=$(basename -- "$0")
 	
+	# Download New Script
 	wget -O "$initPath/$script.tmp" $updateMaster
+
+	#read pause
+
+	# Remove Old Script
+	rm -f "$initPath/$script"
+
+	# Copy New Script
+	cp "$initPath/$script.tmp" "$initPath/$script"
+
+	# Remove Temp Script
+	rm -f "$initPath/$script.tmp"
 
 	read pause
 
