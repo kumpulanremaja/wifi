@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.8
+# - Fixed Update Function
 # - Added support for parsing network adapter names for displaying when selecting adapter to use.
 # - Added a check for PixieWPS attacks. If failed, will now default to normal Reaver attack.
 
@@ -745,6 +746,8 @@ setVariablesRequired(){
 	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
 	updateTemp="/tmp/update-check.tmp"
 	updateChecked="0"
+	skipUpdate="0"
+	returnToUpdatePage="0"
 
 	# Setting default update downloaded script value
 	newVersionScript="0.0"
@@ -1362,11 +1365,21 @@ doSleepMessage(){
 
 checkForUpdates(){
 
-	# If connection can connect to internet, check for update
-	case "$virginConnection" in
+	#currentTask="checkForUpdates"
 
-		"1")
-		menuUpdate
+	# If a blank entry was made to skip update then this value should be 1
+	case "$skipUpdate" in
+
+		"0")
+		# If connection can connect to internet, check for update
+		case "$virginConnection" in
+
+			"1")
+			menuUpdate
+			;;
+
+		esac
+
 		;;
 
 	esac
@@ -1377,17 +1390,6 @@ checkForUpdates(){
 menuUpdate(){
 
 	#currentTask="menuUpdate"
-	
-	banner
-
-	#Check for a clean internet connection
-	case "$virginConnection" in
-
-		"0")
-		currentTask
-		;;
-
-	esac
 
 	# Check remote server for update version
 	case "$updateChecked" in
@@ -1397,7 +1399,12 @@ menuUpdate(){
 		;;
 
 	esac
+
+	# Set default choice
+	updateChoice=""
 	
+	banner
+
 	echo ""
 	echo "Update Menu"
 	echo ""
@@ -1425,6 +1432,7 @@ menuUpdate(){
 	#echo "R) Return To Previous Page"
 	$cyan
 	echo "YOU CAN SIMPLY PRESS ENTER TO SKIP UPDATE PROCESS...."
+	$white
 	echo ""
 
 	read updateChoice
@@ -1432,23 +1440,22 @@ menuUpdate(){
 	case "$updateChoice" in
 
 		"")
-		#menuUpdate
-		currentTask
+		skipUpdate="1"
+		returnToUpdatePage="0"
 		;;
 
 		"1")
 		# Reset updateChecked Flag
 		updateChecked="0"
+
+		returnToUpdatePage="1"
+
 		checkUpdate
 		;;
 
 		"2")
 		getUpdate
 		;;
-
-		#"R" | "r")
-		#currentTask
-		#;;
 
 	esac
 
@@ -1471,7 +1478,13 @@ checkUpdate(){
 
 	updateChecked="1"
 
-	menuUpdate
+	case "$returnToUpdatePage" in
+
+		"1")
+		menuUpdate
+		;;
+	
+	esac
 
 }
 
