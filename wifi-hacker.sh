@@ -1468,11 +1468,16 @@ checkUpdate(){
 	
 	wget -O "$updateTemp" $updateMaster
 
-	versionRemoteTemp=$(cat $updateTemp | grep versionBase= | cut -d "\"" -f2)
+	versionRemoteTemp=$(cat $updateTemp | grep versionBase= | cut -d "\"" -f2 | head -c 3)
 
 	versionRemote="$versionRemoteTemp"
 
-	#read pause
+	case "$isDebugMode" in
+		"1")
+		echo "versionRemote: $versionRemote"
+		read pause
+		;;
+	esac
 
 	rm $updateTemp
 
