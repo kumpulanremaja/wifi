@@ -3818,8 +3818,9 @@ adAPScan(){
 	#$terminal airodump-ng --channel $channel -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one --channel $channel -i $interfaceMonitor &
 
-	$terminal airodump-ng --channel $channel --encrypt $encryptionType -i $interfaceMonitor &
+	$terminal airodump-ng --channel $channel --encrypt $encryptionType -i $interfaceMonitor -w "$initPath/apScan" --write-interval 10 -o netxml &
 
+	#$terminal airodump-ng --channel $channel --encrypt $encryptionType -i $interfaceMonitor &
 	#read pause
 
 	echo ""
@@ -3828,6 +3829,7 @@ adAPScan(){
 }
 
 
+# Unused Function (20170103)
 adAPScanWPS(){
 
 	currentTask="adAPScanWPS"
@@ -3835,7 +3837,7 @@ adAPScanWPS(){
 	echo ""
 	echo ""
 
-	$terminal airodump-ng --channel $channel -i $interfaceMonitor --wps&
+	$terminal airodump-ng --channel $channel -i $interfaceMonitor --wps &
 
 	#$terminal airodump-ng --channel $channel --encrypt $encryptionType -i $interfaceMonitor --$encryptionType&
 
@@ -3884,7 +3886,9 @@ adAPScanNoChannel(){
 	#$terminal airodump-ng -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one -i $interfaceMonitor &
 
-	$terminal airodump-ng --encrypt $encryptionType -i $interfaceMonitor &
+	$terminal airodump-ng --encrypt $encryptionType -i $interfaceMonitor -w "$initPath/apScan" --write-interval 10 -o netxml &
+
+	#$terminal airodump-ng --encrypt $encryptionType -i $interfaceMonitor &
 	#read pause
 
 	echo ""
@@ -3898,8 +3902,15 @@ adAPScanNoChannelWPS(){
 	currentTask="adAPScanNoChannelWPS"
 
 	echo ""
-	echo ""
-	$terminal airodump-ng -i $interfaceMonitor --wps &
+	
+	banner
+
+	rm "$initPath/apScan-01.ivs"
+	rm "$initPath/apScan-01.kismet.netxml"
+
+	$terminal airodump-ng -i $interfaceMonitor --wps -w "$initPath/apScan" --write-interval 10 -o netxml &
+
+	#$terminal airodump-ng -i $interfaceMonitor --wps &
 
 	#$terminal airodump-ng --encrypt $encryptionType -i $interfaceMonitor --$encryptionType&
 
