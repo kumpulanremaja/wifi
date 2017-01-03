@@ -27,6 +27,8 @@
 ############################################################################
 
 # v1.8
+# - Added a bruteforceHiddenSSID() Function to handle hidden SSID name reveals.
+# - Added logging to XML file from airodump-ng when scanning Access Points for all encryption types.
 # - Added automatic 10 second timeout for Update Menu to continue to main menu for attacking.
 # - Fixed Update Menu. "Check For Update" and "Apply New Update" are now functional.
 # - Update Menu now loads automatically after accepting license agreement.
@@ -1710,10 +1712,6 @@ checkWifiandDisplayMessage(){
 		#fi
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -1939,10 +1937,6 @@ menuMain(){
 			#fi
 			;;
 
-			"U" | "u")
-			menuUpdate
-			;;
-
 			"H" | "h")
 			menuHelp
 			;;
@@ -2106,10 +2100,6 @@ menuAuto(){
 		#fi
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -2215,10 +2205,6 @@ menuAdvanced(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2341,10 +2327,6 @@ menuExtras(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2489,10 +2471,6 @@ menuExtrasInterface(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -2570,10 +2548,6 @@ menuHelp(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2696,10 +2670,6 @@ menuChangeTerminal(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -2789,10 +2759,6 @@ menuSessionSave(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -2867,10 +2833,6 @@ menuSessionLoad(){
 
 		"L" | "l")
 		sessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -2970,10 +2932,6 @@ menuHoneyPotMode(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -3121,10 +3079,6 @@ getESSID(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -3191,10 +3145,6 @@ getBSSID(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -3259,10 +3209,6 @@ getChannel(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -3444,10 +3390,6 @@ spoofMacAddress(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -3539,10 +3481,6 @@ initMonitorMode(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -4113,10 +4051,6 @@ menuAttacksWEP(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -4261,10 +4195,6 @@ menuAttacksWEP(){
 
 			"L" | "l")
 			menuSessionLoad
-			;;
-
-			"U" | "u")
-			menuUpdate
 			;;
 
 			"H" | "h")
@@ -4693,10 +4623,6 @@ aircrackDecryptWPA(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -4764,10 +4690,6 @@ aircrackDecryptWPA(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -4854,10 +4776,6 @@ captureHandshakeWPA(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -5091,10 +5009,6 @@ aircrackDecryptWPA2(){
 		menuSessionLoad
 		;;
 
-		"U" | "u")
-		menuUpdate
-		;;
-
 		"H" | "h")
 		menuHelp
 		;;
@@ -5162,10 +5076,6 @@ aircrackDecryptWPA2(){
 
 		"A" | "a")
 		menuAdvanced
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -5252,10 +5162,6 @@ captureHandshakeWPA2(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -5457,10 +5363,6 @@ menuAttacksWPS(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
@@ -5856,10 +5758,6 @@ bessideMain(){
 
 		"L" | "l")
 		menuSessionLoad
-		;;
-
-		"U" | "u")
-		menuUpdate
 		;;
 
 		"H" | "h")
