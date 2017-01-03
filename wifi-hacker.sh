@@ -1387,15 +1387,45 @@ checkForUpdates(){
 }
 
 
+compareUpdateVersions(){
+
+	# Compare Local and Remote Versions (0 = Not Greater / 1 = Greater)
+	versionCompare=$(echo "$1 <= $2" | awk '{print ($1 <= $2)}')
+
+	case "$versionCompare" in
+
+		"0")
+		$green
+		;;
+
+		"1")
+		$red
+		;;
+
+	esac
+
+}
+
+
 menuUpdate(){
 
 	#currentTask="menuUpdate"
+
+	checkConnectionStatus
 
 	# Check remote server for update version
 	case "$updateChecked" in
 
 		"0")
-		checkUpdate
+
+		case "$ipStatus" in
+
+			"1")
+			checkUpdate
+			;;
+
+		esac
+
 		;;
 
 	esac
@@ -1410,11 +1440,10 @@ menuUpdate(){
 	echo ""
 	echo ""
 	echo ""
-	$green
 	echo "Current Version: v$versionBase"
 	echo ""
-	$white
 	echo "Remote Version: v$versionRemote"
+	$white
 	echo ""
 	echo ""
 	echo ""
