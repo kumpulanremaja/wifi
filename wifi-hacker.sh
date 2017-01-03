@@ -40,7 +40,7 @@
 # - Added number of interfaces displayed on stats banner.
 # - Fixed "Interface Name" on stats banner.
 # - Updated airodump-ng scripting for several functions.
-# - Fixed PixeDust toggles. They were reversed, disable turned on and vice/versa.
+# - Fixed PixieDust toggles. They were reversed, disable turned on and vice/versa.
 # - Updated airodump-ng windows to only scan for the encryption type that is currently being targeted.
 
 # v1.6
