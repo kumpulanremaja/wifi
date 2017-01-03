@@ -1578,16 +1578,14 @@ getUpdate(){
 
 checkRootStatus(){
 
-	userPriv=none
+	userPriv="none"
 
 	isRoot=$(whoami | grep root)
-
-	#echo "$isRoot"
 
 	case "$isRoot" in
 
 		"root")
-		userPriv=root
+		userPriv="root"
 
 	esac
 
