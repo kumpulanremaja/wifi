@@ -1670,60 +1670,6 @@ checkWifiandDisplayMessage(){
 
 	case "$ipStatusText" in
 
-		"m"|"M")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		checkForEmptyEncryptionType
-
-		case "$bssid" in
-
-			"")
-			menuMain
-			;;
-
-		esac
-
-		if [ "$bssid" != "" ]; then
-			menuSessionSave
-		fi
-		;;
-
-		"L" | "l")
-		checkForEmptyEncryptionType
-
-		#case "$bssid" in
-
-		#"")
-		#menuMain
-		#;;
-
-		#esac
-
-		#if [ "$bssid" != "" ]; then
-		menuSessionLoad
-		#fi
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		"Wifi")
 		banner
 		echo ""
@@ -1740,6 +1686,8 @@ checkWifiandDisplayMessage(){
 		;;
 
 	esac
+
+	#loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -1767,6 +1715,61 @@ forceDisconnectWifi() {
 ############################################################################
 #   MENUS: MAIN BEGIN   ####################################################
 ############################################################################
+
+
+loadMenuHotkeys(){
+
+case "$1" in
+
+	"M" | "m")
+	spoofStatus="0"
+	killAll
+	stopMonitorMode
+	menuMain
+	;;
+
+	"A" | "a")
+	menuAdvanced
+	;;
+
+	"S" | "s")
+	checkForEmptyEncryptionType
+
+	case "$bssid" in
+
+		"")
+		menuMain
+		;;
+
+	esac
+
+	if [ "$bssid" != "" ]; then
+		menuSessionSave
+	fi
+	;;
+
+	"L" | "l")
+	checkForEmptyEncryptionType
+	menuSessionLoad
+	;;
+
+	"H" | "h")
+	menuHelp
+	;;
+
+	"E" | "e")
+	menuExtras
+	;;
+
+	"X" | "x")
+	killAll
+	stopMonitorMode
+	bannerExit
+	;;
+
+esac
+
+}
 
 
 menuMain(){
@@ -1841,8 +1844,13 @@ menuMain(){
 
 		read getMode
 
+		hotkeyInput="$getMode"	
 
 		case "$getMode" in
+
+			"")
+			menuMain
+			;;
 
 			"0")
 			checkConnectionStatus
@@ -1891,69 +1899,13 @@ menuMain(){
 			menuAuto
 			;;
 
-			"")
-			menuMain
-			;;
-
-			"M" | "m")
-			menuMain
-			;;
-
-			"A" | "a")
-			menuAdvanced
-			;;
-
-			"S" | "s")
-			checkForEmptyEncryptionType
-
-			case "$bssid" in
-
-				"")
-				menuMain
-				;;
-
-			esac
-
-			if [ "$bssid" != "" ]; then
-				menuSessionSave
-			fi
-			;;
-
-			"L" | "l")
-			checkForEmptyEncryptionType
-
-			#case "$bssid" in
-
-			#"")
-			#menuMain
-			#;;
-
-			#esac
-
-			#if [ "$bssid" != "" ]; then
-			menuSessionLoad
-			#fi
-			;;
-
-			"H" | "h")
-			menuHelp
-			;;
-
-			"E" | "e")
-			menuExtras
-			;;
-
-			"X" | "x")
-			killAll
-			stopMonitorMode
-			bannerExit
-			;;
-
 			*)
 			menuMain
 			;;
 
 		esac
+
+		loadMenuHotkeys "$hotkeyInput"
 		;;
 
 	esac
@@ -2031,6 +1983,8 @@ menuAuto(){
 
 	read readyForAirodumpScan
 
+	hotkeyInput="$readyForAirodumpScan"	
+
 	case "$readyForAirodumpScan" in
 
 		"")
@@ -2055,63 +2009,6 @@ menuAuto(){
 		menuAuto
 		;;
 
-		"M" | "m")
-		spoofStatus="0"
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		checkForEmptyEncryptionType
-
-		case "$bssid" in
-
-			"")
-			menuMain
-			;;
-
-		esac
-
-		if [ "$bssid" != "" ]; then
-			menuSessionSave
-		fi
-		;;
-
-		"L" | "l")
-		checkForEmptyEncryptionType
-
-		#case "$bssid" in
-
-		#"")
-		#menuMain
-		#;;
-
-		#esac
-
-		#if [ "$bssid" != "" ]; then
-		menuSessionLoad
-		#fi
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		"autowep" | "AUTOWEP" | "AutoWEP" | "AutoWep" | "autoWEP" | "autoWep")
 		menuAttacksWEPWifiteAuto
 		;;
@@ -2129,12 +2026,12 @@ menuAuto(){
 		;;
 
 		*)
-
 		menuAuto
-
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	#restartProcesses
 
@@ -2179,44 +2076,14 @@ menuAdvanced(){
 
 	read getAdvancedOptionMain
 
+	hotkeyInput="$getAdvancedOptionMain"
+
 	case "$getAdvancedOptionMain" in
 
 		"")
 		$lastMenuID
 		#menuMain
 		#menuAdvanced
-		;;
-
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -2226,6 +2093,8 @@ menuAdvanced(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	#restartProcesses
 
@@ -2264,6 +2133,8 @@ menuExtras(){
 	echo ""
 
 	read getExtras
+
+	hotkeyInput="$getExtras"
 
 	case "$getExtras" in
 
@@ -2311,41 +2182,13 @@ menuExtras(){
 		$lastMenuID
 		;;
 
-		"M" | "m")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		*)
 		menuExtras
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	menuExtras
 
@@ -2383,6 +2226,8 @@ menuExtrasInterface(){
 	#echo ""
 
 	read getExtrasInterface
+
+	hotkeyInput="$getExtrasInterface"
 
 	case "$getExtrasInterface" in
 
@@ -2453,41 +2298,13 @@ menuExtrasInterface(){
 		menuExtras
 		;;
 
-		"M" | "m")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		*)
 		menuExtrasInterface
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	menuExtrasInterface
 
@@ -2524,42 +2341,14 @@ menuHelp(){
 
 	read getHelp
 
+	hotkeyInput="$getHelp"
+
 	case "$getHelp" in
 
 		"")
 		$lastMenuID
 		#menuMain
 		#menuHelp
-		;;
-
-		"M" | "m")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -2569,6 +2358,8 @@ menuHelp(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	$lastMenuID
 
@@ -2603,6 +2394,8 @@ menuChangeTerminal(){
 	echo ""
 
 	read getTerminalType
+
+	hotkeyInput="$getTerminalType"
 
 	case "$getTerminalType" in
 
@@ -2652,41 +2445,13 @@ menuChangeTerminal(){
 		menuExtras
 		;;
 
-		"M" | "m")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		*)
 		menuChangeTerminal
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	menuMain
 
@@ -2735,40 +2500,12 @@ menuSessionSave(){
 	getSession="S"
 	#read getSession
 
+	hotkeyInput="$getSession"
+
 	case "$getSession" in
 
 		"")
 		$lastMenuID
-		;;
-
-		"M" | "m")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		sessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -2776,6 +2513,8 @@ menuSessionSave(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	$lastMenuID
 
@@ -2811,40 +2550,12 @@ menuSessionLoad(){
 	getSession="L"
 	#read getSession
 
+	hotkeyInput="$getSession"
+
 	case "$getSession" in
 
 		"")
 		$lastMenuID
-		;;
-
-		"M" | "m")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		sessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -2852,6 +2563,8 @@ menuSessionLoad(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	$lastMenuID
 
@@ -2888,6 +2601,8 @@ menuHoneyPotMode(){
 
 	read getHoneyPotOptionMain
 
+	hotkeyInput="$getHoneyPotOptionMain"
+
 	case "$getHoneyPotOptionMain" in
 
 		"")
@@ -2914,38 +2629,6 @@ menuHoneyPotMode(){
 		menuHoneyPotMode
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		*)
 		menuHoneyPotMode
 		#$lastMenuID
@@ -2954,6 +2637,8 @@ menuHoneyPotMode(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	#restartProcesses
 
@@ -3053,42 +2738,12 @@ getESSID(){
 	$cyan
 	read getESSIDTemp
 
+	hotkeyInput="$getESSIDTemp"
+
 	case "$getESSIDTemp" in
 
 		"")
 		getESSID
-		;;
-
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -3096,6 +2751,8 @@ getESSID(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	$white
 }
@@ -3119,42 +2776,12 @@ getBSSID(){
 	$cyan
 	read getBSSIDTemp
 
+	hotkeyInput="$getBSSIDTemp"
+
 	case "$getBSSIDTemp" in
 
 		"")
 		getBSSID
-		;;
-
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -3162,6 +2789,8 @@ getBSSID(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	$white
 }
@@ -3185,42 +2814,12 @@ getChannel(){
 	$cyan
 	read getChannelTemp
 
+	hotkeyInput="$getChannelTemp"
+
 	case "$getChannelTemp" in
 
 		"")
 		getChannel
-		;;
-
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -3228,6 +2827,8 @@ getChannel(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	$white
 }
@@ -3357,6 +2958,8 @@ spoofMacAddress(){
 
 	read getNewMacAdressTemp
 
+	hotkeyInput="$getNewMacAdressTemp"
+
 	case "$getNewMacAdressTemp" in
 
 		"")
@@ -3369,39 +2972,6 @@ spoofMacAddress(){
 		#$returnTo
 		;;
 
-		"M" | "m")
-		spoofStatus="0"
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		*)
 		setMacAddress
 		setMacAddressMonitor
@@ -3409,6 +2979,8 @@ spoofMacAddress(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -3456,6 +3028,8 @@ initMonitorMode(){
 
 	initMon=""
 
+	#hotkeyInput="$initMon"
+
 	case "$initMon" in
 
 		"")
@@ -3463,36 +3037,6 @@ initMonitorMode(){
 		setMonitorMode
 		getMacAddressMonitor
 		#getWirelessInterfaces "refresh"
-		;;
-
-		"M" | "m")
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -3503,6 +3047,8 @@ initMonitorMode(){
 		;;
 
 	esac
+
+	#loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -4025,42 +3571,12 @@ menuAttacksWEP(){
 
 	read getAttackWEP
 
+	hotkeyInput="$getAttackWEP"
+
 	case "$getAttackWEP" in
 
 		"")
 		menuAttacksWEP
-		;;
-
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		"C" | "c")
@@ -4149,6 +3665,8 @@ menuAttacksWEP(){
 		
 		read getMore
 
+		hotkeyInput="$getMore"
+
 		case "$getMore" in
 
 			"")
@@ -4177,38 +3695,6 @@ menuAttacksWEP(){
 			replayArpRequest
 			;;
 
-			"M" | "m")
-			killAll
-			stopMonitorMode
-			menuMain
-			;;
-
-			"A" | "a")
-			menuAdvanced
-			;;
-
-			"S" | "s")
-			menuSessionSave
-			;;
-
-			"L" | "l")
-			menuSessionLoad
-			;;
-
-			"H" | "h")
-			menuHelp
-			;;
-
-			"E" | "e")
-			menuExtras
-			;;
-
-			"X" | "x")
-			killAll
-			stopMonitorMode
-			bannerExit
-			;;
-
 			"R" | "r")
 			menuAttacksWEP
 			;;
@@ -4222,6 +3708,8 @@ menuAttacksWEP(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	menuAttacksWEP
 
@@ -4589,6 +4077,8 @@ aircrackDecryptWPA(){
 
 	read tmpPause
 
+	hotkeyInput="$tmpPause"
+
 	case "$tmpPause" in
 
 		"")
@@ -4603,39 +4093,9 @@ aircrackDecryptWPA(){
 		bessideMain
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	banner
 	bannerStats
@@ -4665,6 +4125,8 @@ aircrackDecryptWPA(){
 
 	read acPause
 
+	hotkeyInput="$acPause"
+
 	case "$acPause" in
 
 		"")
@@ -4672,39 +4134,9 @@ aircrackDecryptWPA(){
 		menuAttacksWPA
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -4740,6 +4172,8 @@ captureHandshakeWPA(){
 
 	read captureHandshake
 
+	hotkeyInput="$captureHandshake"
+
 	case "$captureHandshake" in
 
 		"")
@@ -4753,41 +4187,9 @@ captureHandshakeWPA(){
 		aircrackDecrypt
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
 		"D" | "d")
 		retryDeauth="1"
 		menuAttacksWPA
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
 		;;
 
 		*)
@@ -4795,6 +4197,8 @@ captureHandshakeWPA(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -4975,6 +4379,8 @@ aircrackDecryptWPA2(){
 
 	read tmpPause
 
+	hotkeyInput="$tmpPause"
+
 	case "$tmpPause" in
 
 		"")
@@ -4989,39 +4395,9 @@ aircrackDecryptWPA2(){
 		bessideMain
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	banner
 	bannerStats
@@ -5051,6 +4427,8 @@ aircrackDecryptWPA2(){
 
 	read acPause
 
+	hotkeyInput="$acPause"
+
 	case "$acPause" in
 
 		"")
@@ -5058,39 +4436,9 @@ aircrackDecryptWPA2(){
 		menuAttacksWPA2
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -5126,6 +4474,8 @@ captureHandshakeWPA2(){
 
 	read captureHandshake
 
+	hotkeyInput="$captureHandshake"
+
 	case "$captureHandshake" in
 
 		"")
@@ -5139,48 +4489,13 @@ captureHandshakeWPA2(){
 		aircrackDecrypt
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"D" | "d")
-		retryDeauth="1"
-		menuAttacksWPA2
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		*)
 		menuAttacksWPA2
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -5321,6 +4636,8 @@ menuAttacksWPS(){
 
 	read -t 10 pixieChoice
 
+	hotkeyInput="$pixieChoice"
+
 	case "$pixieChoice" in
 
 		"")
@@ -5345,43 +4662,13 @@ menuAttacksWPS(){
 		sleepMessage3="Reaver Session Is Now Active!"
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		*)
 		menuAttacksWPS
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	sleepMessage="$sleepMessage1"
 	doSleepMessage
@@ -5714,6 +5001,8 @@ bessideMain(){
 
 	read getBessideMode
 
+	hotkeyInput="$getBessideMode"
+
 	case "$getBessideMode" in
 
 		"")
@@ -5740,43 +5029,13 @@ bessideMain(){
 		$lastMenuID
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-		"S" | "s")
-		menuSessionSave
-		;;
-
-		"A" | "a")
-		menuAdvanced
-		;;
-
-		"L" | "l")
-		menuSessionLoad
-		;;
-
-		"H" | "h")
-		menuHelp
-		;;
-
-		"E" | "e")
-		menuExtras
-		;;
-
-		"X" | "x")
-		killAll
-		stopMonitorMode
-		bannerExit
-		;;
-
 		*)
 		bessideMain
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -6005,6 +5264,8 @@ cleanSessionFiles(){
 
 	read -t 10 eraseSessionConfirm
 
+	#hotkeyInput="$eraseSessionConfirm"
+
 	case "$eraseSessionConfirm" in
 
 		"")
@@ -6044,6 +5305,8 @@ cleanSessionFiles(){
 		;;
 
 	esac
+
+	#loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -6741,6 +6004,8 @@ getWirelessInterfaces(){
 
 		read manualSelectionMonitor
 
+		hotkeyInput="$manualSelectionMonitor"
+
 		case "$manualSelectionMonitor" in
 
 			"")
@@ -6755,13 +6020,6 @@ getWirelessInterfaces(){
 		esac
 		;;
 
-		"M" | "m")
-		killAll
-		stopMonitorMode
-		menuMain
-		;;
-
-
 		"W" | "w")
 		#returnTo="getWirelessInterfaces"
 		#spoofMacAddress
@@ -6773,6 +6031,8 @@ getWirelessInterfaces(){
 		;;
 
 	esac
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	#echo "$interface"
 	#echo "$interfaceMonitor"
