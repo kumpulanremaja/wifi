@@ -789,11 +789,7 @@ setVariablesRequired(){
 	showAdapterEightName="$adapterNameDefault"
 	showAdapterNineName="$adapterNameDefault"
 	showAdapterTenName="$adapterNameDefault"
-
-	# Default Clean Connection (Used For Updating Before Using Monitor Mode)
-	virginConnection="1"
 	
-
 }
 
 
@@ -1365,14 +1361,16 @@ doSleepMessage(){
 
 checkForUpdates(){
 
-	#currentTask="checkForUpdates"
+	currentTask="checkForUpdates"
+
+	checkConnectionStatus
 
 	# If a blank entry was made to skip update then this value should be 1
 	case "$skipUpdate" in
 
 		"0")
 		# If connection can connect to internet, check for update
-		case "$virginConnection" in
+		case "$ipStatus" in
 
 			"1")
 			menuUpdate
@@ -1409,15 +1407,14 @@ compareUpdateVersions(){
 
 menuUpdate(){
 
-	#currentTask="menuUpdate"
-
-	checkConnectionStatus
+	currentTask="menuUpdate"
 
 	# Check remote server for update version
 	case "$updateChecked" in
 
 		"0")
 
+		# Make sure there is an active internet connection
 		case "$ipStatus" in
 
 			"1")
@@ -1440,7 +1437,7 @@ menuUpdate(){
 	echo ""
 	echo ""
 	echo ""
-	echo "Current Version: v$versionBase"
+	echo "Local Version: v$versionBase"
 	echo ""
 	echo "Remote Version: v$versionRemote"
 	$white
@@ -1460,17 +1457,20 @@ menuUpdate(){
 	echo ""
 	#echo "R) Return To Previous Page"
 	$cyan
-	echo "YOU CAN SIMPLY PRESS ENTER TO SKIP UPDATE PROCESS...."
+	#echo "YOU CAN SIMPLY PRESS ENTER TO SKIP UPDATE PROCESS...."
+	echo "AUTOMATICALLY CONTINUING IN 10 SECONDS...."
 	$white
 	echo ""
 
-	read updateChoice
+	#read updateChoice
+	read -t 10 updateChoice
 
 	case "$updateChoice" in
 
 		"")
 		skipUpdate="1"
 		returnToUpdatePage="0"
+		#read pause
 		;;
 
 		"1")
@@ -1478,11 +1478,11 @@ menuUpdate(){
 		updateChecked="0"
 
 		returnToUpdatePage="1"
-
 		checkUpdate
 		;;
 
 		"2")
+		returnToUpdatePage="0"
 		getUpdate
 		;;
 
@@ -1780,10 +1780,6 @@ menuMain(){
 	checkInterfaceMode
 
 	checkConnectionStatus
-
-	# Setting Virgin Connection Status To False
-	virginConnection="0"
-
 
 	case "$ipStatus" in
 
