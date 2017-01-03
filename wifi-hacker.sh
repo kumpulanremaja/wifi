@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.8
+# - Cleaned up scripting and moved all global hotkey triggers to a loadMenuHotkeys Function.
 # - Added a bruteforceHiddenSSID() Function to handle hidden SSID name reveals.
 # - Added logging to XML file from airodump-ng when scanning Access Points for all encryption types.
 # - Added automatic 10 second timeout for Update Menu to continue to main menu for attacking.
@@ -833,6 +834,8 @@ setDefaults(){
 	listXor=0
 	listCsv=0
 	listNetXml=0
+
+	hotkeyInput=""
 
 }
 
@@ -1719,7 +1722,7 @@ forceDisconnectWifi() {
 
 loadMenuHotkeys(){
 
-case "$1" in
+case "$hotkeyInput" in
 
 	"M" | "m")
 	spoofStatus="0"
@@ -1846,6 +1849,8 @@ menuMain(){
 
 		hotkeyInput="$getMode"	
 
+		loadMenuHotkeys "$hotkeyInput"
+
 		case "$getMode" in
 
 			"")
@@ -1904,8 +1909,6 @@ menuMain(){
 			;;
 
 		esac
-
-		loadMenuHotkeys "$hotkeyInput"
 		;;
 
 	esac
@@ -1983,7 +1986,9 @@ menuAuto(){
 
 	read readyForAirodumpScan
 
-	hotkeyInput="$readyForAirodumpScan"	
+	hotkeyInput="$readyForAirodumpScan"
+
+	loadMenuHotkeys "$hotkeyInput"	
 
 	case "$readyForAirodumpScan" in
 
@@ -2031,8 +2036,6 @@ menuAuto(){
 
 	esac
 
-	loadMenuHotkeys "$hotkeyInput"
-
 	#restartProcesses
 
 	menuMain
@@ -2078,6 +2081,8 @@ menuAdvanced(){
 
 	hotkeyInput="$getAdvancedOptionMain"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getAdvancedOptionMain" in
 
 		"")
@@ -2093,8 +2098,6 @@ menuAdvanced(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	#restartProcesses
 
@@ -2135,6 +2138,8 @@ menuExtras(){
 	read getExtras
 
 	hotkeyInput="$getExtras"
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	case "$getExtras" in
 
@@ -2188,8 +2193,6 @@ menuExtras(){
 
 	esac
 
-	loadMenuHotkeys "$hotkeyInput"
-
 	menuExtras
 
 }
@@ -2228,6 +2231,8 @@ menuExtrasInterface(){
 	read getExtrasInterface
 
 	hotkeyInput="$getExtrasInterface"
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	case "$getExtrasInterface" in
 
@@ -2304,8 +2309,6 @@ menuExtrasInterface(){
 
 	esac
 
-	loadMenuHotkeys "$hotkeyInput"
-
 	menuExtrasInterface
 
 }
@@ -2343,6 +2346,8 @@ menuHelp(){
 
 	hotkeyInput="$getHelp"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getHelp" in
 
 		"")
@@ -2358,8 +2363,6 @@ menuHelp(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	$lastMenuID
 
@@ -2396,6 +2399,8 @@ menuChangeTerminal(){
 	read getTerminalType
 
 	hotkeyInput="$getTerminalType"
+
+	loadMenuHotkeys "$hotkeyInput"
 
 	case "$getTerminalType" in
 
@@ -2451,8 +2456,6 @@ menuChangeTerminal(){
 
 	esac
 
-	loadMenuHotkeys "$hotkeyInput"
-
 	menuMain
 
 }
@@ -2502,6 +2505,8 @@ menuSessionSave(){
 
 	hotkeyInput="$getSession"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getSession" in
 
 		"")
@@ -2513,8 +2518,6 @@ menuSessionSave(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	$lastMenuID
 
@@ -2552,6 +2555,8 @@ menuSessionLoad(){
 
 	hotkeyInput="$getSession"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getSession" in
 
 		"")
@@ -2563,8 +2568,6 @@ menuSessionLoad(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	$lastMenuID
 
@@ -2603,6 +2606,8 @@ menuHoneyPotMode(){
 
 	hotkeyInput="$getHoneyPotOptionMain"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getHoneyPotOptionMain" in
 
 		"")
@@ -2637,8 +2642,6 @@ menuHoneyPotMode(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	#restartProcesses
 
@@ -2740,6 +2743,8 @@ getESSID(){
 
 	hotkeyInput="$getESSIDTemp"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getESSIDTemp" in
 
 		"")
@@ -2751,8 +2756,6 @@ getESSID(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	$white
 }
@@ -2778,6 +2781,8 @@ getBSSID(){
 
 	hotkeyInput="$getBSSIDTemp"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getBSSIDTemp" in
 
 		"")
@@ -2789,8 +2794,6 @@ getBSSID(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	$white
 }
@@ -2816,6 +2819,8 @@ getChannel(){
 
 	hotkeyInput="$getChannelTemp"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getChannelTemp" in
 
 		"")
@@ -2827,8 +2832,6 @@ getChannel(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	$white
 }
@@ -2960,6 +2963,8 @@ spoofMacAddress(){
 
 	hotkeyInput="$getNewMacAdressTemp"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getNewMacAdressTemp" in
 
 		"")
@@ -2979,8 +2984,6 @@ spoofMacAddress(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -3028,8 +3031,6 @@ initMonitorMode(){
 
 	initMon=""
 
-	#hotkeyInput="$initMon"
-
 	case "$initMon" in
 
 		"")
@@ -3047,8 +3048,6 @@ initMonitorMode(){
 		;;
 
 	esac
-
-	#loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -3573,6 +3572,8 @@ menuAttacksWEP(){
 
 	hotkeyInput="$getAttackWEP"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getAttackWEP" in
 
 		"")
@@ -3667,6 +3668,8 @@ menuAttacksWEP(){
 
 		hotkeyInput="$getMore"
 
+		loadMenuHotkeys "$hotkeyInput"
+
 		case "$getMore" in
 
 			"")
@@ -3708,8 +3711,6 @@ menuAttacksWEP(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	menuAttacksWEP
 
@@ -4079,6 +4080,8 @@ aircrackDecryptWPA(){
 
 	hotkeyInput="$tmpPause"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$tmpPause" in
 
 		"")
@@ -4094,8 +4097,6 @@ aircrackDecryptWPA(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	banner
 	bannerStats
@@ -4127,6 +4128,8 @@ aircrackDecryptWPA(){
 
 	hotkeyInput="$acPause"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$acPause" in
 
 		"")
@@ -4135,8 +4138,6 @@ aircrackDecryptWPA(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -4174,6 +4175,8 @@ captureHandshakeWPA(){
 
 	hotkeyInput="$captureHandshake"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$captureHandshake" in
 
 		"")
@@ -4197,8 +4200,6 @@ captureHandshakeWPA(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -4381,6 +4382,8 @@ aircrackDecryptWPA2(){
 
 	hotkeyInput="$tmpPause"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$tmpPause" in
 
 		"")
@@ -4396,8 +4399,6 @@ aircrackDecryptWPA2(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	banner
 	bannerStats
@@ -4429,6 +4430,8 @@ aircrackDecryptWPA2(){
 
 	hotkeyInput="$acPause"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$acPause" in
 
 		"")
@@ -4437,8 +4440,6 @@ aircrackDecryptWPA2(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -4476,6 +4477,8 @@ captureHandshakeWPA2(){
 
 	hotkeyInput="$captureHandshake"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$captureHandshake" in
 
 		"")
@@ -4494,8 +4497,6 @@ captureHandshakeWPA2(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -4638,6 +4639,8 @@ menuAttacksWPS(){
 
 	hotkeyInput="$pixieChoice"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$pixieChoice" in
 
 		"")
@@ -4667,8 +4670,6 @@ menuAttacksWPS(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	sleepMessage="$sleepMessage1"
 	doSleepMessage
@@ -5003,6 +5004,8 @@ bessideMain(){
 
 	hotkeyInput="$getBessideMode"
 
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$getBessideMode" in
 
 		"")
@@ -5034,8 +5037,6 @@ bessideMain(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 }
 
@@ -5264,8 +5265,6 @@ cleanSessionFiles(){
 
 	read -t 10 eraseSessionConfirm
 
-	#hotkeyInput="$eraseSessionConfirm"
-
 	case "$eraseSessionConfirm" in
 
 		"")
@@ -5305,8 +5304,6 @@ cleanSessionFiles(){
 		;;
 
 	esac
-
-	#loadMenuHotkeys "$hotkeyInput"
 
 }
 
