@@ -3813,7 +3813,11 @@ adAPScan(){
 	currentTask="adAPScan"
 
 	echo ""
-	echo ""
+	
+	banner
+
+	rm "$initPath/apScan-01.ivs"
+	rm "$initPath/apScan-01.kismet.netxml"
 
 	#$terminal airodump-ng --channel $channel -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one --channel $channel -i $interfaceMonitor &
@@ -3882,7 +3886,12 @@ adAPScanNoChannel(){
 	currentTask="adAPScanNoChannel"
 
 	echo ""
-	echo ""
+	
+	banner
+
+	rm "$initPath/apScan-01.ivs"
+	rm "$initPath/apScan-01.kismet.netxml"
+
 	#$terminal airodump-ng -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one -i $interfaceMonitor &
 
@@ -3946,6 +3955,23 @@ adAPScanWifiteWEPNoChannel(){
 
 	echo ""
 	echo ""
+
+}
+
+
+bruteForceHiddenSSID(){
+
+	currentTask="bruteForceHiddenSSID"
+
+	banner
+	echo ""
+	echo "Bruteforcing Access Point Hidden SSID Names...."
+	echo ""
+	echo ""
+
+	$terminal mdk3 $interfaceMonitor p &
+
+	read pause
 
 }
 
