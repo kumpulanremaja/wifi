@@ -27,7 +27,9 @@
 ############################################################################
 
 # v1.8
-# - Fixed Update Function
+# - Added automatic 10 second timeout for Update Menu to continue to main menu for attacking.
+# - Fixed Update Menu. "Check For Update" and "Apply New Update" are now functional.
+# - Update Menu now loads automatically after accepting license agreement.
 # - Added support for parsing network adapter names for displaying when selecting adapter to use.
 # - Added a check for PixieWPS attacks. If failed, will now default to normal Reaver attack.
 
@@ -742,16 +744,6 @@ setVariablesRequired(){
 
 	noChannel="0"
 
-	# Update Stuff
-	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
-	updateTemp="/tmp/update-check.tmp"
-	updateChecked="0"
-	skipUpdate="0"
-	returnToUpdatePage="0"
-
-	# Setting default update downloaded script value
-	newVersionScript="0.0"
-
 	# This is used to return from backupCaptureFiles if invoked from backupCaptureFiles
 	backupFromCaptureErase="0"
 
@@ -822,6 +814,16 @@ setDefaults(){
 	initPath="$PWD"
 
 	isDebugMode="0"
+
+	# Update Stuff
+	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
+	updateTemp="/tmp/update-check.tmp"
+	updateChecked="0"
+	skipUpdate="0"
+	returnToUpdatePage="0"
+
+	# Setting default update downloaded script value
+	newVersionScript="0.0"
 	
 	# Default Capture Lists Values
 	listCap=0
@@ -1300,7 +1302,11 @@ bannerExitUpdate(){
 	echo ""
 	echo ""
 	echo ""
-	echo "To launch the new script type \"./$newVersionScript\" in terminal WITHOUT QUOTES"
+	echo "To launch the new script type the following two lines into this terminal WITHOUT QUOTES"
+	echo ""
+	echo "\"chmod a+x $newVersionScript\""
+	echo ""
+	echo "\"./$newVersionScript\""
 	echo ""
 	echo ""
 	echo ""
@@ -1387,7 +1393,7 @@ checkForUpdates(){
 
 compareUpdateVersions(){
 
-	# Compare Local and Remote Versions (0 = Not Greater / 1 = Greater)
+	# Compare Local and Remote Versions (0 = Not Greater / 1 = Greater) (Not working?? 20170102)
 	versionCompare=$(echo "$1 <= $2" | awk '{print ($1 <= $2)}')
 
 	case "$versionCompare" in
