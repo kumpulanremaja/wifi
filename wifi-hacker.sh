@@ -707,6 +707,7 @@ setVariables(){
 
 	getRandomMacAddress=""
 	spoofStatus="0"
+	resetSpoofStatus="0"
 
 	encryptionType="empty"
 	encryptionTypeText="Empty"
@@ -1690,8 +1691,6 @@ checkWifiandDisplayMessage(){
 
 	esac
 
-	#loadMenuHotkeys "$hotkeyInput"
-
 }
 
 
@@ -1725,7 +1724,16 @@ loadMenuHotkeys(){
 case "$hotkeyInput" in
 
 	"M" | "m")
-	spoofStatus="0"
+
+	# Check for resetSpoofStatus Flag
+	case "$resetSpoofStatus" in
+
+		"1")
+		spoofStatus="0"
+		;;
+
+	esac
+
 	killAll
 	stopMonitorMode
 	menuMain
@@ -2945,8 +2953,10 @@ spoofMacAddress(){
 	currentTask="spoofMacAddress"
 	#lastMenuID="spoofMacAddress"
 
-	banner
+	# Setting resetSpoofStatus Flag for global hotkey compatibility
+	resetSpoofStatus="1"
 
+	banner
 	bannerStats
 
 	echo ""
@@ -5867,6 +5877,10 @@ getWirelessInterfaces(){
 
 	read -t 10 manualInterface
 
+	hotkeyInput="$manualInterface"
+
+	loadMenuHotkeys "$hotkeyInput"
+
 	case "$manualInterface" in
 
 		"")
@@ -6001,8 +6015,6 @@ getWirelessInterfaces(){
 
 		read manualSelectionMonitor
 
-		hotkeyInput="$manualSelectionMonitor"
-
 		case "$manualSelectionMonitor" in
 
 			"")
@@ -6028,8 +6040,6 @@ getWirelessInterfaces(){
 		;;
 
 	esac
-
-	loadMenuHotkeys "$hotkeyInput"
 
 	#echo "$interface"
 	#echo "$interfaceMonitor"
