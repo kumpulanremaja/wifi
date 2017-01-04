@@ -2076,7 +2076,9 @@ menuAdvanced(){
 	echo ""
 	echo ""
 	echo ""
-	echo ""
+	$green
+	echo "** TO RETURN TO PREVIOUS PAGE JUST PRESS ENTER **"
+	$white
 	echo ""
 	echo ""
 	echo ""
