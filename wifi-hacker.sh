@@ -4662,7 +4662,7 @@ menuAttacksWPS(){
 	echo ""
 	echo ""
 	echo ""
-	$cyan
+	$green
 	echo "If No Selection Is Made, It Will Continue Automatically Using PixieDust"
 	$white
 	echo ""
@@ -4768,15 +4768,19 @@ menuAttacksWPS(){
 
 	esac
 
-	echo ""
-	echo ""
+	
+	# Session has ended lands here
+	getBSSIDCharOnly
+	reaverSaveCurrentSessionFile
+
+	banner
+	bannerStats
+
 	$green
 	echo "*************************************"
 	echo "Your reaver session has been saved!"
 	echo "*************************************"
 	$white
-	echo ""
-	echo ""
 	echo ""
 	echo ""
 	$yellow
@@ -4795,12 +4799,12 @@ menuAttacksWPS(){
 		echo ""
 		$white
 		echo ""
+		echo ""
+		echo ""
+		echo ""
 		echo "Press ENTER to continue...."
 		echo ""
 		echo ""
-
-		getBSSIDCharOnly
-		reaverSaveCurrentSessionFile
 
 		read pause
 		;;
@@ -4813,25 +4817,26 @@ menuAttacksWPS(){
 		echo "- Take a picture of the screen to keep a record of the keys"
 		echo ""
 		echo ""
-		$red
+		$cyan
 		echo "* IF PIXIEDUST ATTACK FAILED, USE THE \"R\" OPTION TO START NORMAL REAVER ATTACK *"
 		$white
+		echo ""
+		echo ""
+		echo ""
 		echo ""
 		echo "Press ENTER to continue or type \"R\" to start normal Reaver attack...."
 		echo ""
 		echo ""
-		
-		getBSSIDCharOnly
-		reaverSaveCurrentSessionFile
 
 		read pixiePost
 
 		case "$pixiePost" in
 		
 			"R" | "r")
-			echo ""
-			echo ""
+			banner
+			bannerStats
 			echo "Pixie Attack Failed! Starting Normal Reaver Attack"
+			echo ""
 			echo ""
 
 			$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
