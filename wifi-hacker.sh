@@ -1013,7 +1013,7 @@ showDisclaimer(){
 	echo "IF THIS DOES NOT WORK, THEN YOU CAN RESTART THIS SCRIPT, OR REBOOT THE MACHINE AND RETURN TO NORMAL."
 	echo "****************************************************************************************************"
 	echo ""
-	$red
+	$green
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
@@ -1027,7 +1027,7 @@ showDisclaimer(){
 	echo ""
 	echo "3) Stay within legal limits of channel usage, depending on your country laws"
 	echo ""
-	$red
+	$green
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
@@ -1079,7 +1079,7 @@ isUnreleased(){
 
 	bannerSlim
 
-	$red
+	$cyan
 	echo ""
 	echo "****************************************************************************************************"
 	echo "THIS WILL TERMINATE ANY ACTIVE INTERNET CONNECTION! IF YOU HAVE ISSUES CONNECTING TO THE INTERNET"
@@ -1087,12 +1087,12 @@ isUnreleased(){
 	echo "IF THIS DOES NOT WORK, THEN YOU CAN RESTART THIS SCRIPT, OR REBOOT THE MACHINE AND RETURN TO NORMAL."
 	echo "****************************************************************************************************"
 	echo ""
-	$red
+	$green
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
 	echo ""
-	$cyan
+	$yellow
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
@@ -1102,7 +1102,7 @@ isUnreleased(){
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
 	echo "***THIS IS UNRELEASED AND SHOULD BE CONSIDERED A TEST VERSION***"
 	echo ""
-	$red
+	$green
 	echo "**********************************************************"
 	echo "YOU MUST AGREE TO THESE TERMS BEFORE USING THIS SOFTWARE!"
 	echo "**********************************************************"
@@ -4124,13 +4124,17 @@ aircrackDecryptWPA(){
 	echo ""
 	echo ""
 	echo ""
+	$red
 	echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
 	echo ""
 	echo ""
+	$white
 	echo "Press ENTER to restart attack or use an option from Top Navigation Bar...."
 	echo ""
 	echo ""
+	$red
 	echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
+	$white
 	echo ""
 	echo ""
 
@@ -4229,6 +4233,9 @@ menuAttacksWPAWifiteAuto(){
 
 	echo ""
 	echo "The wifite session should be launched in a separate window."
+	echo ""
+	echo ""
+	echo ""
 	echo ""
 	echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
 	echo ""
@@ -4426,13 +4433,17 @@ aircrackDecryptWPA2(){
 	echo ""
 	echo ""
 	echo ""
+	$red
 	echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
 	echo ""
 	echo ""
+	$white
 	echo "Press ENTER to restart attack or use an option from Top Navigation Bar...."
 	echo ""
 	echo ""
+	$red
 	echo "*** WARNING! RESTARTING THE ATTACK WILL ALSO TERMINATE THE AIRCRACK WINDOW! ***"
+	$white
 	echo ""
 	echo ""
 
@@ -4526,6 +4537,9 @@ menuAttacksWPA2WifiteAuto(){
 
 	echo ""
 	echo "The wifite session should be launched in a separate window."
+	echo ""
+	echo ""
+	echo ""
 	echo ""
 	echo "PRESS ENTER ONLY WHEN THE SESSION HAS FINISHED!"
 	echo ""
