@@ -2094,13 +2094,13 @@ menuAdvanced(){
 	case "$getAdvancedOptionMain" in
 
 		"")
-		$lastMenuID
+		$currentTask
 		#menuMain
 		#menuAdvanced
 		;;
 
 		*)
-		$lastMenuID
+		$currentTask
 		#menuMain
 		#menuAdvanced
 		;;
@@ -2109,7 +2109,7 @@ menuAdvanced(){
 
 	#restartProcesses
 
-	$lastMenuID
+	$currentTask
 
 }
 
@@ -2485,7 +2485,7 @@ menuChangeTerminal(){
 menuSessionSave(){
 
 	# Not needed for this menu
-	currentTask="menuSessionSave"
+	#currentTask="menuSessionSave"
 	#lastMenuID="menuSessionSave"
 
 	banner
@@ -2497,18 +2497,18 @@ menuSessionSave(){
 	echo ""
 	echo ""
 	echo ""
-	echo "Save As: "$capturePath/$encryptionType/$encryptionType.sessions""
+	echo "Save As: $capturePath/$encryptionType/$encryptionType.sessions"
 	echo ""
 	echo ""
 	echo ""
-	echo "Press \"S\" and ENTER to save session file now"
+	echo "Press \"1\" and ENTER to save session file now"
 	echo ""
 	echo ""
 	echo "You may also just press ENTER to return to the previous menu...."
 	echo ""
 	echo ""
 
-	getSession="S"
+	getSession="1"
 	#read getSession
 
 	hotkeyInput="$getSession"
@@ -2518,16 +2518,20 @@ menuSessionSave(){
 	case "$getSession" in
 
 		"")
-		$lastMenuID
+		$currentTask
+		;;
+
+		"1")
+		sessionSave
 		;;
 
 		*)
-		$lastMenuID
+		$currentTask
 		;;
 
 	esac
 
-	$lastMenuID
+	$currentTask
 
 }
 
@@ -2535,7 +2539,7 @@ menuSessionSave(){
 menuSessionLoad(){
 
 	# Not needed for this menu
-	currentTask="menuSessionLoad"
+	#currentTask="menuSessionLoad"
 	#lastMenuID="menuSessionLoad"
 
 	banner
@@ -2551,14 +2555,14 @@ menuSessionLoad(){
 	echo ""
 	echo ""
 	echo ""
-	echo "Press \"L\" and ENTER to load session file now"
+	echo "Press \"1\" and ENTER to load session file now"
 	echo ""
 	echo ""
 	echo "You may also just press ENTER to return to the previous menu...."
 	echo ""
 	echo ""
 
-	getSession="L"
+	getSession="1"
 	#read getSession
 
 	hotkeyInput="$getSession"
@@ -2568,16 +2572,20 @@ menuSessionLoad(){
 	case "$getSession" in
 
 		"")
-		$lastMenuID
+		$currentTask
+		;;
+
+		"1")
+		sessionLoad
 		;;
 
 		*)
-		$lastMenuID
+		$currentTask
 		;;
 
 	esac
 
-	$lastMenuID
+	$currentTask
 
 }
 
@@ -2674,59 +2682,61 @@ menuHoneyPotMode(){
 
 textGetTargetInfo(){
 
-echo ""
-echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN, ONLY SHOWING $encryptionTypeText TARGETS"
-echo ""
-echo "YOU CAN USE THIS AIRODUMP-NG WINDOW TO GATHER ALL NEEDED INFORMATION"
-echo ""
-echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
-echo ""
-echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
-echo ""
-echo ""
+	currentTask="textGetTargetInfo"
 
-case "$encryptionTypeText" in
-	"WPS")
-	$green
-	echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER \"WPS\" COLUMN"
 	echo ""
-	echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"OPN\", \"WEP\", \"WPA\", or \"WPA2\" UNDER \"ENC\" COLUMN"
-	$white
+	echo "THERE SHOULD NOW BE A NEW TERMINAL WINDOW OPEN, ONLY SHOWING $encryptionTypeText TARGETS"
+	echo ""
+	echo "YOU CAN USE THIS AIRODUMP-NG WINDOW TO GATHER ALL NEEDED INFORMATION"
+	echo ""
+	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
+	echo ""
+	echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
 	echo ""
 	echo ""
-	;;
-esac
 
-case "$encryptionTypeText" in
-	"WEP")
-	$green
-	echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
-	#echo "CURRENTLY SET TO ONLY SCAN FOR \"WEP\" TARGETS"
-	$white
-	echo ""
-	echo ""
-	;;
-esac
+	case "$encryptionTypeText" in
+		"WPS")
+		$green
+		echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER \"WPS\" COLUMN"
+		echo ""
+		echo "ALL TARGETS THAT SUPPORT WPS MAY ALSO HAVE \"OPN\", \"WEP\", \"WPA\", or \"WPA2\" UNDER \"ENC\" COLUMN"
+		$white
+		echo ""
+		echo ""
+		;;
+	esac
 
-case "$encryptionTypeText" in
-	"WPA")
-	$green
-	echo "WPA TARGETS MAY HAVE \"WPA\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
-	$white
-	echo ""
-	echo ""
-	;;
-esac
+	case "$encryptionTypeText" in
+		"WEP")
+		$green
+		echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
+		#echo "CURRENTLY SET TO ONLY SCAN FOR \"WEP\" TARGETS"
+		$white
+		echo ""
+		echo ""
+		;;
+	esac
 
-case "$encryptionTypeText" in
-	"WPA2")
-	$green
-	echo "WPA2 TARGETS MAY HAVE \"WPA2\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
-	$white
-	echo ""
-	echo ""
-	;;
-esac
+	case "$encryptionTypeText" in
+		"WPA")
+		$green
+		echo "WPA TARGETS MAY HAVE \"WPA\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
+		$white
+		echo ""
+		echo ""
+		;;
+	esac
+
+	case "$encryptionTypeText" in
+		"WPA2")
+		$green
+		echo "WPA2 TARGETS MAY HAVE \"WPA2\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
+		$white
+		echo ""
+		echo ""
+		;;
+	esac
 
 }
 
@@ -4923,6 +4933,8 @@ currentTask="reaverSaveCurrentSessionFile"
 
 menuBullyMain() {
 
+	currentTask="menuBullyMain"
+
 	banner
 	echo ""
 	echo "Bully WPS Attack Menu"
@@ -5004,6 +5016,8 @@ generateArpPacket(){
 
 tcpDump(){
 
+	currentTask="tcpDump"
+
 	# Accepts a CAP file as INPUT
 	$terminal tcpdump -s 0 -n -e -r $1 &
 	
@@ -5011,6 +5025,8 @@ tcpDump(){
 
 
 forgeArpRequest(){
+
+	currentTask="forgeArpRequest"
 
 	# Accepts an XOR file as INPUT
 	#packetforge-ng -0 -a $bssid -h $macAddressMonitor -k 192.168.1.2 -l 192.168.1.100 -y $1 -w "$initPath/$bssid-arp.cap" &
@@ -5022,6 +5038,8 @@ forgeArpRequest(){
 
 
 replayArpRequest(){
+
+	currentTask="replayArpRequest"
 
 	aireplay-ng -2 -r "$initPath/$bssid-arp.cap" $interfaceMonitor &
 
@@ -6337,6 +6355,8 @@ interfaceMonitor(){
 }
 
 fixKaliTwoMonError(){
+
+	currentTask="fixKaliTwoMonError"
 
 	case "$isDebugMode" in
 	
