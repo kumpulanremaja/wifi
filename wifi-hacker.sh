@@ -4768,24 +4768,67 @@ menuAttacksWPS(){
 	echo ""
 	echo ""
 	$yellow
-	echo "If the key is available, now would be a good time to do the following:"
-	echo ""
-	echo "1) Write down the WPA/WPA2 key and/or WPS pin"
-	echo ""
-	echo "2) Take a picture of the screen to keep a record of the keys"
-	$white
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo "Press ENTER to continue...."
-	echo ""
-	echo ""
 
-	getBSSIDCharOnly
-	reaverSaveCurrentSessionFile
+	# Check if PixieDust was used
+	case "$pixieChoice" in
 
-	read pause
+		"0")
+		echo "If the key is available, now would be a good time to do the following:"
+		echo ""
+		echo "- Write down the WPA/WPA2 key and/or WPS pin"
+		echo ""
+		echo "- Take a picture of the screen to keep a record of the keys"
+		echo ""
+		echo ""
+		echo ""
+		$white
+		echo ""
+		echo "Press ENTER to continue...."
+		echo ""
+		echo ""
+
+		getBSSIDCharOnly
+		reaverSaveCurrentSessionFile
+
+		read pause
+		;;
+
+		"1")
+		echo "If the key is available, now would be a good time to do the following:"
+		echo ""
+		echo "- Write down the WPA/WPA2 key and/or WPS pin"
+		echo ""
+		echo "- Take a picture of the screen to keep a record of the keys"
+		echo ""
+		echo ""
+		$red
+		echo "* IF PIXIEDUST ATTACK FAILED, USE THE \"R\" OPTION TO START NORMAL REAVER ATTACK *"
+		$white
+		echo ""
+		echo "Press ENTER to continue or type \"R\" to start normal Reaver attack...."
+		echo ""
+		echo ""
+		
+		getBSSIDCharOnly
+		reaverSaveCurrentSessionFile
+
+		read pixiePost
+
+		case "$pixiePost" in
+		
+			"R" | "r")
+			echo ""
+			echo ""
+			echo "Pixie Attack Failed! Starting Normal Reaver Attack"
+			echo ""
+
+			$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+			;;
+
+		esac
+		;;
+
+	esac
 
 }
 
