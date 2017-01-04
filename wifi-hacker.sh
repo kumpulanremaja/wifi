@@ -4743,17 +4743,18 @@ menuAttacksWPS(){
 		#read pause
 		#pixieFailed="1"
 
+		reaverSessionComplete
+
 		case "$pixieFailed" in
 	
 			"1")
-			$red
-			echo ""
-			echo ""
+			banner
+			bannerStats
 			echo "Pixie Attack Failed! Starting Normal Reaver Attack"
 			echo ""
-			#echo ""
+			echo ""
 			$white
-			$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+			reaverMenuAttacksWPS
 			;;
 
 		esac
@@ -4761,14 +4762,69 @@ menuAttacksWPS(){
 	
 		"2")
 		#echo "PixeDust Disabled"
-		$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+		#$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
 		#$reaver -i $interfaceMonitor -b $bssid -c $channel -vv
-		#read pause
+
+		reaverMenuAttacksWPS
 		;;
 
 	esac
 
+}
+
+
+reaverMenuAttacksWPS(){
+
+	currentTask="reaverMenuAttacksWPS"
+
+	banner
+	bannerStats
+
+	sleepMessage1="Preparing Reaver Session...."
+	sleepMessage2="Launching Reaver Session...."
+	sleepMessage3="Reaver Session Is Now Active!"
+
+	sleepMessage="$sleepMessage1"
+	doSleepMessage
+	sleep 1
+
+	killAirodump
+
+	disableChannelHopping
+
+	sleepMessage="$sleepMessage1"
+	doSleepMessage
+	sleep 1
+
+	sleepMessage="$sleepMessage2"
+	doSleepMessage
+	sleep 2
+
+	banner
+	bannerStats
+
+	sleepMessage="$sleepMessage3"
+	$green
+	doSleepMessage
+	$white
+	echo ""
+	echo "Press CTRL+C At Any Time To Stop Current Session and Save"
+	sleep 2
 	
+	$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+
+	# Set pixieChoice To 0 For Triggering Normal Reaver Save Session Screen
+	pixieChoice="0"
+
+	reaverSessionComplete
+
+}
+
+
+reaverSessionComplete(){
+
+	currentTask="reaverSessionComplete"
+
 	# Session has ended lands here
 	getBSSIDCharOnly
 	reaverSaveCurrentSessionFile
@@ -4838,8 +4894,8 @@ menuAttacksWPS(){
 			echo "Pixie Attack Failed! Starting Normal Reaver Attack"
 			echo ""
 			echo ""
-
-			$reaver -i $interfaceMonitor -b $bssid -c $channel -S -vv
+			$white
+			reaverMenuAttacksWPS
 			;;
 
 		esac
@@ -4847,8 +4903,9 @@ menuAttacksWPS(){
 
 	esac
 
-}
+	menuMain
 
+}
 
 menuAttacksWPSWifiteAuto(){
 
