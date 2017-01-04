@@ -2469,6 +2469,83 @@ menuChangeTerminal(){
 }
 
 
+menuHoneyPotMode(){
+
+	currentTask="menuHoneyPotMode"
+
+	initMonitorMode
+
+	banner
+	bannerStats
+
+	echo ""
+	echo "I Am HoneyPot Mode"
+	echo ""
+	echo "I Am Also Broken :("
+	echo ""
+	echo ""
+	echo ""
+	echo "1) Use Airbase-ng"
+	echo ""
+	echo "2) Use Wifi-Honey"
+	echo ""
+	echo "3) Use a Custom Binary"
+	echo ""
+	echo ""
+	echo ""
+	echo "Select an option and press ENTER:"
+	echo ""
+	echo ""
+
+	read getHoneyPotOptionMain
+
+	hotkeyInput="$getHoneyPotOptionMain"
+
+	loadMenuHotkeys "$hotkeyInput"
+
+	case "$getHoneyPotOptionMain" in
+
+		"")
+		menuHoneyPotMode
+		#$lastMenuID
+		#menuMain
+		#menuAdvanced
+		;;
+
+		"1")
+		getBSSID
+		$terminal airbase-ng -a $bssid -i $interfaceMonitor -h $macAddressMonitor -v &
+		;;
+
+		"2")
+		getESSID
+		getChannel
+		$terminal wifi-honey $essid $channel $interfaceMonitor &
+		;;
+
+		"3")
+		echo "Custom Binary"
+		read pause
+		menuHoneyPotMode
+		;;
+
+		*)
+		menuHoneyPotMode
+		#$lastMenuID
+		#menuMain
+		#menuAdvanced
+		;;
+
+	esac
+
+	#restartProcesses
+
+	menuHoneyPotMode
+	#$lastMenuID
+
+}
+
+
 ############################################################################
 #   MENUS: MAIN END   ######################################################
 ############################################################################
@@ -2586,83 +2663,6 @@ menuSessionLoad(){
 	esac
 
 	$currentTask
-
-}
-
-
-menuHoneyPotMode(){
-
-	currentTask="menuHoneyPotMode"
-
-	initMonitorMode
-
-	banner
-	bannerStats
-
-	echo ""
-	echo "I Am HoneyPot Mode"
-	echo ""
-	echo "I Am Also Broken :("
-	echo ""
-	echo ""
-	echo ""
-	echo "1) Use Airbase-ng"
-	echo ""
-	echo "2) Use Wifi-Honey"
-	echo ""
-	echo "3) Use a Custom Binary"
-	echo ""
-	echo ""
-	echo ""
-	echo "Select an option and press ENTER:"
-	echo ""
-	echo ""
-
-	read getHoneyPotOptionMain
-
-	hotkeyInput="$getHoneyPotOptionMain"
-
-	loadMenuHotkeys "$hotkeyInput"
-
-	case "$getHoneyPotOptionMain" in
-
-		"")
-		menuHoneyPotMode
-		#$lastMenuID
-		#menuMain
-		#menuAdvanced
-		;;
-
-		"1")
-		getBSSID
-		$terminal airbase-ng -a $bssid -i $interfaceMonitor -h $macAddressMonitor -v &
-		;;
-
-		"2")
-		getESSID
-		getChannel
-		$terminal wifi-honey $essid $channel $interfaceMonitor &
-		;;
-
-		"3")
-		echo "Custom Binary"
-		read pause
-		menuHoneyPotMode
-		;;
-
-		*)
-		menuHoneyPotMode
-		#$lastMenuID
-		#menuMain
-		#menuAdvanced
-		;;
-
-	esac
-
-	#restartProcesses
-
-	menuHoneyPotMode
-	#$lastMenuID
 
 }
 
