@@ -6,7 +6,7 @@
 ############################################################################
 
 
-# WiFi Hacker v1.8
+# WiFi Hacker v1.9
 # esc0rtd3w 2017
 
 # https://github.com/esc0rtd3w/wifi-hacker/
@@ -25,6 +25,9 @@
 ############################################################################
 #   VERSION HISTORY BEGIN   ################################################
 ############################################################################
+
+# v1.9
+# - 
 
 # v1.8
 # - Cleaned up scripting and moved all global hotkey triggers to a loadMenuHotkeys Function.
@@ -614,7 +617,7 @@ setWindowTitle(){
 
 	currentTask="setWindowTitle"
 
-	title='echo -ne "\033]0;WiFi Hacker v1.8\007"'
+	title='echo -ne "\033]0;WiFi Hacker v1.9\007"'
 
 	$title
 
@@ -811,7 +814,7 @@ setDefaults(){
 
 	currentTask="setDefaults"
 
-	versionBase="1.8"
+	versionBase="1.9"
 	versionRemote="0.0"
 	versionRemoteTemp="0.0"
 
