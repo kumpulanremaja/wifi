@@ -841,6 +841,8 @@ setDefaults(){
 
 	hotkeyInput=""
 
+	apListType=""
+
 }
 
 
@@ -2551,6 +2553,60 @@ menuHoneyPotMode(){
 }
 
 
+selectFromApList(){
+	
+	# Get AP Credential Type From 1st Argument
+	apListType="$1"
+
+	currentTask="selectFromApList"
+
+	echo "Dumping Found AP Targets From airodump-ng Window...."
+	echo ""
+	echo ""
+
+	case "$apListType" in
+
+		"essid")
+		sleep 15
+		cat "$initPath/apScan-01.kismet.netxml" | grep "<essid cloaked="
+		;;
+
+	esac
+
+	case "$apListType" in
+
+		"bssid")
+		sleep 15
+		cat "$initPath/apScan-01.kismet.netxml" | grep "<BSSID>"
+		;;
+
+	esac
+
+	case "$apListType" in
+
+		"channel")
+		sleep 15
+		cat "$initPath/apScan-01.kismet.netxml" | grep "<<channel>"
+		;;
+
+	esac
+
+	echo ""
+	echo ""
+	$yellow
+	echo "Select $apListType from found AP targets above and copy to clipboard (CTRL+SHIFT+C)"
+	echo ""
+	echo ""
+	$white
+	echo "You may also follow the instructions below to select a target"
+	echo ""
+	echo ""
+
+	#read getApTarget
+
+}
+
+
 ############################################################################
 #   MENUS: MAIN END   ######################################################
 ############################################################################
@@ -2753,6 +2809,8 @@ getESSID(){
 	banner
 	bannerStats
 
+	selectFromApList essid
+
 	textGetTargetInfo
 
 	echo "PASTE or type the Target ESSID Here and press ENTER:"
@@ -2791,6 +2849,8 @@ getBSSID(){
 	banner
 	bannerStats
 
+	selectFromApList bssid
+
 	textGetTargetInfo
 
 	echo "PASTE or type the Target BSSID Here and press ENTER:"
@@ -2828,6 +2888,8 @@ getChannel(){
 
 	banner
 	bannerStats
+
+	selectFromApList channel
 
 	textGetTargetInfo
 
