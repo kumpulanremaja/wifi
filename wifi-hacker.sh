@@ -4829,9 +4829,24 @@ reaverSessionComplete(){
 	getBSSIDCharOnly
 	reaverSaveCurrentSessionFile
 
-	banner
-	bannerStats
-
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
 	$green
 	echo "*************************************"
 	echo "Your reaver session has been saved!"
