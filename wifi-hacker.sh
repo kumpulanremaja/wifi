@@ -2809,7 +2809,7 @@ getESSID(){
 	banner
 	bannerStats
 
-	selectFromApList essid
+	#selectFromApList essid
 
 	textGetTargetInfo
 
@@ -2849,7 +2849,7 @@ getBSSID(){
 	banner
 	bannerStats
 
-	selectFromApList bssid
+	#selectFromApList bssid
 
 	textGetTargetInfo
 
@@ -2889,7 +2889,7 @@ getChannel(){
 	banner
 	bannerStats
 
-	selectFromApList channel
+	#selectFromApList channel
 
 	textGetTargetInfo
 
