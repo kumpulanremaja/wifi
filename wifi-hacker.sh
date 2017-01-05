@@ -4827,32 +4827,24 @@ reaverSessionComplete(){
 
 	# Session has ended lands here
 	getBSSIDCharOnly
+	$lightBlue
+	echo "***************************************"
+	echo "** SCROLL UP FOR RECOVERED PASSWORD ***"
+	echo "***************************************"
+	echo ""
+	$magenta
+	echo "Attempting To Save Reaver Session...."
+	echo ""
+	echo "** Will Give Error If No Session Has Been Written **"
+	echo ""
 	reaverSaveCurrentSessionFile
 
 	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo ""
 	$green
-	echo "*************************************"
-	echo "Your reaver session has been saved!"
-	echo "*************************************"
+	echo "***************************************"
+	echo "* Your reaver session has been saved! *"
+	echo "***************************************"
 	$white
-	echo ""
 	echo ""
 	$yellow
 
@@ -4862,19 +4854,17 @@ reaverSessionComplete(){
 		"0")
 		echo "If the key is available, now would be a good time to do the following:"
 		echo ""
-		echo "- Write down the WPA/WPA2 key and/or WPS pin"
-		echo ""
-		echo "- Take a picture of the screen to keep a record of the keys"
 		echo ""
 		echo ""
-		echo ""
+		$cyan
+		echo "** YOU MAY NEED TO SCROLL UP TO SEE THE PASSPHRASE / PIN / ESSID **"
 		$white
 		echo ""
 		echo ""
 		echo ""
 		echo ""
-		echo "Press ENTER to continue...."
 		echo ""
+		echo "Press ENTER to continue...."
 		echo ""
 
 		read pause
@@ -4883,10 +4873,11 @@ reaverSessionComplete(){
 		"1")
 		echo "If the key is available, now would be a good time to do the following:"
 		echo ""
-		echo "- Write down the WPA/WPA2 key and/or WPS pin"
+		echo "- Write down or take a picture of the WPA/WPA2 key and/or WPS pin"
 		echo ""
-		echo "- Take a picture of the screen to keep a record of the keys"
 		echo ""
+		$cyan
+		echo "** YOU MAY NEED TO SCROLL UP TO SEE THE PASSPHRASE / PIN / ESSID **"
 		echo ""
 		$cyan
 		echo "* IF PIXIEDUST ATTACK FAILED, USE THE \"R\" OPTION TO START NORMAL REAVER ATTACK *"
@@ -4894,9 +4885,7 @@ reaverSessionComplete(){
 		echo ""
 		echo ""
 		echo ""
-		echo ""
 		echo "Press ENTER to continue or type \"R\" to start normal Reaver attack...."
-		echo ""
 		echo ""
 
 		read pixiePost
