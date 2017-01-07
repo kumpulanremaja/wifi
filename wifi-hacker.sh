@@ -6537,6 +6537,16 @@ fixKaliTwoMonError(){
 }
 
 
+# This will output all variables and values currently in use, and is for debugging purposes only
+dumpEnvironment(){
+
+	currentTask="dumpEnvironment"
+
+	
+
+}
+
+
 ############################################################################
 #   MISC STUFF END   #######################################################
 ############################################################################
