@@ -27,7 +27,7 @@
 ############################################################################
 
 # v1.9
-# - 
+# - Fixed and updated Reaver output post screen that was broken in the last release version.
 
 # v1.8
 # - Cleaned up scripting and moved all global hotkey triggers to a loadMenuHotkeys Function.
@@ -2586,7 +2586,7 @@ selectFromApList(){
 
 		"channel")
 		sleep 15
-		cat "$initPath/apScan-01.kismet.netxml" | grep "<<channel>"
+		cat "$initPath/apScan-01.kismet.netxml" | grep "<channel>"
 		;;
 
 	esac
