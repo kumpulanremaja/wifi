@@ -4921,6 +4921,7 @@ reaverSessionComplete(){
 		"0")
 		echo "If the key is available, now would be a good time to do the following:"
 		echo ""
+		echo "- Write down or take a picture of the WPA/WPA2 key and/or WPS pin"
 		echo ""
 		echo ""
 		$cyan
