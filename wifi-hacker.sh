@@ -4892,6 +4892,8 @@ reaverSessionComplete(){
 
 	# Session has ended lands here
 	getBSSIDCharOnly
+
+	echo ""
 	$lightBlue
 	echo "***************************************"
 	echo "** SCROLL UP FOR RECOVERED PASSWORD ***"
