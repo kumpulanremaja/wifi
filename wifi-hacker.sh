@@ -945,6 +945,8 @@ setDefaultsWPS(){
 	reaverPixieLoop="-P"
 	reaverGeneratePin="-W"
 
+	reaverCurrentSessionFile=""
+
 	# -K Argument Number (Default 1)
 	pixieNumber="1"
 
@@ -5045,9 +5047,19 @@ reaverSaveCurrentSessionFile(){
 
 	currentTask="reaverSaveCurrentSessionFile"
 
+	# Use current session path and bssid to build variable
+	reaverCurrentSessionFile="../../$reaverSessionPath/$bssidCharOnly.wpc"
+
+	# Check BSSID and only continue if not blank
 	if [ "$bssidCharOnly" != "" ];then
 
-		cp ../../$reaverSessionPath/$bssidCharOnly.wpc "$capturePathWPS"
+		# Check to see if reaver session file exists
+		if [ -e $reaverCurrentSessionFile ];then
+			
+			# Copy reaver session file to current WPS sessions directory
+			cp "$reaverCurrentSessionFile" "$capturePathWPS"
+
+		fi
 
 	fi
 
@@ -5058,9 +5070,10 @@ reaverSaveAllSessionFiles(){
 
 currentTask="reaverSaveCurrentSessionFile"
 
+	# Check BSSID and only continue if not blank
 	if [ "$bssidCharOnly" != "" ];then
 
-		cp ../../$reaverSessionPath/*.wpc "$capturePathWPS"
+		cp "../../$reaverSessionPath/*.wpc" "$capturePathWPS"
 
 	fi
 
