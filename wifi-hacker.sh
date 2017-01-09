@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.9
+# - Updated Extras Menu. Added wpa_supplicant enable and disable options. Updated wpa_cli options.
 # - Fixed and updated Reaver output post screen that was broken in the last release version.
 
 # v1.8
@@ -1060,7 +1061,7 @@ showDisclaimer(){
 		fixAirmonCompat
 		#startNetworkManager
 		#killNetworkManager
-		#killWpaSupplicant
+		#wpaSupplicantKill
 		#initMonitorMode
 		#stopMonitorMode
 		#checkMultipleAdapters
@@ -1135,7 +1136,7 @@ isUnreleased(){
 		fixAirmonCompat
 		#startNetworkManager
 		#killNetworkManager
-		#killWpaSupplicant
+		#wpaSupplicantKill
 		#initMonitorMode
 		#stopMonitorMode
 		#checkMultipleAdapters
@@ -2138,12 +2139,12 @@ menuExtras(){
 	echo ""
 	echo "4) Change Active Terminal (Switch between Gnome, Konsole, X-Term, and User Selected)"
 	echo ""
-	echo "5) Start NetworkManager"
-	echo "6) Stop NetworkManager"
-	echo "7) Stop wpa_supplicant"
-	echo "8) Stop wpa_cli"
+	echo "5) Start NetworkManager          6)  Stop NetworkManager"
+	echo "7) Enable wpa_supplicant         8)  Disable wpa_supplicant"
+	echo "9) Start wpa_cli                 10) Stop wpa_cli"
 	echo ""
-	echo "9) Open Interface Options Menu"
+	echo "11) Open Interface Options Menu"
+	echo ""
 	echo ""
 	echo "R) Return To Previous Menu"
 	echo ""
@@ -2189,14 +2190,22 @@ menuExtras(){
 		;;
 
 		"7")
-		wpa_supplicant stop
+		wpaSupplicantEnable
 		;;
 
 		"8")
-		wpa_cli terminate
+		wpaSupplicantDisable
 		;;
 
 		"9")
+		wpa_cli start
+		;;
+
+		"10")
+		wpa_cli terminate
+		;;
+
+		"11")
 		menuExtrasInterface
 		;;
 
@@ -6447,7 +6456,9 @@ killNetworkManager(){
 
 }
 
-killWpaSupplicant(){
+wpaSupplicantKill(){
+
+	currentTask="wpaSupplicantKill"
 
 	#currentPID=$(ps -A | grep wpa_supplicant | cut -c 1-5)
 	#killTask=$(kill $currentPID)
@@ -6458,6 +6469,22 @@ killWpaSupplicant(){
 	#echo "$killTask"
 
 	#read pause
+
+}
+
+wpaSupplicantEnable(){
+
+	currentTask="wpaSupplicantEnable"
+
+	systemctl enable wpa_supplicant
+
+}
+
+wpaSupplicantDisable(){
+
+	currentTask="wpaSupplicantDisable"
+
+	systemctl disable wpa_supplicant
 
 }
 
