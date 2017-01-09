@@ -233,7 +233,6 @@
 # Set an "ok so far" temp variable to see if all dependencies are available
 # Set default $serverWPA veriable to some value other than blank
 # Add sniffing/wireshark support
-# Add support for packetforge-ng
 # Add support for airbase-ng
 # Create separate handshake file with an appropriate filename
 # Add "create wordlist" for phone numbers and possibly others. Add option for local
@@ -1961,27 +1960,23 @@ menuAuto(){
 	$white
 
 	case "$encryptionTypeText" in
+
 		"WEP")
 		echo "To perform a fully automated attack, type AUTOWEP end press ENTER"
 		;;
-	esac
 
-	case "$encryptionTypeText" in
 		"WPS")
 		echo "To perform a fully automated attack, type AUTOWPS end press ENTER"
 		;;
-	esac
 
-	case "$encryptionTypeText" in
 		"WPA")
 		echo "To perform a fully automated attack, type AUTOWPA end press ENTER"
 		;;
-	esac
 
-	case "$encryptionTypeText" in
 		"WPA2")
 		echo "To perform a fully automated attack, type AUTOWPA2 end press ENTER"
 		;;
+
 	esac
 
 	echo ""
@@ -2582,18 +2577,10 @@ selectFromApList(){
 		cat "$initPath/apScan-01.kismet.netxml" | grep "<essid cloaked="
 		;;
 
-	esac
-
-	case "$apListType" in
-
 		"bssid")
 		sleep 15
 		cat "$initPath/apScan-01.kismet.netxml" | grep "<BSSID>"
 		;;
-
-	esac
-
-	case "$apListType" in
 
 		"channel")
 		sleep 15
@@ -2768,6 +2755,7 @@ textGetTargetInfo(){
 	echo ""
 
 	case "$encryptionTypeText" in
+
 		"WPS")
 		$green
 		echo "WPS TARGETS MAY HAVE \"1.0, 1.0 LAB, DISP, KPAD\" OR ANOTHER VARIANT UNDER \"WPS\" COLUMN"
@@ -2777,9 +2765,7 @@ textGetTargetInfo(){
 		echo ""
 		echo ""
 		;;
-	esac
 
-	case "$encryptionTypeText" in
 		"WEP")
 		$green
 		echo "WEP TARGETS MAY HAVE \"WEP\" UNDER THE \"ENC\" and \"CIPHER\" COLUMNS"
@@ -2788,9 +2774,7 @@ textGetTargetInfo(){
 		echo ""
 		echo ""
 		;;
-	esac
 
-	case "$encryptionTypeText" in
 		"WPA")
 		$green
 		echo "WPA TARGETS MAY HAVE \"WPA\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
@@ -2798,9 +2782,7 @@ textGetTargetInfo(){
 		echo ""
 		echo ""
 		;;
-	esac
 
-	case "$encryptionTypeText" in
 		"WPA2")
 		$green
 		echo "WPA2 TARGETS MAY HAVE \"WPA2\" UNDER THE \"ENC\" and \"CCMP\" UNDER \"CIPHER\" COLUMNS"
@@ -2808,6 +2790,7 @@ textGetTargetInfo(){
 		echo ""
 		echo ""
 		;;
+
 	esac
 
 }
