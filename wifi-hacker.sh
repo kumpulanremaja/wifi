@@ -5460,7 +5460,7 @@ killAll(){
 
 
 ############################################################################
-#   SESSION LOG STUFF BEGIN   ##############################################
+#   SESSIONS STUFF BEGIN   #################################################
 ############################################################################
 
 
@@ -5733,8 +5733,89 @@ sessionLoad(){
 }
 
 
+cleanCaptureFiles(){
+
+	currentTask="cleanCaptureFiles"
+
+	banner
+	echo ""
+	$red
+	echo "*** THIS WILL ERASE ALL CURRENT CAPTURE FILES!!!"
+	$white
+	echo ""
+	echo ""
+	echo "If you would like to create a backup before doing this, press B and ENTER"
+	echo ""
+	echo ""
+	echo "If you would like to CANCEL, press C and ENTER"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Files will be copied to the \"/sessions/\" directory and backed up to a ZIP file"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	$cyan
+	echo "Automatically Continuing In 10 Seconds..."
+	$white
+	echo ""
+	echo ""
+
+	read -t 10 eraseCaptureConfirm
+
+	case "$eraseCaptureConfirm" in
+
+		"")
+		banner
+		echo ""
+		echo "Cleaning Capture Files...."
+		echo ""
+		echo ""
+
+		sleep 3
+
+		rm *.cap
+		rm *.ivs
+		rm *.xor
+		rm *.csv
+		rm *.netxml
+		;;
+
+		"c" | "C")
+		menuExtras
+		;;
+
+		"b" | "B")
+		backupFromCaptureErase="1"
+		backupSessionFiles
+		;;
+
+		*)
+		cleanCaptureFiles
+		;;
+
+	esac
+
+}
+
+
+findCaptureFiles(){
+
+	currentTask="findCaptureFiles"
+
+	listCap=$(ls | grep .cap)
+	listIvs=$(ls | grep .ivs)
+	listXor=$(ls | grep .xor)
+	listCsv=$(ls | grep .csv)
+	listNetXml=$(ls | grep .netxml)
+
+}
+
+
 ############################################################################
-#   SESSION LOG STUFF END   ################################################
+#   SESSIONS STUFF END   ###################################################
 ############################################################################
 
 
@@ -5851,7 +5932,7 @@ checkForEmptyCredentials(){
 
 
 ############################################################################
-#   MISC STUFF BEGIN   #####################################################
+#   INTERFACE STUFF BEGIN   ################################################
 ############################################################################
 
 checkInterfaceMode(){
@@ -6264,85 +6345,96 @@ getWirelessInterfaces(){
 }
 
 
-cleanCaptureFiles(){
+disableChannelHopping(){
 
-	currentTask="cleanCaptureFiles"
+	sleep 1
+	ifconfig $interface down
 
-	banner
-	echo ""
-	$red
-	echo "*** THIS WILL ERASE ALL CURRENT CAPTURE FILES!!!"
-	$white
-	echo ""
-	echo ""
-	echo "If you would like to create a backup before doing this, press B and ENTER"
-	echo ""
-	echo ""
-	echo "If you would like to CANCEL, press C and ENTER"
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	echo "Files will be copied to the \"/sessions/\" directory and backed up to a ZIP file"
-	echo ""
-	echo ""
-	echo ""
-	echo ""
-	$cyan
-	echo "Automatically Continuing In 10 Seconds..."
-	$white
-	echo ""
-	echo ""
+}
 
-	read -t 10 eraseCaptureConfirm
 
-	case "$eraseCaptureConfirm" in
+enableChannelHopping(){
 
-		"")
-		banner
+	sleep 1
+	ifconfig $interface up
+
+}
+
+interfaceUp(){
+
+	#ifconfig $interface up
+	ifconfig $interfaceMonitor up
+
+}
+
+
+interfaceDown(){
+
+	#ifconfig $interface down
+	ifconfig $interfaceMonitor down
+
+}
+
+
+interfaceManaged(){
+
+	#iwconfig wlan0mon mode managed
+	iwconfig $interfaceMonitor mode managed
+
+}
+
+
+interfaceMonitor(){
+
+	#iwconfig wlan0mon mode monitor
+	iwconfig $interfaceMonitor mode monitor
+
+}
+
+
+fixKaliTwoMonError(){
+
+	currentTask="fixKaliTwoMonError"
+
+	case "$isDebugMode" in
+	
+		"1")
+		echo "DEBUG: Kali 2.x Fix - Step 1"
 		echo ""
-		echo "Cleaning Capture Files...."
-		echo ""
-		echo ""
-
-		sleep 3
-
-		rm *.cap
-		rm *.ivs
-		rm *.xor
-		rm *.csv
-		rm *.netxml
+		echo "$interface"
+		echo "$interfaceMonitor"
+		read pause
 		;;
-
-		"c" | "C")
-		menuExtras
-		;;
-
-		"b" | "B")
-		backupFromCaptureErase="1"
-		backupSessionFiles
-		;;
-
-		*)
-		cleanCaptureFiles
-		;;
-
 	esac
 
+	ifconfig $interfaceMonitor down
+	sleep 2
+	iwconfig $interfaceMonitor mode monitor
+	sleep 2
+	ifconfig $interfaceMonitor up
+
+	case "$isDebugMode" in
+	
+		"1")
+		echo "DEBUG: Kali 2.x Fix - Step 2"
+		echo ""
+		echo "$interface"
+		echo "$interfaceMonitor"
+		read pause
+		;;
+	esac
 }
 
 
-findCaptureFiles(){
+############################################################################
+#   INTERFACE STUFF END   ##################################################
+############################################################################
 
-	currentTask="findCaptureFiles"
 
-	listCap=$(ls | grep .cap)
-	listIvs=$(ls | grep .ivs)
-	listXor=$(ls | grep .xor)
-	listCsv=$(ls | grep .csv)
-	listNetXml=$(ls | grep .netxml)
 
-}
+############################################################################
+#   MISC STUFF BEGIN   #####################################################
+############################################################################
 
 
 getCustomList(){
@@ -6421,11 +6513,13 @@ fixNegativeOneChannelError(){
 
 }
 
+
 startNetworkManager(){
 
 	NetworkManager
 
 }
+
 
 killNetworkManager(){
 
@@ -6438,6 +6532,7 @@ killNetworkManager(){
 	#read pause
 
 }
+
 
 wpaSupplicantKill(){
 
@@ -6471,81 +6566,6 @@ wpaSupplicantDisable(){
 
 }
 
-disableChannelHopping(){
-
-	sleep 1
-	ifconfig $interface down
-
-}
-
-enableChannelHopping(){
-
-	sleep 1
-	ifconfig $interface up
-
-}
-
-interfaceUp(){
-
-	#ifconfig $interface up
-	ifconfig $interfaceMonitor up
-
-}
-
-interfaceDown(){
-
-	#ifconfig $interface down
-	ifconfig $interfaceMonitor down
-
-}
-
-interfaceManaged(){
-
-	#iwconfig wlan0mon mode managed
-	iwconfig $interfaceMonitor mode managed
-
-}
-
-interfaceMonitor(){
-
-	#iwconfig wlan0mon mode monitor
-	iwconfig $interfaceMonitor mode monitor
-
-}
-
-fixKaliTwoMonError(){
-
-	currentTask="fixKaliTwoMonError"
-
-	case "$isDebugMode" in
-	
-		"1")
-		echo "DEBUG: Kali 2.x Fix - Step 1"
-		echo ""
-		echo "$interface"
-		echo "$interfaceMonitor"
-		read pause
-		;;
-	esac
-
-	ifconfig $interfaceMonitor down
-	sleep 2
-	iwconfig $interfaceMonitor mode monitor
-	sleep 2
-	ifconfig $interfaceMonitor up
-
-	case "$isDebugMode" in
-	
-		"1")
-		echo "DEBUG: Kali 2.x Fix - Step 2"
-		echo ""
-		echo "$interface"
-		echo "$interfaceMonitor"
-		read pause
-		;;
-	esac
-}
-
 
 # This will output all variables and values currently in use, and is for debugging purposes only
 dumpEnvironment(){
@@ -6571,6 +6591,7 @@ dumpEnvironment(){
 
 
 initMain
+
 
 ############################################################################
 #   INITIAL LAUNCH END   ###################################################
