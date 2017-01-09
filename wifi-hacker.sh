@@ -1354,13 +1354,21 @@ bannerExitUpdate(){
 ############################################################################
 
 
+# Usage: doSleepMessage "message" "time" "color"
+# Usage Example: doSleepMessage "Please Wait...." "5" "$red"
 doSleepMessage(){
+
+	message="$1"
+	time="$2"
+	color="$3"
 
 	currentTask="doSleepMessage"
 
 	banner
 	bannerStats
-	echo "$sleepMessage"
+	$color
+	echo "$message"
+	sleep $time
 
 }
 
@@ -3315,9 +3323,7 @@ adFileDump(){
 
 		"wpa" | "wpa2")
 
-		sleepMessage="Preparing to Capture WPA Handshake...."
-		doSleepMessage
-		sleep 3
+		doSleepMessage "Preparing to Capture WPA Handshake...." "3"
 
 		disableChannelHopping
 
@@ -3557,9 +3563,7 @@ autoModeNoPreviousSessionWEP(){
 
 	adAPScanNoChannel
 
-	sleepMessage="Setting Up User Input...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Setting Up User Input...." "2"
 
 	getESSID
 	getBSSID
@@ -3568,24 +3572,18 @@ autoModeNoPreviousSessionWEP(){
 	sessionWriteBeginNew
 	sessionCopyNewCaptureFiles
 
-	sleepMessage="Killing airodump-ng Sessions...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Killing airodump-ng Sessions...." "2"
 
 	killAirodump
 	killWifite
 
-	sleepMessage="Preparing Client Association...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Preparing Client Association...." "2"
 
 	arAssociate
 	#sleep 10
 	#killAireplay
 
-	sleepMessage="Preparing airodump-ng Session...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Preparing airodump-ng Session...." "2"
 
 	adFileDump
 	menuAttacksWEP
@@ -3599,16 +3597,11 @@ autoModeUsePreviousSessionWEP(){
 
 	sessionWriteLoadPrevious
 
-
-	sleepMessage="Preparing Client Association...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Preparing Client Association...." "2"
 
 	arAssociate
 
-	sleepMessage="Preparing airodump-ng Session...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Preparing airodump-ng Session...." "2"
 
 	adFileDump
 
@@ -3850,15 +3843,11 @@ arAttackDeAuth(){
 
 	retryDeauth="0"
 
-	sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Preparing to De-Authenticate All Connected Stations...." "2"
 
 	$terminal aireplay-ng --deauth 5 -a $bssid $interfaceMonitor &
 
-	sleepMessage="De-Authenticating All Connected Stations...."
-	doSleepMessage
-	sleep 5
+	doSleepMessage "De-Authenticating All Connected Stations...." "5"
 
 }
 
@@ -3869,9 +3858,7 @@ arAttackDeAuthConstant(){
 
 	retryDeauth="0"
 
-	sleepMessage="De-Authenticating All Connected Stations...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "De-Authenticating All Connected Stations...." "2"
 
 	$terminal aireplay-ng --deauth 0 -a $bssid $interfaceMonitor &
 
@@ -4031,9 +4018,7 @@ autoModeNoPreviousSessionWPA(){
 
 	adAPScanNoChannel
 
-	sleepMessage="Setting Up User Input...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Setting Up User Input...." "2"
 
 	getESSID
 	getBSSID
@@ -4042,9 +4027,7 @@ autoModeNoPreviousSessionWPA(){
 	sessionWriteBeginNew
 	sessionCopyNewCaptureFiles
 
-	sleepMessage="Killing Airodump Window...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Killing Airodump Window...." "2"
 
 
 	killAirodump
@@ -4098,18 +4081,14 @@ menuAttacksWPA(){
 
 		adFileDump
 
-		sleepMessage="Preparing to Capture WPA Handshake...."
-		doSleepMessage
-		sleep 2
+		doSleepMessage "Preparing to Capture WPA Handshake...." "2"
 
 		arAttackDeAuth
 		captureHandshakeWPA
 		;;
 
 		"1")
-		sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-		doSleepMessage
-		sleep 1
+		doSleepMessage "Preparing to De-Authenticate All Connected Stations...." "1"
 		arAttackDeAuth
 		captureHandshakeWPA
 		;;
@@ -4126,10 +4105,7 @@ aircrackDecryptWPA(){
 	banner
 	bannerStats
 
-
-	sleepMessage="Preparing captured handshake for aircrack-ng...."
-	doSleepMessage
-	sleep 4
+	doSleepMessage "Preparing captured handshake for aircrack-ng...." "4"
 
 	banner
 	bannerStats
@@ -4268,9 +4244,7 @@ captureHandshakeWPA(){
 		killAirodump
 		killAireplay
 
-		sleepMessage="Preparing capture files for aircrack-ng...."
-		doSleepMessage
-		sleep 2
+		doSleepMessage "Preparing capture files for aircrack-ng...." "2"
 
 		aircrackDecrypt
 		;;
@@ -4342,9 +4316,7 @@ autoModeNoPreviousSessionWPA2(){
 
 	adAPScanNoChannel
 
-	sleepMessage="Setting Up User Input...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Setting Up User Input...." "2"
 
 	getESSID
 	getBSSID
@@ -4353,9 +4325,7 @@ autoModeNoPreviousSessionWPA2(){
 	sessionWriteBeginNew
 	sessionCopyNewCaptureFiles
 
-	sleepMessage="Killing Airodump Window...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Killing Airodump Window...." "2"
 
 
 	killAirodump
@@ -4407,18 +4377,14 @@ menuAttacksWPA2(){
 
 		adFileDump
 
-		sleepMessage="Preparing to Capture WPA Handshake...."
-		doSleepMessage
-		sleep 2
+		doSleepMessage "Preparing to Capture WPA Handshake...." "2"
 
 		arAttackDeAuth
 		captureHandshakeWPA2
 		;;
 
 		"1")
-		sleepMessage="Preparing to De-Authenticate All Connected Stations...."
-		doSleepMessage
-		sleep 1
+		doSleepMessage "Preparing to De-Authenticate All Connected Stations...." "1"
 		arAttackDeAuth
 		captureHandshakeWPA2
 		;;
@@ -4435,10 +4401,7 @@ aircrackDecryptWPA2(){
 	banner
 	bannerStats
 
-
-	sleepMessage="Preparing captured handshake for aircrack-ng...."
-	doSleepMessage
-	sleep 4
+	doSleepMessage "Preparing captured handshake for aircrack-ng...." "4"
 
 	banner
 	bannerStats
@@ -4577,9 +4540,7 @@ captureHandshakeWPA2(){
 		killAirodump
 		killAireplay
 
-		sleepMessage="Preparing capture files for aircrack-ng...."
-		doSleepMessage
-		sleep 2
+		doSleepMessage "Preparing capture files for aircrack-ng...." "2"
 
 		aircrackDecrypt
 		;;
@@ -4648,9 +4609,7 @@ autoModeNoPreviousSessionWPS(){
 	#adAPScanNoChannel
 	adAPScanNoChannelWPS
 
-	sleepMessage="Setting Up User Input...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Setting Up User Input...." "2"
 
 	getESSID
 	getBSSID
@@ -4659,9 +4618,7 @@ autoModeNoPreviousSessionWPS(){
 	sessionWriteBeginNew
 	sessionCopyNewCaptureFiles
 
-	sleepMessage="Killing Airodump Window...."
-	doSleepMessage
-	sleep 2
+	doSleepMessage "Killing Airodump Window...." "2"
 
 
 	killAirodump
@@ -4766,28 +4723,20 @@ menuAttacksWPS(){
 
 	esac
 
-	sleepMessage="$sleepMessage1"
-	doSleepMessage
-	sleep 1
+	doSleepMessage "$sleepMessage1" "1"
 
 	killAirodump
 
 	disableChannelHopping
 
-	sleepMessage="$sleepMessage1"
-	doSleepMessage
-	sleep 1
+	doSleepMessage "$sleepMessage1" "1"
 
-	sleepMessage="$sleepMessage2"
-	doSleepMessage
-	sleep 2
+	doSleepMessage "$sleepMessage2" "2"
 
 	banner
 	bannerStats
 
-	sleepMessage="$sleepMessage3"
-	$green
-	doSleepMessage
+	doSleepMessage "$sleepMessage3" "0" "$green"
 	$white
 	echo ""
 	echo "Press CTRL+C At Any Time To Stop Current Session and Save"
@@ -4843,28 +4792,20 @@ reaverMenuAttacksWPS(){
 	sleepMessage2="Launching Reaver Session...."
 	sleepMessage3="Reaver Session Is Now Active!"
 
-	sleepMessage="$sleepMessage1"
-	doSleepMessage
-	sleep 1
+	doSleepMessage "$sleepMessage1" "1"
 
 	killAirodump
 
 	disableChannelHopping
 
-	sleepMessage="$sleepMessage1"
-	doSleepMessage
-	sleep 1
+	doSleepMessage "$sleepMessage1" "1"
 
-	sleepMessage="$sleepMessage2"
-	doSleepMessage
-	sleep 2
+	doSleepMessage "$sleepMessage2" "1"
 
 	banner
 	bannerStats
 
-	sleepMessage="$sleepMessage3"
-	$green
-	doSleepMessage
+	doSleepMessage "$sleepMessage3" "0" "$green"
 	$white
 	echo ""
 	echo "Press CTRL+C At Any Time To Stop Current Session and Save"
