@@ -27,7 +27,9 @@
 ############################################################################
 
 # v1.9
+# - Cleaned up code for doSleepMessage() Function. Now takes 3 arguments, "message", "time", and "color".
 # - Updated Extras Menu. Added wpa_supplicant enable and disable options. Updated wpa_cli options.
+# - Updated Reaver save session to only save a backup if current session file exists.
 # - Fixed and updated Reaver output post screen that was broken in the last release version.
 
 # v1.8
@@ -4834,15 +4836,15 @@ reaverSessionComplete(){
 	echo "** SCROLL UP FOR RECOVERED PASSWORD ***"
 	echo "***************************************"
 	echo ""
-	$magenta
-	echo "Attempting To Save Reaver Session...."
-	echo ""
-	echo "** Will Give Error If No Session Has Been Written **"
-	echo ""
+	#$magenta
+	#echo "Attempting To Save Reaver Session...."
+	#echo ""
+	#echo "** Will Give Error If No Session Has Been Written **"
+	#echo ""
 	reaverSaveCurrentSessionFile
 
-	echo ""
 	$green
+	echo ""
 	echo "***************************************"
 	echo "* Your reaver session has been saved! *"
 	echo "***************************************"
