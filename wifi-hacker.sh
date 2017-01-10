@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.9
+# - Configured updates with new coloring, and now will only update if remote version is higher than local version.
 # - Cleaned up code for doSleepMessage() Function. Now takes 3 arguments, "message", "time", and "color".
 # - Updated Extras Menu. Added wpa_supplicant enable and disable options. Updated wpa_cli options.
 # - Updated Reaver save session to only save a backup if current session file exists.
@@ -817,19 +818,24 @@ setDefaults(){
 	currentTask="setDefaults"
 
 	versionBase="1.9"
-	versionRemote="0.0"
-	versionRemoteTemp="0.0"
+	versionBaseClean="00"
 
 	initPath="$PWD"
 
 	isDebugMode="0"
 
 	# Update Stuff
+	versionRemote="0.0"
+	versionRemoteClean="00"
+	versionRemoteTemp="0.0"
+	newUpdateAvailable="0"
 	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
 	updateTemp="/tmp/update-check.tmp"
 	updateChecked="0"
 	skipUpdate="0"
 	returnToUpdatePage="0"
+
+	devBuild="0"
 
 	# Setting default update downloaded script value
 	newVersionScript="0.0"
@@ -1414,26 +1420,6 @@ checkForUpdates(){
 }
 
 
-compareUpdateVersions(){
-
-	# Compare Local and Remote Versions (0 = Not Greater / 1 = Greater) (Not working?? 20170102)
-	versionCompare=$(echo "$1 <= $2" | awk '{print ($1 <= $2)}')
-
-	case "$versionCompare" in
-
-		"0")
-		$green
-		;;
-
-		"1")
-		$red
-		;;
-
-	esac
-
-}
-
-
 menuUpdate(){
 
 	currentTask="menuUpdate"
@@ -1466,8 +1452,44 @@ menuUpdate(){
 	echo ""
 	echo ""
 	echo ""
+
+	# If remote version is not newer, then local version should be green
+	case "$newUpdateAvailable" in
+
+		"0")
+		$green
+		;;
+
+		"1")
+		$yellow
+		;;
+
+		"2")
+		$green
+		;;
+
+	esac
+
 	echo "Local Version: v$versionBase"
 	echo ""
+
+	# If remote version is newer, then local version should not be green
+	case "$newUpdateAvailable" in
+
+		"0")
+		$yellow
+		;;
+
+		"1")
+		$green
+		;;
+
+		"2")
+		$green
+		;;
+
+	esac
+
 	echo "Remote Version: v$versionRemote"
 	$white
 	echo ""
@@ -1511,8 +1533,36 @@ menuUpdate(){
 		;;
 
 		"2")
-		returnToUpdatePage="0"
-		getUpdate
+
+		case "$newUpdateAvailable" in
+
+			"0")
+			returnToUpdatePage="0"
+			
+			banner
+			$red
+			echo ""
+			echo "No Updates Are Available!"
+			echo ""
+			echo ""
+			echo ""
+			echo ""
+			echo ""
+			echo ""
+			$cyan
+			echo "Continuing To Main Menu In 5 Seconds...."
+			echo ""
+			echo ""
+
+			read -t 5 noUpdateAvailable
+			;;
+
+			"1")
+			returnToUpdatePage="0"
+			getUpdate
+			;;
+
+		esac
 		;;
 
 	esac
@@ -1536,6 +1586,12 @@ checkUpdate(){
 		read pause
 		;;
 	esac
+
+	cleanVersionNumbers
+	compareUpdateVersions
+
+	#echo "newUpdateAvailable: $newUpdateAvailable"
+	#read pause
 
 	rm $updateTemp
 
@@ -1580,6 +1636,50 @@ getUpdate(){
 	#read pause
 
 	bannerExitUpdate
+
+}
+
+
+cleanVersionNumbers(){
+
+	currentTask="cleanUpdateVersion"
+
+	versionBaseClean=$(echo $versionBase | sed -e 's/\.//')
+
+	versionRemoteClean=$(echo $versionRemote | sed -e 's/\.//')
+
+	#echo "Local Version: $versionBaseClean"
+	#echo "Remote Version: $versionRemoteClean"
+	#read pause
+
+}
+
+
+compareUpdateVersions(){
+
+	# Compare Local and Remote Versions (0 = Not Greater / 1 = Greater) (Not working?? 20170102)
+	#versionCompare=$(echo "$versionBaseClean <= $versionRemoteClean" | awk '{print ($versionBaseClean <= $versionRemoteClean)}')
+
+	if [ $versionRemoteClean -lt $versionBaseClean ]; then
+		
+		newUpdateAvailable="0"
+		devBuild="1"
+	
+	fi
+	
+	if [ $versionRemoteClean -gt $versionBaseClean ]; then
+
+		newUpdateAvailable="1"
+		devBuild="0"
+	
+	fi
+
+	if [ $versionRemoteClean -eq $versionBaseClean ]; then
+		
+		newUpdateAvailable="2"
+		devBuild="0"
+	
+	fi
 
 }
 
