@@ -2251,13 +2251,12 @@ menuAdvanced(){
 
 menuExtras(){
 
-	currentTask="menuExtras"
-	#lastMenuID="menuExtras"
+	#currentTask="menuExtras"
+	lastMenuID="menuExtras"
 
 	banner
 	bannerStats
 
-	echo ""
 	echo "1) Backup All Sessions and Capture Files (Full Backup of all saved files to ZIP file)"
 	echo "2) Clean Capture Files (Removes all saved .cap, .xor, .ivs, .csv, and .netxml files)"
 	echo "3) Clean Session Files (Removes all saved WEP, WPS, WPA, WPA2 *.sessions files)"
@@ -2270,12 +2269,12 @@ menuExtras(){
 	echo ""
 	echo "11) Open Interface Options Menu"
 	echo ""
+	echo "12) Hidden SSID Options"
 	echo ""
 	echo "R) Return To Previous Menu"
 	echo ""
 	echo ""
 	echo "Select an option from above and press ENTER:"
-	echo ""
 	echo ""
 
 	read getExtras
@@ -2334,8 +2333,47 @@ menuExtras(){
 		menuExtrasInterface
 		;;
 
+		"12")
+		banner
+		bannerStats
+
+		echo "1) Bruteforce Hidden SSID"
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo ""
+		echo "R) Return To Previous Menu"
+		echo ""
+		echo ""
+		echo "Select an option from above and press ENTER:"
+		echo ""
+
+		read ssidHiddenOption
+
+		case "$ssidHiddenOption" in
+
+			"1")
+			bruteForceHiddenSSID
+			;;
+
+			"r" | "R")
+			$lastMenuID
+			;;
+
+		esac
+		;;
+
 		"r" | "R")
-		$lastMenuID
+		$currentTask
 		;;
 
 		*)
@@ -3653,14 +3691,45 @@ bruteForceHiddenSSID(){
 
 	currentTask="bruteForceHiddenSSID"
 
+	adAPScanNoChannel
+
 	banner
 	echo ""
-	echo "Bruteforcing Access Point Hidden SSID Names...."
+	echo "Using Interface: $interfaceMonitor"
 	echo ""
 	echo ""
+	echo ""
+	echo ""
+	echo "Use the airodump window to find your target"
+	echo ""
+	echo "Example Hidden: 01:02:03:04:05:06                 <length 21>"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Type Target BSSID and Press ENTER:"
+	echo ""
 
-	$terminal mdk3 $interfaceMonitor p -t $bssid -b -s 300 &
+	read targetBSSID
 
+	case "$targetBSSID" in
+
+		*)
+		banner
+		echo ""
+		echo "Bruteforcing $bssid...."
+		echo ""
+		echo ""
+
+		$terminal mdk3 $interfaceMonitor p -t $bssid -b -s 300 &
+		;;
+
+	esac
+
+	echo ""
+	echo ""
+	echo "Press ENTER To Continue...."
+	echo ""
 	read pause
 
 }
