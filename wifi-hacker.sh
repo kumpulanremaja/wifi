@@ -282,13 +282,12 @@ initMain(){
 	checkDependencies
 
 	resizeWindow
-	setVariables
+
 	setVariablesRequired
 	setVariablesOptional
 	setVariablesAdvanced
 
 	setDefaults
-
 	setDefaultsWEP
 	setDefaultsWPA
 	setDefaultsWPA2
@@ -698,31 +697,6 @@ setTerminalTextEffects(){
 }
 
 
-setVariables(){
-
-	currentTask="setVariables"
-
-	terminal="gnome-terminal -x"
-	terminalGnome="gnome-terminal -x"
-	terminalKonsole="konsole -e"
-	terminalXterm="xterm -e"
-
-	bin=""
-	startMonitorMode="airmon-ng start"
-	stopMonitorMode="airmon-ng stop"
-
-	getRandomMacAddress=""
-	spoofStatus="0"
-	resetSpoofStatus="0"
-
-	encryptionType="empty"
-	encryptionTypeText="Empty"
-
-	ipStatus="0"
-
-}
-
-
 ############################################################################
 #   TERMINAL OPTIONS END   #################################################
 ############################################################################
@@ -739,6 +713,71 @@ setVariables(){
 setVariablesRequired(){
 
 	currentTask="setVariablesRequired"
+
+	versionBase="1.9"
+	versionBaseClean="00"
+
+	initPath="$PWD"
+
+	isDebugMode="0"
+	isDevBuild="0"
+
+	# Update Stuff
+	versionRemote="0.0"
+	versionRemoteClean="00"
+	versionRemoteTemp="0.0"
+	newUpdateAvailable="0"
+	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
+	updateTemp="/tmp/update-check.tmp"
+	updateChecked="0"
+	skipUpdate="0"
+	returnToUpdatePage="0"
+
+	# Setting default update downloaded script value
+	newVersionScript="0.0"
+
+	terminal="gnome-terminal -x"
+	terminalGnome="gnome-terminal -x"
+	terminalKonsole="konsole -e"
+	terminalXterm="xterm -e"
+
+	bin=""
+	
+}
+
+
+setVariablesOptional(){
+
+	currentTask="setVariablesOptional"
+
+	blank=""
+
+}
+
+
+setVariablesAdvanced(){
+
+	currentTask="setVariablesAdvanced"
+
+	blank=""
+
+}
+
+
+setDefaults(){
+
+	currentTask="setDefaults"
+	startMonitorMode="airmon-ng start"
+	stopMonitorMode="airmon-ng stop"
+
+	getRandomMacAddress=""
+	spoofStatus="0"
+	resetSpoofStatus="0"
+
+	encryptionType="empty"
+	encryptionTypeText="Empty"
+
+	ipStatus="0"
 
 	interface="wlan0"
 	#interfaceMonitor="mon0"
@@ -791,54 +830,6 @@ setVariablesRequired(){
 	showAdapterEightName="$adapterNameDefault"
 	showAdapterNineName="$adapterNameDefault"
 	showAdapterTenName="$adapterNameDefault"
-	
-}
-
-
-setVariablesOptional(){
-
-	currentTask="setVariablesOptional"
-
-	blank=""
-
-}
-
-
-setVariablesAdvanced(){
-
-	currentTask="setVariablesAdvanced"
-
-	blank=""
-
-}
-
-
-setDefaults(){
-
-	currentTask="setDefaults"
-
-	versionBase="1.9"
-	versionBaseClean="00"
-
-	initPath="$PWD"
-
-	isDebugMode="0"
-
-	# Update Stuff
-	versionRemote="0.0"
-	versionRemoteClean="00"
-	versionRemoteTemp="0.0"
-	newUpdateAvailable="0"
-	updateMaster=https://raw.githubusercontent.com/esc0rtd3w/wifi-hacker/master/wifi-hacker.sh
-	updateTemp="/tmp/update-check.tmp"
-	updateChecked="0"
-	skipUpdate="0"
-	returnToUpdatePage="0"
-
-	devBuild="0"
-
-	# Setting default update downloaded script value
-	newVersionScript="0.0"
 	
 	# Default Capture Lists Values
 	listCap=0
@@ -986,13 +977,6 @@ setDefaultSession(){
 	capturePathWPS=$(echo "$PWD/sessions/wps")
 	capturePathWPA=$(echo "$PWD/sessions/wpa")
 	capturePathWPA2=$(echo "$PWD/sessions/wpa2")
-
-}
-
-
-setVariablesPostExploitation(){
-
-	blank=""
 
 }
 
@@ -1699,21 +1683,21 @@ compareUpdateVersions(){
 	if [ $versionRemoteClean -lt $versionBaseClean ]; then
 		
 		newUpdateAvailable="2"
-		devBuild="1"
+		isDevBuild="1"
 	
 	fi
 	
 	if [ $versionRemoteClean -gt $versionBaseClean ]; then
 
 		newUpdateAvailable="1"
-		devBuild="0"
+		isDevBuild="0"
 	
 	fi
 
 	if [ $versionRemoteClean -eq $versionBaseClean ]; then
 		
 		newUpdateAvailable="0"
-		devBuild="0"
+		isDevBuild="0"
 	
 	fi
 
@@ -3675,7 +3659,7 @@ bruteForceHiddenSSID(){
 	echo ""
 	echo ""
 
-	$terminal mdk3 $interfaceMonitor p &
+	$terminal mdk3 $interfaceMonitor p -t $bssid -b -s 300 &
 
 	read pause
 
