@@ -27,6 +27,8 @@
 ############################################################################
 
 # v1.9
+# - Added "Bruteforce Hidden SSID Options" To Extras Menu and updated bruteforceHiddenSSID() Function.
+# - Updated Menu Navigation to restrict from entering Extras Menu until after a wireless adapter has been selected.
 # - Configured updates with new coloring, and now will only update if remote version is higher than local version.
 # - Cleaned up code for doSleepMessage() Function. Now takes 3 arguments, "message", "time", and "color".
 # - Updated Extras Menu. Added wpa_supplicant enable and disable options. Updated wpa_cli options.
@@ -2264,7 +2266,7 @@ menuAdvanced(){
 menuExtras(){
 
 	#currentTask="menuExtras"
-	lastMenuID="menuExtras"
+	#lastMenuID="menuExtras"
 
 	banner
 	bannerStats
@@ -2363,9 +2365,11 @@ menuExtras(){
 		echo ""
 		echo ""
 		echo ""
-		echo "R) Return To Previous Menu"
+		$cyan
+		echo "* Just Press ENTER To Return To Previous Menu *"
 		echo ""
 		echo ""
+		$white
 		echo "Select an option from above and press ENTER:"
 		echo ""
 
@@ -2377,15 +2381,11 @@ menuExtras(){
 			bruteForceHiddenSSID
 			;;
 
-			"r" | "R")
-			$lastMenuID
-			;;
-
 		esac
 		;;
 
 		"r" | "R")
-		$currentTask
+		$lastMenuID
 		;;
 
 		*)
@@ -3707,11 +3707,13 @@ bruteForceHiddenSSID(){
 
 	banner
 	echo ""
+	$green
 	echo "Using Interface: $interfaceMonitor"
 	echo ""
 	echo ""
 	echo ""
 	echo ""
+	$cyan
 	echo "Use the airodump window to find your target"
 	echo ""
 	echo "Example Hidden: 01:02:03:04:05:06                 <length 21>"
@@ -3719,6 +3721,7 @@ bruteForceHiddenSSID(){
 	echo ""
 	echo ""
 	echo ""
+	$white
 	echo "Type Target BSSID and Press ENTER:"
 	echo ""
 
@@ -3729,20 +3732,31 @@ bruteForceHiddenSSID(){
 		*)
 		banner
 		echo ""
-		echo "Bruteforcing $bssid...."
+		$cyan
+		mdk3 $interfaceMonitor p -t $targetBSSID -b -s 300
 		echo ""
 		echo ""
-
-		$terminal mdk3 $interfaceMonitor p -t $bssid -b -s 300 &
 		;;
 
 	esac
-
+		
+	$green
 	echo ""
 	echo ""
-	echo "Press ENTER To Continue...."
 	echo ""
-	read pause
+	echo "***************************************"
+	echo "Bruteforcing Finished!"
+	echo "***************************************"
+	echo ""
+	echo ""
+	echo "Check Above For Possible Hidden SSID Reveals"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Press ENTER To Continue When Finished...."
+	echo ""
+	read finishBrute
 
 }
 
