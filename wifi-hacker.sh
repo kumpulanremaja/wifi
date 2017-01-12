@@ -1465,7 +1465,7 @@ menuUpdate(){
 		;;
 
 		"2")
-		$green
+		$magenta
 		;;
 
 	esac
@@ -1485,7 +1485,7 @@ menuUpdate(){
 		;;
 
 		"2")
-		$green
+		$magenta
 		;;
 
 	esac
@@ -1506,9 +1506,7 @@ menuUpdate(){
 	echo ""
 	echo ""
 	echo ""
-	#echo "R) Return To Previous Page"
 	$cyan
-	#echo "YOU CAN SIMPLY PRESS ENTER TO SKIP UPDATE PROCESS...."
 	echo "AUTOMATICALLY CONTINUING IN 10 SECONDS...."
 	$white
 	echo ""
@@ -1536,6 +1534,7 @@ menuUpdate(){
 
 		case "$newUpdateAvailable" in
 
+			# No Update Available / Remote Version Matches Local
 			"0")
 			returnToUpdatePage="0"
 			
@@ -1557,9 +1556,46 @@ menuUpdate(){
 			read -t 5 noUpdateAvailable
 			;;
 
+			# Update Is Available / Remote Version Is Higher Than Local
 			"1")
 			returnToUpdatePage="0"
 			getUpdate
+			;;
+
+			# Dev Build / Remote Version Is Lower Than Local
+			"2")
+			returnToUpdatePage="0"
+
+			banner
+			$magenta
+			echo ""
+			echo "You Have An Unreleased Developer Version"
+			echo ""
+			echo ""
+			echo ""
+			$green
+			echo ""
+			echo "* TO FORCE UPDATE FROM REMOTE VERSION PRESS \"F\" AND ENTER *"
+			echo ""
+			echo ""
+			echo ""
+			echo ""
+			$cyan
+			echo "Continuing To Main Menu In 10 Seconds...."
+			echo ""
+			echo ""
+
+			read -t 10 noUpdateAvailable
+
+			# Check for Forced Update Flag
+			case "$noUpdateAvailable" in
+
+				"F" | "f")
+				returnToUpdatePage="0"
+				getUpdate
+				;;
+
+			esac
 			;;
 
 		esac
@@ -1662,7 +1698,7 @@ compareUpdateVersions(){
 
 	if [ $versionRemoteClean -lt $versionBaseClean ]; then
 		
-		newUpdateAvailable="0"
+		newUpdateAvailable="2"
 		devBuild="1"
 	
 	fi
@@ -1676,7 +1712,7 @@ compareUpdateVersions(){
 
 	if [ $versionRemoteClean -eq $versionBaseClean ]; then
 		
-		newUpdateAvailable="2"
+		newUpdateAvailable="0"
 		devBuild="0"
 	
 	fi
