@@ -1906,7 +1906,19 @@ case "$hotkeyInput" in
 	;;
 
 	"E" | "e")
-	menuExtras
+
+	case "$lastMenuID" in
+
+		"menuMain")
+		menuMain
+		;;
+
+		*)
+		menuExtras
+		;;
+
+	esac
+	
 	;;
 
 	"X" | "x")
