@@ -1803,7 +1803,8 @@ checkConnectionStatus(){
 
 fixAirmonCompat(){
 
-	$terminal airmon-ng check kill&
+	#$terminal airmon-ng check kill&
+	airmon-ng check kill&
 	#airmon-ng check kill&
 
 }
