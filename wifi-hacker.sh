@@ -27,6 +27,7 @@
 ############################################################################
 
 # v1.9
+# - Added support for Wash. Currently used for dumping scan info out to text.
 # - Added "Bruteforce Hidden SSID Options" To Extras Menu and updated bruteforceHiddenSSID() Function.
 # - Updated Menu Navigation to restrict from entering Extras Menu until after a wireless adapter has been selected.
 # - Configured updates with new coloring, and now will only update if remote version is higher than local version.
@@ -402,6 +403,7 @@ setDependencies(){
 	pathSed="/bin/sed"
 	pathSleep="/bin/sleep"
 	pathTail="/usr/bin/tail"
+	pathWash="/usr/bin/wash"
 	pathWget="/usr/bin/wget"
 
 }
@@ -551,6 +553,13 @@ checkDependencies(){
 		   statusPathTail="NA"
 	fi
 
+	if [ -f $pathWash ];
+		then
+		   statusPathWash="OK"
+		else
+		   statusPathWash="NA"
+	fi
+
 	if [ -f $pathWget ];
 		then
 		   statusPathWget="OK"
@@ -593,6 +602,7 @@ showDependencies(){
 	echo "$pathSed - Status: $statusPathSed"
 	echo "$pathSleep - Status: $statusPathSleep"
 	echo "$pathTail - Status: $statusPathTail"
+	echo "$pathWash - Status: $statusPathWash"
 	echo "$pathWget - Status: $statusPathWget"
 	echo ""
 	echo ""
@@ -844,6 +854,15 @@ setDefaults(){
 
 	apListType=""
 
+	# Default Session Values
+	sessionID="0"
+
+	capturePath=$(echo "$PWD/sessions")
+	capturePathWEP=$(echo "$PWD/sessions/wep")
+	capturePathWPS=$(echo "$PWD/sessions/wps")
+	capturePathWPA=$(echo "$PWD/sessions/wpa")
+	capturePathWPA2=$(echo "$PWD/sessions/wpa2")
+
 }
 
 
@@ -856,6 +875,8 @@ setDefaultsWEP(){
 
 	# aircrack-ng cracking mode WEP (WPA-PSK)
 	#acMode="2"
+
+	washFile="$initPath"
 
 }
 
@@ -965,21 +986,6 @@ setDefaultsWPS(){
 	# Bully Options
 	#bully <options> interface
 	
-}
-
-
-setDefaultSession(){
-
-	currentTask="setDefaultSession"
-
-	sessionID="0"
-
-	capturePath=$(echo "$PWD/sessions")
-	capturePathWEP=$(echo "$PWD/sessions/wep")
-	capturePathWPS=$(echo "$PWD/sessions/wps")
-	capturePathWPA=$(echo "$PWD/sessions/wpa")
-	capturePathWPA2=$(echo "$PWD/sessions/wpa2")
-
 }
 
 
@@ -6594,6 +6600,22 @@ fixKaliTwoMonError(){
 ############################################################################
 #   MISC STUFF BEGIN   #####################################################
 ############################################################################
+
+
+# Reset Session Values Back To Default
+setDefaultSession(){
+
+	currentTask="setDefaultSession"
+
+	sessionID="0"
+
+	capturePath=$(echo "$PWD/sessions")
+	capturePathWEP=$(echo "$PWD/sessions/wep")
+	capturePathWPS=$(echo "$PWD/sessions/wps")
+	capturePathWPA=$(echo "$PWD/sessions/wpa")
+	capturePathWPA2=$(echo "$PWD/sessions/wpa2")
+
+}
 
 
 getCustomList(){
