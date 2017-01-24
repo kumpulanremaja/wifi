@@ -863,6 +863,9 @@ setDefaults(){
 	capturePathWPA=$(echo "$PWD/sessions/wpa")
 	capturePathWPA2=$(echo "$PWD/sessions/wpa2")
 
+	# Default Current Directory Temp Path
+	whTemp=$(echo "$PWD/temp")
+
 }
 
 
@@ -876,7 +879,8 @@ setDefaultsWEP(){
 	# aircrack-ng cracking mode WEP (WPA-PSK)
 	#acMode="2"
 
-	washFile="$initPath"
+	washFile="$whTemp/wash.txt"
+	washChannel="1"
 
 }
 
@@ -5264,6 +5268,71 @@ menuBullyMain() {
 	echo ""
 
 	read pause
+
+}
+
+
+menuWashMain() {
+
+	#currentTask="menuWashMain"
+
+	banner
+	echo ""
+	echo "WPS Wash Menu"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "Choose an option and press ENTER:"
+	echo ""
+	echo ""
+	echo ""
+	echo "1) Use Defaults"
+	echo ""
+	echo "2) Enter Channel Number"
+	echo ""
+	echo "3) Toggle Scan Mode"
+	echo ""
+	echo "4) Use 5GHz Band"
+	echo ""
+	echo "5) Do Not Ignore Frame Checksum Errors"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo "R) Return To Previous Page"
+	echo ""
+	echo ""
+
+	read washOption
+
+	case "$washOption" in
+
+		"1")
+		wash -i $interfaceMonitor -o "$washFile" -C
+		;;
+
+		"2")
+		wash -i $interfaceMonitor -o "$washFile" -C -c $washChannel
+		;;
+
+		"3")
+		wash -i $interfaceMonitor -o "$washFile" -C -s
+		;;
+
+		"4")
+		wash -i $interfaceMonitor -o "$washFile" -C -5
+		;;
+
+		"5")
+		wash -i $interfaceMonitor -o "$washFile"
+		;;
+
+		"6")
+		currentTask
+		;;
+
+	esac
 
 }
 
