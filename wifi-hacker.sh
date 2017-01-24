@@ -1441,13 +1441,13 @@ menuUpdate(){
 	# Set default choice
 	updateChoice=""
 	
-	banner
+	bannerSlim
 
 	echo ""
-	echo "Update Menu"
-	echo ""
-	echo ""
-	echo ""
+	#echo "Update Menu"
+	#echo ""
+	#echo ""
+	#echo ""
 
 	# If remote version is not newer, then local version should be green
 	case "$newUpdateAvailable" in
@@ -1491,12 +1491,19 @@ menuUpdate(){
 	echo ""
 	echo ""
 	echo ""
+	echo ""
+	echo ""
 	echo "Choose an option and press ENTER:"
 	echo ""
 	echo ""
 	echo "1) Check For New Update"
 	echo ""
 	echo "2) Apply New Update"
+	echo ""
+	echo ""
+	echo ""
+	echo ""
+	echo ""
 	echo ""
 	echo ""
 	echo ""
@@ -1595,6 +1602,10 @@ menuUpdate(){
 			;;
 
 		esac
+		;;
+
+		"x" | "X")
+		bannerExit
 		;;
 
 	esac
