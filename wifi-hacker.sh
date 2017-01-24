@@ -1950,6 +1950,9 @@ menuMain(){
 	currentTask="menuMain"
 	lastMenuID="menuMain"
 
+	# Create temp folder to use for text dumps, etc
+	mkdir $whTemp
+
 	checkRootStatus
 	sessionCreatePaths
 	sessionRemoveEmpty
@@ -2161,6 +2164,16 @@ menuAuto(){
 		"")
 		killAll
 		checkForEmptyEncryptionType
+
+		# Run wash if WPS
+		case "$encryptionTypeText" in
+
+			"WPS")
+			$terminal wash -i $interfaceMonitor -o "$washFile" -C
+			;;
+
+		esac
+
 		autoModeNoPreviousSession
 		;;
 
