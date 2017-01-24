@@ -4863,6 +4863,7 @@ autoModeNoPreviousSessionWPS(){
 
 
 	killAirodump
+	killWash
 	killWifite
 
 	getBSSIDCharOnly
@@ -4967,6 +4968,7 @@ menuAttacksWPS(){
 	doSleepMessage "$sleepMessage1" "1"
 
 	killAirodump
+	killWash
 
 	disableChannelHopping
 
@@ -5036,6 +5038,7 @@ reaverMenuAttacksWPS(){
 	doSleepMessage "$sleepMessage1" "1"
 
 	killAirodump
+	killWash
 
 	disableChannelHopping
 
