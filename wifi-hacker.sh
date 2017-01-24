@@ -5688,11 +5688,32 @@ killAircrack(){
 }
 
 
+killWash(){
+
+	currentTask="killWash"
+
+	findWashPID=$(ps -A | grep "wash" | head -c5)
+
+	case "$findWashPID" in
+
+		"")
+		# No Process Found
+		;;
+
+		*)
+		killAircrackTemp=$(kill $findWashPID)
+		;;
+	esac
+
+}
+
+
 killAll(){
 
 	killAirodump
 	killAireplay
 	killAircrack
+	killWash
 	killWifite
 
 }
