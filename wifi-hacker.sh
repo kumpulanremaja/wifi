@@ -2180,7 +2180,7 @@ menuAuto(){
 		case "$encryptionTypeText" in
 
 			"WPS")
-			$terminal wash -i $interfaceMonitor -o "$washFile" -C
+			#$terminal wash -i $interfaceMonitor -o "$washFile" -C
 			;;
 
 		esac
