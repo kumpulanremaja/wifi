@@ -3049,6 +3049,7 @@ getESSID(){
 		;;
 
 		"t" | "T")
+		cleanTempScanResultsFile "noxml"
 		openScanTargetsAsText
 		getESSID
 		;;
@@ -3094,6 +3095,7 @@ getBSSID(){
 		;;
 
 		"t" | "T")
+		cleanTempScanResultsFile "noxml"
 		openScanTargetsAsText
 		getBSSID
 		;;
@@ -3139,6 +3141,7 @@ getChannel(){
 		;;
 
 		"t" | "T")
+		cleanTempScanResultsFile "noxml"
 		openScanTargetsAsText
 		getChannel
 		;;
@@ -6942,7 +6945,7 @@ openScanTargetsAsText(){
 
 	while readXML "essid" ""; do
 
-    	if [[ $E = essid ]]; then
+    	if [[ $E = " cloaked=\"false\"" ]]; then
         	echo $C
     	fi
 
@@ -6970,9 +6973,22 @@ openScanTargetsAsText(){
 
 cleanTempScanResultsFile(){
 
-	rm "$defaultScanOutputIVS"
-	rm "$defaultScanOutputXML"
-	rm "$defaultScanOutputTXT"
+	flag="$1"
+
+	case "$flag" in
+
+		"")
+		rm "$defaultScanOutputIVS"
+		rm "$defaultScanOutputXML"
+		rm "$defaultScanOutputTXT"
+		;;
+
+		"noxml")
+		rm "$defaultScanOutputIVS"
+		rm "$defaultScanOutputTXT"
+		;;
+
+	esac
 
 }
 
