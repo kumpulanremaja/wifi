@@ -1988,6 +1988,9 @@ menuMain(){
 
 		forceDisconnectWifi
 		checkConnectionStatus
+
+		sleep 3
+
 		menuMain
 		;;
 
@@ -4886,7 +4889,7 @@ autoModeNoPreviousSessionWPS(){
 	#adAPScanNoChannel
 	adAPScanNoChannelWPS
 
-	doSleepMessage "Preparing Text List of Available Targets...." "11"
+	doSleepMessage "Preparing Text List of Available Targets...." "15"
 
 	doSleepMessage "Setting Up User Input...." "2"
 
