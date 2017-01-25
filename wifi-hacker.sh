@@ -866,6 +866,10 @@ setDefaults(){
 	# Default Current Directory Temp Path
 	whTemp=$(echo "$PWD/temp")
 
+	defaultScanOutputIVS="$initPath/apScan-01.ivs"
+	defaultScanOutputXML="$initPath/apScan-01.kismet.netxml"
+	defaultScanOutputTXT="$initPath/apScan-01.txt"
+
 }
 
 
@@ -2789,17 +2793,17 @@ selectFromApList(){
 
 		"essid")
 		sleep 15
-		cat "$initPath/apScan-01.kismet.netxml" | grep "<essid cloaked="
+		cat "$defaultScanOutputXML" | grep "<essid cloaked="
 		;;
 
 		"bssid")
 		sleep 15
-		cat "$initPath/apScan-01.kismet.netxml" | grep "<BSSID>"
+		cat "$defaultScanOutputXML" | grep "<BSSID>"
 		;;
 
 		"channel")
 		sleep 15
-		cat "$initPath/apScan-01.kismet.netxml" | grep "<channel>"
+		cat "$defaultScanOutputXML" | grep "<channel>"
 		;;
 
 	esac
@@ -2965,7 +2969,8 @@ textGetTargetInfo(){
 	echo ""
 	echo "YOU CAN COPY AND PASTE (CTRL+SHIFT+C) (CTRL+SHIFT+V) TO ENTER TARGET INFO BELOW"
 	echo ""
-	echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
+	#echo "YOU MAY NEED TO EXTEND THE WINDOW WIDER TO SEE THE ESSID NAMES"
+	echo "YOU MAY PRESS \"T\" AT ANYTIME TO OPEN A TEXT VIEW OF AVAILABLE TARGETS"
 	echo ""
 	echo ""
 
@@ -3041,6 +3046,11 @@ getESSID(){
 		getESSID
 		;;
 
+		"t" | "T")
+		openScanTargetsAsText
+		getESSID
+		;;
+
 		*)
 		essid="$getESSIDTemp"
 		;;
@@ -3081,6 +3091,11 @@ getBSSID(){
 		getBSSID
 		;;
 
+		"t" | "T")
+		openScanTargetsAsText
+		getBSSID
+		;;
+
 		*)
 		bssid="$getBSSIDTemp"
 		;;
@@ -3118,6 +3133,11 @@ getChannel(){
 	case "$getChannelTemp" in
 
 		"")
+		getChannel
+		;;
+
+		"t" | "T")
+		openScanTargetsAsText
 		getChannel
 		;;
 
@@ -3591,8 +3611,8 @@ adAPScan(){
 	
 	banner
 
-	rm "$initPath/apScan-01.ivs"
-	rm "$initPath/apScan-01.kismet.netxml"
+	rm "$defaultScanOutputIVS"
+	rm "$defaultScanOutputXML"
 
 	#$terminal airodump-ng --channel $channel -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one --channel $channel -i $interfaceMonitor &
@@ -3664,8 +3684,8 @@ adAPScanNoChannel(){
 	
 	banner
 
-	rm "$initPath/apScan-01.ivs"
-	rm "$initPath/apScan-01.kismet.netxml"
+	rm "$defaultScanOutputIVS"
+	rm "$defaultScanOutputXML"
 
 	#$terminal airodump-ng -i $interfaceMonitor &
 	#$terminal airodump-ng --ignore-negative-one -i $interfaceMonitor &
@@ -3689,8 +3709,8 @@ adAPScanNoChannelWPS(){
 	
 	banner
 
-	rm "$initPath/apScan-01.ivs"
-	rm "$initPath/apScan-01.kismet.netxml"
+	rm "$defaultScanOutputIVS"
+	rm "$defaultScanOutputXML"
 
 	$terminal airodump-ng -i $interfaceMonitor --wps -w "$initPath/apScan" --write-interval 10 -o netxml &
 
@@ -6872,6 +6892,30 @@ dumpEnvironment(){
 
 	
 
+}
+
+
+readXML(){
+
+	currentTask="readXML"
+
+	local IFS=\> ; read -d \< E C ;
+
+}
+
+
+
+
+openScanTargetsAsText(){
+
+	while readXML; do
+
+    	if [[ $E = wireless-network ]]; then
+        	echo $C
+        	exit
+    	fi
+
+	done < "$defaultScanOutputXML" > "$defaultScanOutputTXT"
 }
 
 
