@@ -6910,12 +6910,21 @@ openScanTargetsAsText(){
 
 	while readXML; do
 
-    	if [[ $E = wireless-network ]]; then
+    	if [[ $E = BSSID ]]; then
         	echo $C
-        	exit
+    	fi
+
+    	if [[ $E = essid ]]; then
+        	echo $C
+    	fi
+
+    	if [[ $E = channel ]]; then
+        	echo $C
     	fi
 
 	done < "$defaultScanOutputXML" > "$defaultScanOutputTXT"
+
+	$terminal gedit "$defaultScanOutputTXT"
 }
 
 
