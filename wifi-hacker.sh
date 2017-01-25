@@ -2121,6 +2121,8 @@ menuAuto(){
 	#sessionCopyNewCaptureFiles
 	sessionRemoveEmpty
 
+	cleanTempScanResultsFile
+
 	checkInterfaceMode
 
 	banner
@@ -4881,6 +4883,8 @@ autoModeNoPreviousSessionWPS(){
 	#adAPScanNoChannel
 	adAPScanNoChannelWPS
 
+	doSleepMessage "Preparing Text List of Available Targets...." "11"
+
 	doSleepMessage "Setting Up User Input...." "2"
 
 	getESSID
@@ -6897,9 +6901,37 @@ dumpEnvironment(){
 
 readXML(){
 
+	local ifsType="$1"
+	local ifsCustom="$2"
+
 	currentTask="readXML"
 
-	local IFS=\> ; read -d \< E C ;
+	case "$ifsType" in
+
+		"")
+		local IFS=\> ; read -d \< E C ;
+		;;
+
+		"essid")
+		local IFS=\> ; read -d \< E C ;
+		;;
+
+		"bssid")
+		local IFS=\> ; read -d \< E C ;
+		;;
+
+		"channel")
+		local IFS=\> ; read -d \< E C ;
+		;;
+
+		# Takes 2 parameters
+		"custom")
+		local IFS=$ifsCustom ; read -d $ifsCustom E C ;
+		;;
+
+	esac
+
+	
 
 }
 
@@ -6908,23 +6940,40 @@ readXML(){
 
 openScanTargetsAsText(){
 
-	while readXML; do
-
-    	if [[ $E = BSSID ]]; then
-        	echo $C
-    	fi
+	while readXML "essid" ""; do
 
     	if [[ $E = essid ]]; then
         	echo $C
     	fi
 
+	done < "$defaultScanOutputXML" >> "$defaultScanOutputTXT"
+
+	while readXML "bssid" ""; do
+
+    	if [[ $E = BSSID ]]; then
+        	echo $C
+    	fi
+
+	done < "$defaultScanOutputXML" >> "$defaultScanOutputTXT"
+
+	while readXML "channel" ""; do
+
     	if [[ $E = channel ]]; then
         	echo $C
     	fi
 
-	done < "$defaultScanOutputXML" > "$defaultScanOutputTXT"
+	done < "$defaultScanOutputXML" >> "$defaultScanOutputTXT"
 
 	$terminal gedit "$defaultScanOutputTXT"
+}
+
+
+cleanTempScanResultsFile(){
+
+	rm "$defaultScanOutputIVS"
+	rm "$defaultScanOutputXML"
+	rm "$defaultScanOutputTXT"
+
 }
 
 
