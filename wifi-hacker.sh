@@ -2121,7 +2121,7 @@ menuAuto(){
 	#sessionCopyNewCaptureFiles
 	sessionRemoveEmpty
 
-	cleanTempScanResultsFile
+	cleanTempScanResultsFile "all"
 
 	checkInterfaceMode
 
@@ -3049,7 +3049,7 @@ getESSID(){
 		;;
 
 		"t" | "T")
-		cleanTempScanResultsFile "noxml"
+		cleanTempScanResultsFile "txt"
 		openScanTargetsAsText
 		getESSID
 		;;
@@ -3095,7 +3095,7 @@ getBSSID(){
 		;;
 
 		"t" | "T")
-		cleanTempScanResultsFile "noxml"
+		cleanTempScanResultsFile "txt"
 		openScanTargetsAsText
 		getBSSID
 		;;
@@ -3141,7 +3141,7 @@ getChannel(){
 		;;
 
 		"t" | "T")
-		cleanTempScanResultsFile "noxml"
+		cleanTempScanResultsFile "txt"
 		openScanTargetsAsText
 		getChannel
 		;;
@@ -6977,14 +6977,21 @@ cleanTempScanResultsFile(){
 
 	case "$flag" in
 
-		"")
+		"all")
 		rm "$defaultScanOutputIVS"
 		rm "$defaultScanOutputXML"
 		rm "$defaultScanOutputTXT"
 		;;
 
-		"noxml")
+		"ivs")
 		rm "$defaultScanOutputIVS"
+		;;
+
+		"xml")
+		rm "$defaultScanOutputXML"
+		;;
+
+		"txt")
 		rm "$defaultScanOutputTXT"
 		;;
 
