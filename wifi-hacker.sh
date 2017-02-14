@@ -304,10 +304,10 @@ initMain(){
 	#showDependencies
 
 	# Optionally Show Disclaimer Before Launch
-	#showDisclaimer
+	showDisclaimer
 
 	# Optionally Show Unreleased Text Before Launch
-	isUnreleased
+	#isUnreleased
 
 	# Load Main Menu
 	menuMain
@@ -7022,7 +7022,6 @@ initMain
 ############################################################################
 #   INITIAL LAUNCH END   ###################################################
 ############################################################################
-
 
 
 
