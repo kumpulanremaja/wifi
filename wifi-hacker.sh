@@ -6,8 +6,8 @@
 ############################################################################
 
 
-# WiFi Hacker v1.9
-# esc0rtd3w 2017
+# WiFi Hacker v2.0
+# esc0rtd3w 2019
 
 # https://github.com/esc0rtd3w/wifi-hacker/
 
@@ -25,6 +25,9 @@
 ############################################################################
 #   VERSION HISTORY BEGIN   ################################################
 ############################################################################
+
+# v2.0
+# - Added support for new Gnome terminal options. Tested in Kali 2018.4
 
 # v1.9
 # - Added support for Wash. Currently used for dumping scan info out to text.
@@ -631,7 +634,7 @@ setWindowTitle(){
 
 	currentTask="setWindowTitle"
 
-	title='echo -ne "\033]0;WiFi Hacker v1.9\007"'
+	title='echo -ne "\033]0;WiFi Hacker v2.0\007"'
 
 	$title
 
@@ -726,7 +729,7 @@ setVariablesRequired(){
 
 	currentTask="setVariablesRequired"
 
-	versionBase="1.9"
+	versionBase="2.0"
 	versionBaseClean="00"
 
 	initPath="$PWD"
@@ -747,9 +750,32 @@ setVariablesRequired(){
 
 	# Setting default update downloaded script value
 	newVersionScript="0.0"
+	
+	# Check Gnome version for terminal options (added 20190205)
+	gnomeVer=$(gnome-terminal --version | grep "3.")
 
-	terminal="gnome-terminal -x"
-	terminalGnome="gnome-terminal -x"
+	case "$gnomeVer" in
+	
+		# Kali 2018.4 GNOME Terminal 3.30.0 using VTE 0.54.1 +GNUTLS
+		"")
+		gnomeOptions="legacy"
+		terminal="gnome-terminal -x"
+		terminalGnome="gnome-terminal -x"
+		terminalGnomeLegacy="gnome-terminal -x"
+		;;
+
+		*)
+		gnomeOptions="new"
+		terminal="gnome-terminal --window --geometry=132x24 --"
+		terminalGnome="gnome-terminal --window --geometry=132x24 --"
+		terminalGnomeLegacy="gnome-terminal -x"
+		;;
+
+	esac
+
+	#echo "gnomeOptions: $gnomeOptions"
+	#read pause
+
 	terminalKonsole="konsole -e"
 	terminalXterm="xterm -e"
 
@@ -1181,7 +1207,7 @@ banner(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [M] Main Menu    |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2017  /  github.com/esc0rtd3w *    | [X] Exit           |"
+	echo "|  [M] Main Menu    |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2019  /  github.com/esc0rtd3w *    | [X] Exit           |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -1202,7 +1228,7 @@ bannerNoMenu(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ CTRL+C ] Main  |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2017  /  github.com/esc0rtd3w *    | [CTRL+C x2 ] Exit  |"
+	echo "|  [ CTRL+C ] Main  |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2019  /  github.com/esc0rtd3w *    | [CTRL+C x2 ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -1223,7 +1249,7 @@ bannerMain(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2017  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
+	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2019  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	echo "-------------------------------------------------------------------------------------------------------------------"
 	$yellow
@@ -1243,7 +1269,7 @@ bannerMenu(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2017  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
+	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2019  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$yellow
 	echo "-------------------------------------------------------------------------------------------------------------------"
@@ -1263,7 +1289,7 @@ bannerSlim(){
 	clear
 	$blue
 	echo "---------------------    ****************************************************************    ----------------------"
-	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2017  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
+	echo "|  [ ]              |    * WiFi Hacker v$versionBase  /  esc0rtd3w 2019  /  github.com/esc0rtd3w *    | [CTRL+C    ] Exit  |"
 	echo "---------------------    ****************************************************************    ----------------------"
 	$white
 
@@ -1297,7 +1323,7 @@ bannerExit(){
 	$blue
 	echo "Thank You For Playing Fair ;)"
 	echo ""
-	echo "esc0rtd3w 2017"
+	echo "esc0rtd3w 2019"
 	echo ""
 	echo ""
 	$cyan
@@ -1334,7 +1360,7 @@ bannerExitUpdate(){
 	$blue
 	echo "Thank You For Playing Fair ;)"
 	echo ""
-	echo "esc0rtd3w 2017"
+	echo "esc0rtd3w 2019"
 	echo ""
 	echo ""
 	$cyan
@@ -2629,7 +2655,9 @@ menuChangeTerminal(){
 	echo "Current Terminal: $terminal"
 	echo ""
 	echo ""
-	echo "1) Gnome: $terminalGnome"
+	echo "1a) Gnome Legacy: $terminalGnomeLegacy"
+	echo ""
+	echo "1b) Gnome: $terminalGnome"
 	echo ""
 	echo "2) Konsole: $terminalKonsole"
 	echo ""
@@ -2653,7 +2681,12 @@ menuChangeTerminal(){
 		menuChangeTerminal
 		;;
 
-		"1")
+		"1a")
+		terminal="$terminalGnomeLegacy"
+		terminalText="GnomeLegacy"
+		;;
+
+		"1b")
 		terminal="$terminalGnome"
 		terminalText="Gnome"
 		;;
